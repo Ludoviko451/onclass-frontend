@@ -1,0 +1,15 @@
+.menu__item a {
+    text-decoration: none;
+    width: 100%;
+    padding: 10px 20px;
+    display: block; /* Convertir enlace en bloque para ocupar todo el espacio del li */
+    list-style: none;
+    pointer-events: none;
+    color: inherit
+
+  }
+  
+.menu__text{
+    font-weight: bold;
+    
+}

@@ -1,1 +1,64 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --navbar-color: #FDF1E9;
+    --header-color: #E7833DB2;
+    --active-router: #E7833D66;
+    --general-color: #E7833D;
+  }
+  
+  
+.main {
+    display: grid;
+    grid-template-columns: 1.5fr 2fr 2fr 2fr;
+    grid-template-rows: 0.2fr 1fr 1fr 1fr;
+    height: 98vh;
+    grid-template-areas: 
+        "navbar header header header"
+        "navbar router router router"
+        "navbar router router router"
+        "navbar router router router"
+}   
+
+.main__header{
+    grid-area: header;
+}
+
+.main__navbar{
+    grid-area: navbar;
+}
+
+app-library{
+    grid-area: router;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 0.1fr 1fr 1fr 1fr;
+
+    grid-template-areas: 
+    "menu . . ."
+     "info info info info"
+     "info info info info" 
+     "info info info info";
+    
+}
+
+app-technology{
+    grid-area: info;
+}
+
+app-menu{
+    grid-area: menu;
+}
+
+
+/* Lista no ordenada */
+ul {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+}
+
+/* Elementos de la lista */
+li {
+    margin: 10px;
+    list-style-type: none;
+}
+

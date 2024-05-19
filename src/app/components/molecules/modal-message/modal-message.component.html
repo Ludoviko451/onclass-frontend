@@ -1,0 +1,22 @@
+<ng-container *ngIf="isVisible">
+
+    <div class="background">
+
+        <div class="modal">
+                
+            <app-button [className]="'modal__close-button'" (buttonClick)="closeModal()">X</app-button>
+
+            <img src={{getRoute()}} alt={{getAlt()}} class="modal__icon">
+        
+
+            <div class="modal__text">
+                <app-text text="{{text}}" textClass="modal-message__text"></app-text>
+            </div>
+            
+            <div>
+                <app-button className="submit-button" (buttonClick)="closeModal()" >Aceptar</app-button>
+            </div>
+
+        </div>
+    </div>
+</ng-container>

@@ -1,0 +1,32 @@
+/* src\app\components\molecules\menu\menu.component.css */
+@import url("../../../../styles.css");   
+.menu {
+  border-bottom: 3px solid var(--general-color);
+  display: flex;
+  width: 100%;
+
+
+}
+
+.active::after {
+  content: ""; /* Importante para generar contenido */
+  display: block; /* Para que ocupe espacio y se pueda aplicar el ancho y color */
+  left: 0;
+  border-bottom: 6px solid var(--general-color); /* Línea negra de 2px de grosor */
+  border-radius: 20px;
+  width: 100%;
+  box-shadow: 0px -4px 20px 0px var(--general-color);
+}
+
+.menu__item{
+  width: 33%;
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+  color: var(--general-color);
+
+  &:hover{
+    cursor: pointer;
+    font-weight: bold;
+  }
+}
+

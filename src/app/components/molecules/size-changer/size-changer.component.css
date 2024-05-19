@@ -1,0 +1,67 @@
+
+@import url("../../../../styles.css");   
+
+.size-container__actual {
+    background-color: white;
+    border: 0px;
+    color: var(--general-color);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    user-select: none;
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+.arrow{
+    width: 40px;
+    height: 20px;
+}
+.options-container{
+    background-color: white;
+    width: 150px;
+    height: 200px;
+    margin-top: 25px;
+    border: 3px solid var(--general-color);
+    border-radius: 30px;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Sombra en los cuatro lados */
+}
+
+
+.options-container--disabled{
+    border: 5px solid var(--general-color);
+    border-radius: 20px;
+    display: none;
+}
+
+.optiones-container__item{
+
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    height: 40px;
+    font-size: 16px;
+    padding: 10px;
+    &:hover{
+
+        cursor: pointer;
+        color: white;
+        border-radius: 20px;
+        background-color:  var(--general-color);
+    }
+}
+
+.size-container{
+    display: flex;
+    justify-content: center;
+    color: var(--general-color);
+}

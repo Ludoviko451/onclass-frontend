@@ -3,3 +3,4 @@ export const environment = {
     apiCapacity : "http://localhost:8080/capacity/",
     apiBootcamp : "http://localhost:8080/bootcamp/"
 };
+

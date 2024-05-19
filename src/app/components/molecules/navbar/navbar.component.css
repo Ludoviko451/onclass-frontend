@@ -1,0 +1,90 @@
+@import url("../../../../styles.css");   
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: var(--navbar-color);
+    transition: width 0.3s ease;
+}
+
+.nav__logo {
+    width: 202px;
+    margin-top: 10px;
+    background-size: cover;
+}
+
+.navbar__item--active {
+    background-color: var(--active-router);
+    border-radius: 10px;
+    font-weight: bold;
+    width: 100%;
+}
+
+.nav__items {
+    display: flex;
+    text-decoration: none;
+    list-style: none;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 25%;
+    width: 100%;
+}
+
+.nav app-text {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 10px 0px;
+    border-radius: 20px;
+
+}
+
+.navbar__item{
+    width: 100%;
+    height: 60px;
+    margin: 3px;
+    border-radius: 10px;
+    &:hover{
+    background-color: #E7833D66;
+    transition: 0.3s background-color ease-in-out;
+    cursor: pointer;
+}
+}
+.menu-toggle {
+    display: block;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 999; /* Asegurar que el botón esté sobre otros elementos */
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #FFF; /* Fondo blanco para destacar el botón */
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave para el botón */
+}
+
+@media (min-width: 769px) {
+    .menu-toggle {
+        display: none; /* Ocultar el botón de menú en pantallas más grandes */
+    }
+}
+
+@media (max-width: 768px) {
+    .nav {
+        width: 190px;
+    }
+
+    .nav.mobile-menu.show {
+        width: 0; /* Contraer completamente el menú en pantallas móviles */
+        overflow: hidden;
+    }
+
+    .nav.show .nav--items {
+        display: flex;
+    }
+}

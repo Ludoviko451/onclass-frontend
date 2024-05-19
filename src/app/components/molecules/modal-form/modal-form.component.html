@@ -1,0 +1,38 @@
+<div class="form-container">
+    <form class="form" [formGroup]="formCreate">
+        <app-text text="Crear {{type}}" className="form-container-title"></app-text>
+        <app-button (buttonClick)="closeModal()" className="modal__close-button">X</app-button>
+
+        <app-input text="Nombre" >
+            
+            <input class="form__input" type="text" placeholder="Nombre de {{type}}" name="name" formControlName = 'name'>
+
+        <div *ngIf="name?.invalid" class="form-error-message" [hidden] = "name.valid || name.pristine  && (name.touched || name.touched)">
+                <app-text *ngIf="name?.errors?.['required']" text="SE REQUIERE EL NOMBRE"></app-text>
+                <app-text *ngIf="name?.errors?.['maxlength']" text="EL NOMBRE SOLO PUEDE TENER MAXIMO 50 CARACTERES"></app-text>
+            </div>
+
+        </app-input>
+
+        <app-input text="Descripcion">
+            <input class="form__input"  name="name" placeholder="Descripcion de {{type}}" formControlName = 'description'>
+            <div *ngIf="description?.invalid" class="form-error-message" [hidden] = "description.valid || description.pristine && (description.touched || description.touched)">
+                <app-text *ngIf="description?.errors?.['required']" text="SE REQUIERE LA DESCRIPCION"></app-text>
+                <app-text *ngIf="description?.errors?.['maxlength']" text="LA DESCRIPCION SOLO PUEDE TENER MAXIMO 90 CARACTERES"></app-text>
+            </div>
+        </app-input>
+
+        <!-- @if(type == "Capacidad"){
+            <app-input text="Tecnologias">
+                <app-select [type]="type" (technologyListChanged)="onTechnologyListChanged($event)"></app-select>
+            </app-input>
+            <div *ngIf="technologiesForm?.invalid" class="form-error-message" [hidden] = "technologiesForm.valid || technologiesForm.pristine && (technologiesForm.touched || technologiesForm.touched)">
+                <app-text *ngIf="technologiesForm?.errors?.['required']" text="SE REQUIERE TECNOLOGIAS"></app-text>
+                <app-text *ngIf="technologiesForm?.errors?.['maxlength']" text="EL MAXIMO DE TECNOLOGIAS SON 20"></app-text>
+                <app-text *ngIf="technologiesForm?.errors?.['minlength']" text="EL MINIMO DE TECNOLOGIAS SON 3"></app-text>
+            </div>
+        } -->
+        <app-button className="submit-button {{ formCreate.invalid ? 'submit-button__disabled' : '' }}" (buttonClick)="onSubmit()" [disabled]="formCreate.invalid">Crear</app-button>
+    </form>
+</div>
+

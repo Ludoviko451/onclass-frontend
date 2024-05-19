@@ -1,0 +1,26 @@
+@import url("../../../../styles.css");   
+
+.header {
+    background-color: var(--header-color);
+    display: flex;
+    width: 100%;
+    border-radius: 0px 20px 20px 0px;
+    justify-content: end;
+}
+
+.header__user--icon {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    margin-right: 115px;
+    padding: 10px 0px;
+}
+
+/* @media (max-width: 768px) {
+    .header {
+        justify-content: center;
+        border-radius: 0; 
+    }
+    .header__user--icon {
+        margin-right: 5%;
+} */
