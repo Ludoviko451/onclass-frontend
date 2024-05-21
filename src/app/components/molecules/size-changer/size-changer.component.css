@@ -30,6 +30,7 @@
     border-radius: 30px;
     position: fixed;
     display: flex;
+    z-index: 1;
     flex-direction: column;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Sombra en los cuatro lados */
 }

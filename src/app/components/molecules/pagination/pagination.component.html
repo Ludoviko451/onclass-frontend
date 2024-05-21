@@ -1,5 +1,18 @@
 <div class="pagination">
-    <app-button className="pagination-button" (buttonClick)="goToPrev()" [disabled]="currentPage === 0"><</app-button>
-    <app-button *ngFor="let item of displayedPages;" (buttonClick)="onPageClick(item)" [className]=getPaginationClass(item)>{{item}}</app-button>
-    <app-button className="pagination-button" (buttonClick)="goToNext()">></app-button>
+  <app-button className="pagination-button" (buttonClick)="goToPrev()" [disabled]="currentPage === 0">&lt;</app-button>
+  <ng-container *ngFor="let item of displayedPages; let i = index">
+    <ng-container *ngIf="item !== -1">
+      <app-button (buttonClick)="onPageClick(item)" [className]="getPaginationClass(item)">
+        {{ item + 1 }}
+      </app-button>
+    </ng-container>
+    <!-- <span class="pagination-ellipsis" *ngIf="item === -1 && i === 2 && displayedPages.length > 3">...</span>
+    <span class="pagination-ellipsis" *ngIf="item === -1 && i === displayedPages.length - 3">...</span> -->
+    <span class="pagination-ellipsis" *ngIf="item === -1 && i === displayedPages.length - 2">
+      <app-button (buttonClick)="onPageClick(totalPages - 1)" [className]="getPaginationClass(totalPages - 1)">
+        {{ totalPages }}
+      </app-button>
+    </span>
+  </ng-container>
+  <app-button className="pagination-button" (buttonClick)="goToNext()" [disabled]="currentPage === totalPages - 1">&gt;</app-button>
 </div>

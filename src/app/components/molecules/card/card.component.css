@@ -3,7 +3,7 @@
 .card {
     display: flex;
     flex-direction: column;
-    width: 95%; /* Ancho inicial del contenedor */
+    width: 85%; /* Ancho inicial del contenedor */
     border-bottom: 3px solid var(--general-color);
     position: relative;
     margin: 20px; 

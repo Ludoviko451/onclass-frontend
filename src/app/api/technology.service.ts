@@ -35,6 +35,9 @@ export class TechnologyService {
     return this._http.get<ITechnology[]>(`${this._endpoint}?page=${this.page}&size=${this.size}&sortBy=${this.order}&field=name`)
   }
 
+  public getAllTechnologies(): Observable<ITechnology[]> {
+    return this._http.get<ITechnology[]>(`${this._endpoint}?page=0&size=999&sortBy=asc&field=name`)
+  }
   public postTechnology(newTechnology: ITechnologyRequest): void {
     this._http.post<ITechnologyRequest>(this._endpoint, newTechnology)
       .subscribe({

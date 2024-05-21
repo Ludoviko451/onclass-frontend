@@ -1,9 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { EMPTY, Observable, Subscription, catchError } from 'rxjs';
+import { PaginationService } from './../../../api/pagination.service';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { EMPTY, Observable, Subject } from 'rxjs';
+import { takeUntil, catchError } from 'rxjs/operators';
 import { ITechnology } from 'src/shared/models/technology.interface';
 import { Response } from 'src/shared/models/response';
 import { SwitchService } from '../../../api/switch.service';
 import { TechnologyService } from 'src/app/api/technology.service';
+
 
 @Component({
   selector: 'app-technology',
@@ -12,6 +15,7 @@ import { TechnologyService } from 'src/app/api/technology.service';
 })
 export class TechnologyComponent implements OnInit, OnDestroy {
   public technologyList$!: Observable<ITechnology[]>;
+  public paginationSvc = inject(PaginationService)
   public showMessage = false;
   public modalSwitch = false;
   public text = '';
@@ -20,43 +24,29 @@ export class TechnologyComponent implements OnInit, OnDestroy {
   public asc = 'Asc 🡩';
   public desc = 'Desc 🡫';
   public order = this.desc;
-  public options = [
-    { value: '10', label: '10 - por página' },
-    { value: '20', label: '20 - por página' },
-    { value: '50', label: '50 - por página' }
-  ];
   public postResponse: Response = {} as Response;
   public errorMessage: Response = {} as Response;
   
-  private subscriptions = new Subscription();
+  private unsubscribe$ = new Subject<void>();
 
   constructor(private modalSS: SwitchService, private technologySvc: TechnologyService) {}
 
   ngOnInit(): void {
     this.loadTechnologyList();
 
-    this.subscriptions.add(
-      this.modalSS.$modal.subscribe((valor) => this.modalSwitch = valor)
-    );
+    this.modalSS.$modal.pipe(takeUntil(this.unsubscribe$)).subscribe((valor) => this.modalSwitch = valor);
     
-    this.subscriptions.add(
-      this.modalSS.$postTechnology.subscribe((postResponse) => {
-        console.log(postResponse);
-        this.text = '';
-        this.postResponse = {} as Response;
-        this.postResponse = postResponse;
-        this.text = postResponse.message;
-        this.loadTechnologyList();
-      })
-    );
+    this.modalSS.$postTechnology.pipe(takeUntil(this.unsubscribe$)).subscribe((postResponse) => {
+      this.text = '';
+      this.postResponse = {} as Response;
+      this.postResponse = postResponse;
+      this.text = postResponse.message;
+      this.loadTechnologyList();
+    });
   }
 
   changeOrder() {
-    if (this.order === this.desc) {
-      this.order = this.asc;
-    } else {
-      this.order = this.desc;
-    }
+    this.order = (this.order === this.desc) ? this.asc : this.desc;
     this.technologySvc.changeOrder();
     this.loadTechnologyList();
   }
@@ -68,15 +58,13 @@ export class TechnologyComponent implements OnInit, OnDestroy {
   onSizeChanged(size: number) { 
     this.size = size;
     this.technologySvc.changeSize(size);
+    this.paginationSvc.$sizeChange.emit(size);  
+    this.onPageChanged(0);
     this.loadTechnologyList();
   }
 
   onPageChanged(pageNumber: number): void {
-    if (this.errorMessage.status === 0 || this.errorMessage.status === 404) {
-      this.currentPage--;
-    } else {
-      this.currentPage = pageNumber;
-    }
+    this.currentPage = pageNumber;
     this.technologySvc.changePage(this.currentPage);
     this.loadTechnologyList();
   }
@@ -88,6 +76,7 @@ export class TechnologyComponent implements OnInit, OnDestroy {
         return EMPTY;
       })
     );
+    this.errorMessage = {} as Response;
   }
 
   openModal(): void {
@@ -95,7 +84,7 @@ export class TechnologyComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Cancelar todas las suscripciones para evitar fugas de memoria
-    this.subscriptions.unsubscribe();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

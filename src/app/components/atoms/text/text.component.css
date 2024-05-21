@@ -10,6 +10,7 @@
 .text {
     font-family: 'Poppins', sans-serif;
     color: var(--general-color);
+    font-weight: bold;
   }
 
 i{
@@ -44,6 +45,13 @@ i{
     font-size: 30px;
     position: absolute;
 }
+
+.form__error{
+    color: red;
+    font-weight: bold;
+    font-size: 20px;
+}
+
 
 .text__icon{
     width: 30px;

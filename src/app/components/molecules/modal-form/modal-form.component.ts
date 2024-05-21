@@ -7,6 +7,7 @@ import { ICapacityRequest } from 'src/shared/models/capacity.request';
 import { SwitchService } from 'src/app/api/switch.service';
 import { TechnologyService } from 'src/app/api/technology.service';
 import { CapacityService } from 'src/app/api/capacity.service';
+import { formErrors } from 'src/app/util/error.constants';
 
 @Component({
   selector: 'app-modal-form',
@@ -16,6 +17,7 @@ import { CapacityService } from 'src/app/api/capacity.service';
 export class ModalFormComponent implements OnInit {
   @Input() type: string = "";
 
+  public formErrors = formErrors;
   public technologies: ITechnology[] = [];
   public technologyList$!: Observable<ITechnology[]>;
 
