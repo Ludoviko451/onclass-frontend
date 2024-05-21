@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PaginationService } from 'src/app/api/pagination.service';
 import { TechnologyService } from 'src/app/api/technology.service';
+import { RouteImages } from 'src/app/util/route.images';
 import { ITechnology } from 'src/shared/models/technology.interface';
 
 @Component({
@@ -11,7 +12,7 @@ import { ITechnology } from 'src/shared/models/technology.interface';
 })
 export class PaginationComponent implements OnInit {
   @Output() pageChanged: EventEmitter<number> = new EventEmitter<number>();
-
+  routes = RouteImages;
   technologyList$!: Observable<ITechnology[]>;
   currentPage: number = 0;
   displayedPages: number[] = [];
@@ -75,14 +76,6 @@ export class PaginationComponent implements OnInit {
     }
 
     this.displayedPages = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
-
-    // if (ellipsisStart) {
-    //   this.displayedPages.unshift(-1);
-    // }
-
-    // if (ellipsisEnd) {
-    //   this.displayedPages.push(-1);
-    // }
   }
 
   onPageClick(pageNumber: number): void {

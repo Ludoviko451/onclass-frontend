@@ -57,8 +57,7 @@
     grid-area: card;
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-self: end;
+    width: 95%;
     overflow-x: auto;
-    margin: 0 80px;
-    width: 100%;
 }

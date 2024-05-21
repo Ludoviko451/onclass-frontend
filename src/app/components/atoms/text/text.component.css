@@ -31,12 +31,11 @@ i{
 
 
 .card__title{
-    font-weight: bold;
-    font-size: 30px;
+    font-weight: 1000;
+    font-size: 26px;
+    line-height: 31.2px;
 }
-
 .card__description{
-
     font-size: 20px;
 }
 

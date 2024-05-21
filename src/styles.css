@@ -5,6 +5,9 @@
     --general-color: #E7833D;
   }
   
+body{
+    font-family: 'Poppins', sans-serif;
+}
   
 .main {
     display: grid;

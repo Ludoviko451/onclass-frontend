@@ -58,16 +58,31 @@
 .pagination-button{
     border: 0;
     border-radius: 20px;
-    color: white;
-    background-color:var(--general-color);
-    font-weight: bold;
+    color: #828285;
+    font-weight: 600;
+    line-height: 19.6px;
     margin: 5px;
+    font-size: 14px;
     &:hover{
         cursor: pointer;
-        background-color: #D66D2B;
+        background-color: var(--general-color);
+        color: white;
     }
 }
 
+.pagination__nav-button{
+
+    background-color: white;
+    border: 0px;
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+
 .pagination-button__active{
-    background-color: orangered;
+    background-color: var(--general-color);
+
+    box-shadow: var(--general-color) 0px 0px 5px 0px;
+    color: white;
 }

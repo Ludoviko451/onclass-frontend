@@ -1,0 +1,11 @@
+@import url("../../../../styles.css");   
+
+.pagination__nav-button{
+    color: var(--general-color);
+}
+
+.pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
