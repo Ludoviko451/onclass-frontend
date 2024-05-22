@@ -1,43 +1,45 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, catchError, of } from 'rxjs';
-import { SwitchService } from './switch.service';
-import { Response } from 'src/shared/models/response';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ITechnology } from 'src/shared/models/technology.interface';
 import { ITechnologyRequest } from 'src/shared/models/technology.request';
-
+import { Response } from 'src/shared/models/response';
+import { SwitchService } from './switch.service';
+import { DataService } from 'src/shared/models/data-service.interface';
 @Injectable({ providedIn: 'root' })
-export class TechnologyService {
+
+export class TechnologyService implements DataService<ITechnology> {
   private readonly _http = inject(HttpClient);
   private readonly _endpoint = environment.apiTechnology;
   private size = 10;
   public page = 0;
-  public order = 'desc';
+  public order = 'asc';
 
   public postResponse: Response = {} as Response;
 
-  constructor(private switchSvc: SwitchService) { }
+  constructor(private switchSvc: SwitchService) {}
 
-  public changeSize(size: number) {
+  public changeSize(size: number): void {
     this.size = size;
   }
 
-  public changeOrder() {
+  public changeOrder(): void {
     this.order = this.order === 'desc' ? 'asc' : 'desc';
   }
 
-  public changePage(page: number) {
+  public changePage(page: number): void {
     this.page = page;
   }
 
-  public getTechnologies(): Observable<ITechnology[]> {
-    return this._http.get<ITechnology[]>(`${this._endpoint}?page=${this.page}&size=${this.size}&sortBy=${this.order}&field=name`)
+  public getData(): Observable<ITechnology[]> {
+    return this._http.get<ITechnology[]>(`${this._endpoint}?page=${this.page}&size=${this.size}&sortBy=${this.order}&field=name`);
   }
 
   public getAllTechnologies(): Observable<ITechnology[]> {
-    return this._http.get<ITechnology[]>(`${this._endpoint}?page=0&size=999&sortBy=asc&field=name`)
+    return this._http.get<ITechnology[]>(`${this._endpoint}?page=0&size=999&sortBy=asc&field=name`);
   }
+
   public postTechnology(newTechnology: ITechnologyRequest): void {
     this._http.post<ITechnologyRequest>(this._endpoint, newTechnology)
       .subscribe({
@@ -46,7 +48,7 @@ export class TechnologyService {
             status: 201,
             message: '¡Tecnologia Creada!'
           };
-          console.log(this.postResponse)
+          console.log(this.postResponse);
           this.switchSvc.$postTechnology.next(this.postResponse);
         },
         error: (error) => {

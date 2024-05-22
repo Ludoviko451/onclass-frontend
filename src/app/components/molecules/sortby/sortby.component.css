@@ -1,0 +1,25 @@
+.arrow {
+    display: inline-block;
+    transition: transform 0.3s ease; /* Agregamos transición a la flecha */
+    font-size: 25px;
+    color: black;
+  }
+  
+  .asc .arrow {
+    transform: rotate(180deg); /* Rota la flecha 180 grados en sentido horario para el estado "asc" */
+  }
+  
+  .desc .arrow {
+    transform: rotate(360deg); /* Rota la flecha -180 grados en sentido antihorario para el estado "desc" */
+  }
+  
+  .sort-button__text {
+    margin: 10px;
+    font-size: 20px;
+    color: black;
+    transition: opacity 0.3s ease;
+  }
+
+  .sort-button__text.fade-out {
+    opacity: 0;
+  }

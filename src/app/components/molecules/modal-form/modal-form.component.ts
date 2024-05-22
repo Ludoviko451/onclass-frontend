@@ -7,7 +7,7 @@ import { ICapacityRequest } from 'src/shared/models/capacity.request';
 import { SwitchService } from 'src/app/api/switch.service';
 import { TechnologyService } from 'src/app/api/technology.service';
 import { CapacityService } from 'src/app/api/capacity.service';
-import { formErrors } from 'src/app/util/error.constants';
+import { contants } from 'src/app/util/constants';
 
 @Component({
   selector: 'app-modal-form',
@@ -17,7 +17,7 @@ import { formErrors } from 'src/app/util/error.constants';
 export class ModalFormComponent implements OnInit {
   @Input() type: string = "";
 
-  public formErrors = formErrors;
+  public contants = contants;
   public technologies: ITechnology[] = [];
   public technologyList$!: Observable<ITechnology[]>;
 
@@ -40,7 +40,7 @@ export class ModalFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.technologyList$ = this.technologySvc.getTechnologies().pipe(
+    this.technologyList$ = this.technologySvc.getAllTechnologies().pipe(
       catchError((err) => {
         return EMPTY;
       })

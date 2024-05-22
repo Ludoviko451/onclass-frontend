@@ -14,8 +14,8 @@
 .modal__icon{
 
     grid-area: image;
-    width: 20%;
-    height: 50%;
+    width: 80px;
+    height: 80px;
     justify-self: center; 
     align-self: center; 
 }

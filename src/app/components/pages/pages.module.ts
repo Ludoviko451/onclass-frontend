@@ -10,6 +10,7 @@ import { RouterModule } from "@angular/router";
 import { TechnologyService } from "src/app/api/technology.service";
 import { SwitchService } from "src/app/api/switch.service";
 import { HttpClient } from "@angular/common/http";
+import { OrganismsModule } from "../organisms/organisms.module";
 
 
 
@@ -25,7 +26,8 @@ import { HttpClient } from "@angular/common/http";
         RouterModule,
         CommonModule,
         AtomsModule,
-        MoleculesModule
+        MoleculesModule,
+        OrganismsModule
     ],
 
     providers: [

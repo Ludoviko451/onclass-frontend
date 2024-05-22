@@ -10,13 +10,13 @@
                    name="name" 
                    formControlName="name"
                    [ngClass]="{'invalid-input': name.invalid && (name.touched || name.dirty)}">
-
-            <div *ngIf="name.invalid" class="form-error__message" [hidden]="name.valid || (name.pristine && (name.touched || name.touched))">
-                <i class="fa-solid fa-triangle-exclamation form__icon"></i>
-                <app-text *ngIf="name.errors?.['required']" text="{{formErrors.nameRequired}}" textClass="form__error"></app-text>
-                <app-text *ngIf="name.errors?.['maxlength']" text="{{formErrors.nameMaxLength}}" textClass="form__error"></app-text>
+      
+            <div *ngIf="name.invalid && (name.touched || name.dirty)" class="form-error__message">
+              <i class="fa-solid fa-triangle-exclamation form__icon"></i>
+              <app-text *ngIf="name.errors?.['required']" [text]="contants.nameRequired" textClass="form__error"></app-text>
+              <app-text *ngIf="name.errors?.['maxlength']" [text]="contants.nameMaxLength" textClass="form__error"></app-text>
             </div>
-        </app-input>
+          </app-input>
 
         <app-input text="Descripcion">
             <input class="form__input" 
@@ -24,10 +24,10 @@
                    placeholder="Descripcion de {{type}}" 
                    formControlName="description" 
                    [ngClass]="{'invalid-input': description.invalid && (description.touched || description.dirty)}">
-            <div *ngIf="description.invalid" class="form-error__message" [hidden]="description.valid || (description.pristine && (description.touched || description.touched))">
+            <div *ngIf="description.invalid && (description.touched || description.dirty)" class="form-error__message">
                 <i class="fa-solid fa-triangle-exclamation form__icon"></i>
-                <app-text *ngIf="description.errors?.['required']" text="{{formErrors.descriptionRequired}}" textClass="form__error"></app-text>
-                <app-text *ngIf="description.errors?.['maxlength']" text="{{formErrors.descriptionMaxLength}}" textClass="form__error"></app-text>
+                <app-text *ngIf="description.errors?.['required']" text="{{contants.descriptionRequired}}" textClass="form__error"></app-text>
+                <app-text *ngIf="description.errors?.['maxlength']" text="{{contants.descriptionMaxLength}}" textClass="form__error"></app-text>
             </div>
         </app-input>
 

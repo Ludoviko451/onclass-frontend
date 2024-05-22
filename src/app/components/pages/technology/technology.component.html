@@ -1,41 +1,6 @@
-<main class="main--container">
-
-    <div class="options-container">
-        <div class="options-container__button">
-            <app-button (buttonClick)="changeOrder()" className="open-button ">{{this.order}}</app-button>
-        </div>
-        <div class="options-container--size">
-            <app-size-changer (sizeChanged)="onSizeChanged($event)"></app-size-changer>
-        </div>
-    </div>
-
-    <div class="card-container" *ngIf="(technologyList$ | async) as technologies">
-        <app-card *ngFor="let item of technologies"   title="{{item.name}}" description="{{item.description}}" ></app-card>
-    </div> 
-
-
-
-
-    <div *ngIf="errorMessage.status === 0 || errorMessage.status ===404" class="message" >
-        <app-text text="{{errorMessage.message}}"></app-text>
-    </div>
-    
-
-    <app-modal-message [isSuccessful]="postResponse.status > 300 || postResponse.status === 0 ? false : true"  text="{{text}}"></app-modal-message>
-
-
-    <div  class="bottom-container">
-        <div class="bottom-container__button">
-            <app-button (buttonClick)="openModal()" className="open-button">+ Crear</app-button>
-        </div>      
-        <div class="bottom-container__pagination">
-            <app-pagination (pageChanged)="onPageChanged($event)"></app-pagination>
-        </div>  
-    </div>
-
-    <div *ngIf="modalSwitch == true">
-        <app-modal-form type="Tecnologia"></app-modal-form>
-    </div>
-</main>
-
-
+<ng-template #technologyTemplate let-item>
+    <app-card [title]="item.name" [description]="item.description"></app-card>
+  </ng-template>
+  
+  <app-generic-list [dataService]="technologyService" [itemTemplate]="technologyTemplate" type="Tecnologia"></app-generic-list>
+  

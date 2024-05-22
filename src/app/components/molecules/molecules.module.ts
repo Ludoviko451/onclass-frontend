@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TechnologyService } from 'src/app/api/technology.service';
 import { SwitchService } from 'src/app/api/switch.service';
 import { InputContainerComponent } from './input-container/input.component';
+import { SortbyComponent } from './sortby/sortby.component';
 
 
 
@@ -30,7 +31,8 @@ import { InputContainerComponent } from './input-container/input.component';
     PaginationComponent,
     SelectComponent,
     SizeChangerComponent,
-    InputContainerComponent
+    InputContainerComponent,
+    SortbyComponent
 
   ],
   imports: [
@@ -58,7 +60,8 @@ import { InputContainerComponent } from './input-container/input.component';
     PaginationComponent,
     SelectComponent,
     SizeChangerComponent,
-    InputContainerComponent
+    InputContainerComponent,
+    SortbyComponent
   ]
 })
 export class MoleculesModule { }

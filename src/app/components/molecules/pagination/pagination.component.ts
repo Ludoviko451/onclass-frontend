@@ -36,7 +36,7 @@ export class PaginationComponent implements OnInit {
     this.technologyList$.subscribe(technologies => {
       console.log(this.pageSize);
       this.totalPages = Math.ceil(technologies.length / this.pageSize);
-      console.log(this.totalPages);
+      console.log(this.totalPages + "****************");
       this.updateDisplayedPages();
     });
   }

@@ -1,4 +1,4 @@
-export const formErrors = {
+export const contants = {
 
     nameRequired: "Se requiere el nombre",
 
@@ -8,6 +8,8 @@ export const formErrors = {
 
     nameMaxLength: "El nombre solo puede tener maximo 50 caracteres",
 
-    descriptionMaxLength: "La descripción solo puede tener maximo 90 caracteres"
+    descriptionMaxLength: "La descripción solo puede tener maximo 90 caracteres",
+    asc: "Asc",
+    desc: "Desc"
 }
 

@@ -1,0 +1,3 @@
+<app-button (buttonClick)="changeOrder()" className="sort-button" [ngClass]="{'rotated': order === asc, 'asc': order === asc, 'desc': order === desc}">
+    <span class="sort-button__text" [ngClass]="{'fade-out': isFading}">{{order}} </span><span class="arrow">🡫</span> 
+</app-button>
