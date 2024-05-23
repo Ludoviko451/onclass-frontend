@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CardComponent } from './card.component';
+import { MoleculesModule } from '../molecules.module';
 
 describe('CardComponent', () => {
   let component: CardComponent;
@@ -8,7 +9,8 @@ describe('CardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CardComponent]
+      imports: [MoleculesModule],
+      declarations: [ CardComponent ]
     })
     .compileComponents();
     
@@ -20,4 +22,20 @@ describe('CardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render title', () => {
+    component.title = 'test-title';
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('.card__title')?.textContent).toContain('test-title');
+  });
+
+  it('should render description', () => {
+    component.description = 'test-description';
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('.card__description')?.textContent).toContain('test-description');
+  });
+  
+
 });

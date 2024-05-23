@@ -5,7 +5,7 @@ import { catchError, takeUntil } from 'rxjs/operators';
 import { PaginationService } from 'src/app/api/pagination.service';
 import { SwitchService } from 'src/app/api/switch.service';
 import { DataService } from 'src/shared/models/data-service.interface';
-
+import { Response } from 'src/shared/models/response';
 @Component({
   selector: 'app-generic-list',
   templateUrl: './generic-list.component.html',
@@ -24,9 +24,18 @@ export class GenericListComponent<T> implements OnInit, OnDestroy {
   public text = '';
   public modalSwitch = false;
   private unsubscribe$ = new Subject<void>();
+  public errorMessage:Response = {} as Response;
+  public postResponse:Response = {} as Response;
 
   ngOnInit(): void {
     this.switchSvc.$modal.pipe(takeUntil(this.unsubscribe$)).subscribe((valor) => this.modalSwitch = valor);
+    
+    this.switchSvc.$postTechnology.pipe(takeUntil(this.unsubscribe$)).subscribe((postResponse) => {
+      this.postResponse = postResponse;
+      this.text = postResponse.message;
+      this.loadDataList();
+
+    })
     this.loadDataList();
   }
 
@@ -51,6 +60,10 @@ export class GenericListComponent<T> implements OnInit, OnDestroy {
   private loadDataList(): void {
     this.dataList$ = this.dataService.getData().pipe(
       catchError(error => {
+
+        this.errorMessage.status = error.status
+        this.errorMessage.message = error.message;
+
         return EMPTY;
       })
     );

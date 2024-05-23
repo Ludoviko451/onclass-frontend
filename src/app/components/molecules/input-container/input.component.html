@@ -1,5 +1,14 @@
 <label class="label-form">
     <app-text [text]="text"></app-text>
-    <ng-content></ng-content>
+    <input
+      class="form__input"
+      type="text"
+      [placeholder]="placeholder"
+      [name]="name"
+      [ngClass]="{'invalid-input': invalid}"
+      [value]="value"
+      (input)="onInput($event)"
+      (blur)="onTouched()"
+    />
 </label>
 

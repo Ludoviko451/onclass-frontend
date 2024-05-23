@@ -15,7 +15,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TechnologyService } from 'src/app/api/technology.service';
 import { SwitchService } from 'src/app/api/switch.service';
-import { InputContainerComponent } from './input-container/input.component';
+import { InputComponent } from './input-container/input.component';
 import { SortbyComponent } from './sortby/sortby.component';
 
 
@@ -31,7 +31,7 @@ import { SortbyComponent } from './sortby/sortby.component';
     PaginationComponent,
     SelectComponent,
     SizeChangerComponent,
-    InputContainerComponent,
+    InputComponent,
     SortbyComponent
 
   ],
@@ -60,7 +60,7 @@ import { SortbyComponent } from './sortby/sortby.component';
     PaginationComponent,
     SelectComponent,
     SizeChangerComponent,
-    InputContainerComponent,
+    InputComponent,
     SortbyComponent
   ]
 })

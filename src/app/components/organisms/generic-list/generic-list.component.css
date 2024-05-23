@@ -45,6 +45,8 @@
     margin: 0 30px
 }
 
+
+
 .message {
     grid-column: 2 / span 2; /* Comienza en la columna 2 y ocupa 2 columnas */
     grid-row: 2 / span 2; /* Comienza en la fila 2 y ocupa 2 filas */

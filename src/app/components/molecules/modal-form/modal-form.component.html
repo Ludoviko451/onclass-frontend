@@ -2,34 +2,21 @@
     <form class="form" [formGroup]="formCreate">
         <app-text text="Crear {{type}}" className="form-container-title"></app-text>
         <app-button (buttonClick)="closeModal()" className="modal__close-button">X</app-button>
-
-        <app-input text="Nombre">
-            <input class="form__input" 
-                   type="text" 
-                   placeholder="Nombre de {{type}}" 
-                   name="name" 
-                   formControlName="name"
-                   [ngClass]="{'invalid-input': name.invalid && (name.touched || name.dirty)}">
-      
+        <app-input formControlName="name" text="Nombre" placeholder="Nombre de {{type}}" [invalid]="name.invalid && (name.touched || name.dirty)"></app-input>
             <div *ngIf="name.invalid && (name.touched || name.dirty)" class="form-error__message">
               <i class="fa-solid fa-triangle-exclamation form__icon"></i>
               <app-text *ngIf="name.errors?.['required']" [text]="contants.nameRequired" textClass="form__error"></app-text>
               <app-text *ngIf="name.errors?.['maxlength']" [text]="contants.nameMaxLength" textClass="form__error"></app-text>
             </div>
-          </app-input>
+    
 
-        <app-input text="Descripcion">
-            <input class="form__input" 
-                   name="description" 
-                   placeholder="Descripcion de {{type}}" 
-                   formControlName="description" 
-                   [ngClass]="{'invalid-input': description.invalid && (description.touched || description.dirty)}">
+            <app-input text="Descripción" formControlName="description" placeholder="Descripción de {{type}}" [invalid]="description.invalid && (description.touched || description.dirty)"></app-input>
             <div *ngIf="description.invalid && (description.touched || description.dirty)" class="form-error__message">
                 <i class="fa-solid fa-triangle-exclamation form__icon"></i>
                 <app-text *ngIf="description.errors?.['required']" text="{{contants.descriptionRequired}}" textClass="form__error"></app-text>
                 <app-text *ngIf="description.errors?.['maxlength']" text="{{contants.descriptionMaxLength}}" textClass="form__error"></app-text>
             </div>
-        </app-input>
+
 
         <app-button className="submit-button {{ formCreate.invalid ? 'submit-button__disabled' : '' }}" (buttonClick)="onSubmit()" [disabled]="formCreate.invalid">Crear</app-button>
     </form>
