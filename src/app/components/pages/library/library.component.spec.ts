@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LibraryComponent } from './library.component';
+import { PagesModule } from '../pages.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('LibraryComponent', () => {
   let component: LibraryComponent;
@@ -8,7 +10,8 @@ describe('LibraryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LibraryComponent]
+      imports: [PagesModule, RouterTestingModule],
+      declarations: [ LibraryComponent ]
     })
     .compileComponents();
     

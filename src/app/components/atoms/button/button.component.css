@@ -107,3 +107,14 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
+.add-container__add{
+    width: 30px;
+    font-size: 25px;
+    height: 30px;
+    background-color: var(--general-color);
+    border-radius: 20px;
+    &:hover{
+        cursor: pointer;
+        background-color: #d04c0f;
+    }
+}

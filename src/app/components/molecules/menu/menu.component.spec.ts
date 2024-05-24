@@ -32,10 +32,7 @@ describe('MenuComponent', () => {
 
   it('should set correct text and routerLink for each menu item', () => {
     const menuItems = fixture.debugElement.queryAll(By.css('app-menu-item'));
-    console.log(menuItems);
-    console.log(menuItems.length);
-    console.log(component.info.length);
-
+  
     expect(menuItems.length).toBe(component.info.length);
 
     menuItems.forEach((menuItem, index) => {

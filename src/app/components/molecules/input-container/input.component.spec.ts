@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { InputComponent } from './input.component';
+import { MoleculesModule } from '../molecules.module';
+import { AtomsModule } from '../../atoms/atoms.module';
+import { TextComponent } from '../../atoms/text/text.component';
 
 describe('InputComponent', () => {
   let component: InputComponent;
@@ -8,8 +11,8 @@ describe('InputComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormsModule, ReactiveFormsModule],
-      declarations: [InputComponent]
+      imports: [FormsModule, ReactiveFormsModule, AtomsModule],
+      declarations: [InputComponent, TextComponent]
     })
     .compileComponents();
     
@@ -40,7 +43,9 @@ describe('InputComponent', () => {
     component.text = "test-text"; 
     fixture.detectChanges(); 
     const compiled = fixture.nativeElement as HTMLElement; 
-    expect(compiled.querySelector('label')?.textContent).toContain('test-text'); 
+    const appText = compiled.querySelector('app-text') as HTMLDivElement;
+    expect(appText?.textContent).toContain('test-text');
+   
   })
 
   it('should render invalid input', () => {

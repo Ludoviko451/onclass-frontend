@@ -17,19 +17,18 @@
                 <app-text *ngIf="description.errors?.['maxlength']" text="{{contants.descriptionMaxLength}}" textClass="form__error"></app-text>
             </div>
 
+            
+            <!-- <div  class="form-container__select" *ngIf="type === 'Capacidad'">
+                    <app-select [type]="type" (technologyListChanged)="onTechnologyListChanged($event)"></app-select>
+                <div *ngIf="technologiesForm?.invalid" class="form-error__message" [hidden] = "technologiesForm.valid || technologiesForm.pristine && (technologiesForm.touched || technologiesForm.touched)">
+                    <app-text *ngIf="technologiesForm?.errors?.['required']" text="SE REQUIERE TECNOLOGIAS"></app-text>
+                    <app-text *ngIf="technologiesForm?.errors?.['maxlength']" text="EL MAXIMO DE TECNOLOGIAS SON 20"></app-text>
+                    <app-text *ngIf="technologiesForm?.errors?.['minlength']" text="EL MINIMO DE TECNOLOGIAS SON 3"></app-text>
+                </div>
+            </div> -->
 
         <app-button className="submit-button {{ formCreate.invalid ? 'submit-button__disabled' : '' }}" (buttonClick)="onSubmit()" [disabled]="formCreate.invalid">Crear</app-button>
     </form>
 </div>
 
-
-        <!-- @if(type == "Capacidad"){
-            <app-input text="Tecnologias">
-                <app-select [type]="type" (technologyListChanged)="onTechnologyListChanged($event)"></app-select>
-            </app-input>
-            <div *ngIf="technologiesForm?.invalid" class="form-error__message" [hidden] = "technologiesForm.valid || technologiesForm.pristine && (technologiesForm.touched || technologiesForm.touched)">
-                <app-text *ngIf="technologiesForm?.errors?.['required']" text="SE REQUIERE TECNOLOGIAS"></app-text>
-                <app-text *ngIf="technologiesForm?.errors?.['maxlength']" text="EL MAXIMO DE TECNOLOGIAS SON 20"></app-text>
-                <app-text *ngIf="technologiesForm?.errors?.['minlength']" text="EL MINIMO DE TECNOLOGIAS SON 3"></app-text>
-            </div>
-        } -->
+        

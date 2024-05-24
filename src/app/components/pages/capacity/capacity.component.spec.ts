@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CapacityComponent } from './capacity.component';
+import { PagesModule } from '../pages.module';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('CapacityComponent', () => {
   let component: CapacityComponent;
@@ -8,7 +10,8 @@ describe('CapacityComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CapacityComponent]
+      imports: [PagesModule, HttpClientModule],
+      declarations: [ CapacityComponent ]
     })
     .compileComponents();
     

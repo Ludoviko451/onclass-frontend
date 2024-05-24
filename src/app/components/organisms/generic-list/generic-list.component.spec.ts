@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GenericListComponent } from './generic-list.component';
+import { PagesModule } from '../../pages/pages.module';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('GenericListComponent', () => {
   let component: GenericListComponent<any>;
@@ -8,6 +10,7 @@ describe('GenericListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [PagesModule, HttpClientModule],
       declarations: [ GenericListComponent ]
     })
     .compileComponents();

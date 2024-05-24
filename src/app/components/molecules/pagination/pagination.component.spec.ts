@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PaginationComponent } from './pagination.component';
+import { MoleculesModule } from '../molecules.module';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('PaginationComponent', () => {
   let component: PaginationComponent;
@@ -8,7 +10,8 @@ describe('PaginationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PaginationComponent]
+      imports: [MoleculesModule, HttpClientModule],
+      declarations: [ PaginationComponent ]
     })
     .compileComponents();
     

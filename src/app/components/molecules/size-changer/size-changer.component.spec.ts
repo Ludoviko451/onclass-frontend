@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SizeChangerComponent } from './size-changer.component';
+import { MoleculesModule } from '../molecules.module';
 
 describe('SizeChangerComponent', () => {
   let component: SizeChangerComponent;
@@ -8,7 +9,8 @@ describe('SizeChangerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SizeChangerComponent]
+      imports: [MoleculesModule],
+      declarations: [ SizeChangerComponent ]
     })
     .compileComponents();
     

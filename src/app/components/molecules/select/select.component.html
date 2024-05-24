@@ -1,12 +1,13 @@
 <div>
+    <span>{{type}}</span>
     <div class="add-container">
 
-
-            <ul *ngIf='technologys'>
-                
-                <li *ngFor="let item of technologys" class="add-container__item">{{item.name}}</li>
-            </ul>
-        <app-button (buttonClick)="openSelect()">+</app-button>
+        <ul *ngIf='technologys'>
+            <li *ngFor="let item of technologys"  (click)="deleteItem(item)"class="add-container__item">{{item.name}}</li>
+        </ul>
+        <div class="add-container__button">
+        <app-button (buttonClick)="openSelect()" className="add-container__add">+</app-button>
+        </div>
     </div>
 
     <div *ngIf="(technologyList$ | async) as technologies" class={{dataContainer}}>

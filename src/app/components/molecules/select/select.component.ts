@@ -20,7 +20,15 @@ export class SelectComponent  implements OnInit{
   public technologyList$!: Observable<ITechnology[]>;
   ngOnInit(): void {
       this.technologySvc.changeSize(100);
-      // this.technologyList$ = this.technologySvc.getTechnologies();
+      this.technologyList$ = this.technologySvc.getAllTechnologies();
+  }
+
+  deleteItem(technology: ITechnology) {
+    const index = this.technologys.indexOf(technology);
+    if (index > -1) {
+      this.technologys.splice(index, 1);
+      this.technologyListChanged.emit(this.technologys);
+    }
   }
 
   addElement(tech: ITechnology) {
