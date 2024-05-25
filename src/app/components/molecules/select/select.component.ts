@@ -10,7 +10,7 @@ import { TechnologyService } from 'src/app/api/technology.service';
 })
 export class SelectComponent  implements OnInit{
 
-  dataContainer = "data-container--disabled"
+  dataContainer = "data--disabled"
   @Input() type: string = ""
 
   @Output() technologyListChanged = new EventEmitter<ITechnology[]>()
@@ -34,7 +34,6 @@ export class SelectComponent  implements OnInit{
   addElement(tech: ITechnology) {
 
     if(this.technologys.includes(tech)) {
-      console.log("No se pueden agregar tecnologias repetidas")
     } else {
       this.technologys.push(tech)
       this.technologyListChanged.emit(this.technologys)

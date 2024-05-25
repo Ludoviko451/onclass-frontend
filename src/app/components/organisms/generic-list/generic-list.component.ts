@@ -57,7 +57,7 @@ export class GenericListComponent<T> implements OnInit, OnDestroy {
     this.loadDataList();
   }
 
-  private loadDataList(): void {
+   loadDataList(): void {
     this.dataList$ = this.dataService.getData().pipe(
       catchError(error => {
 

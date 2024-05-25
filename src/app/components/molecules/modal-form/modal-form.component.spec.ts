@@ -8,37 +8,29 @@ import { CapacityService } from 'src/app/api/capacity.service';
 import { ITechnology } from 'src/shared/models/technology.interface';
 import { By } from '@angular/platform-browser';
 import { MoleculesModule } from '../molecules.module';
+import { HttpClientModule } from '@angular/common/http';
+import { Inject } from '@angular/core';
+import { mocks } from 'src/shared/mocks/mocks';
 
 describe('ModalFormComponent', () => {
   let component: ModalFormComponent;
   let fixture: ComponentFixture<ModalFormComponent>;
-  let switchServiceSpy: jasmine.SpyObj<SwitchService>;
-  let technologyServiceSpy: jasmine.SpyObj<TechnologyService>;
-  let capacityServiceSpy: jasmine.SpyObj<CapacityService>;
-
+  let technologySvc: TechnologyService;
+  let capacitySvc: CapacityService;
   beforeEach(async () => {
-    const switchSpy = jasmine.createSpyObj('SwitchService', ['emit', 'next']);
-    const techSpy = jasmine.createSpyObj('TechnologyService', ['getAllTechnologies', 'postTechnology']);
-    const capacitySpy = jasmine.createSpyObj('CapacityService', ['']);
+
 
     await TestBed.configureTestingModule({
       declarations: [ModalFormComponent],
-      imports: [ReactiveFormsModule, MoleculesModule],
+      imports: [ReactiveFormsModule, MoleculesModule, HttpClientModule],
       providers: [
-        { provide: SwitchService, useValue: switchSpy },
-        { provide: TechnologyService, useValue: techSpy },
-        { provide: CapacityService, useValue: capacitySpy }
       ]
     })
     .compileComponents();
 
-    switchServiceSpy = TestBed.inject(SwitchService) as jasmine.SpyObj<SwitchService>;
-    technologyServiceSpy = TestBed.inject(TechnologyService) as jasmine.SpyObj<TechnologyService>;
-    capacityServiceSpy = TestBed.inject(CapacityService) as jasmine.SpyObj<CapacityService>;
-
-    technologyServiceSpy.getAllTechnologies.and.returnValue(of([]));
-
     fixture = TestBed.createComponent(ModalFormComponent);
+    technologySvc = TestBed.inject(TechnologyService);
+    capacitySvc = TestBed.inject(CapacityService);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -82,11 +74,33 @@ describe('ModalFormComponent', () => {
 
 
   it('should initialize technologies on ngOnInit', () => {
-    const techs: ITechnology[] = [{id: 1, name: 'Tech1', description:"blabla" }, {id: 2, name: 'Tech2', description:"blabla" }];
-    technologyServiceSpy.getAllTechnologies.and.returnValue(of(techs));
+
+    const techs: ITechnology[] = mocks.technologies;
+    spyOn(technologySvc, 'getAllTechnologies').and.returnValue(of(techs));
     component.ngOnInit();
     expect(component.technologies).toEqual(techs);
     expect(component.formCreate.controls['technologiesForm'].value).toEqual(techs);
   });
   
+  it('should submit a technology', () => {
+    component.type = "Tecnologia"
+    component.newTechnology.name = "Tecnologia1"
+    component.newTechnology.description = "blabla"
+
+    spyOn(technologySvc, 'postTechnology')
+    component.onSubmit()
+    expect(technologySvc.postTechnology).toHaveBeenCalled()
+  })
+
+  it('should submit a capacity', () => {
+    component.type = "Capacidad"
+    component.newCapacity.name = "Capacidad1"
+    component.newCapacity.description = "blabla"
+    component.newCapacity.technologyList = mocks.technologies;
+
+    spyOn(capacitySvc, 'postCapacity')
+    component.onSubmit()
+    expect(capacitySvc.postCapacity).toHaveBeenCalled()
+  })
+
 });

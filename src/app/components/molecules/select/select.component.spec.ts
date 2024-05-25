@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SelectComponent } from './select.component';
 import { MoleculesModule } from '../molecules.module';
 import { HttpClientModule } from '@angular/common/http';
+import { mocks } from 'src/shared/mocks/mocks';
 
 describe('SelectComponent', () => {
   let component: SelectComponent;
@@ -23,4 +24,26 @@ describe('SelectComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have a select', () => {
+    const select = fixture.nativeElement.querySelector('.select');
+    expect(select).toBeTruthy();
+  });
+
+  it('should delete a item', () => {
+    component.technologys = mocks.technologies
+    component.deleteItem(component.technologys[0])
+    expect(component.technologys.length).toBe(1);
+  })
+
+  it('should add an item', () => {
+    component.technologys = mocks.technologies
+    component.addElement(mocks.onlyOne)
+    expect(component.technologys.length).toBe(2);
+  })
+
+  it('should open the select', () => {
+    component.openSelect()
+    expect(component.dataContainer).toBe("data")
+  })
 });

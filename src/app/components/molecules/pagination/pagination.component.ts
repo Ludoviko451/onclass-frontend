@@ -23,7 +23,6 @@ export class PaginationComponent implements OnInit {
 
   ngOnInit(): void {
     this.paginationSvc.$sizeChange.subscribe((size) => {
-      console.log(size);
       this.pageSize = size;
       this.loadTechnologyList();
       this.currentPage = 0;
@@ -31,12 +30,10 @@ export class PaginationComponent implements OnInit {
     this.loadTechnologyList();
   }
 
-  private loadTechnologyList(): void {
+  loadTechnologyList(): void {
     this.technologyList$ = this.technologySvc.getAllTechnologies();
     this.technologyList$.subscribe(technologies => {
-      console.log(this.pageSize);
       this.totalPages = Math.ceil(technologies.length / this.pageSize);
-      console.log(this.totalPages + "****************");
       this.updateDisplayedPages();
     });
   }
@@ -79,7 +76,6 @@ export class PaginationComponent implements OnInit {
   }
 
   onPageClick(pageNumber: number): void {
-    console.log(`Clicked Page: ${pageNumber}`);
     this.currentPage = pageNumber;
     this.pageChanged.emit(this.currentPage);
     this.updateDisplayedPages();

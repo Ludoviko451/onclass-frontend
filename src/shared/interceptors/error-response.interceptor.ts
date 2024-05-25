@@ -23,7 +23,11 @@ export class ErrorResponseInterceptor implements HttpInterceptor {
 
                     if (error.status === 0) {
                         errorMessage.message = `Estado del Servidor: Desconectado (Código de Error: 0)`;
-                    } else if (error.error && error.error.message) {
+                    }
+                    else if(error.status === 400) {
+                        errorMessage.message = `Bad Request`
+                    }
+                    else if (error.error && error.error.message) {
                         errorMessage.message = `Error: ${error.error.message}`;
                     } else {
                         errorMessage.message = `Error inesperado: ${error.message}`;

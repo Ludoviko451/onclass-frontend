@@ -24,4 +24,16 @@ describe('SortbyComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should change the order', (done) => {
+    spyOn(component.orderChange, 'emit');
+
+    component.changeOrder();
+
+    setTimeout(() => {
+      expect(component.order).toBe(component.desc);
+      expect(component.orderChange.emit).toHaveBeenCalledWith(component.desc);
+      done();
+    }, 300); // Asegúrate de que coincida con el tiempo del setTimeout en el componente
+  });
 });

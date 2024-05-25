@@ -82,6 +82,7 @@ export class ModalFormComponent implements OnInit {
       this.newCapacity.description = this.formCreate.value.description!;
       this.newCapacity.technologyList = this.technologies;
 
+      this.capacitySvc.postCapacity(this.newCapacity)
       console.log(this.newCapacity);
     } else if (this.type === "Tecnologia") {
 
