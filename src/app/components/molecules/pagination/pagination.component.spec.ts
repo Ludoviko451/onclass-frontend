@@ -25,6 +25,8 @@ describe('PaginationComponent', () => {
   });
 
   it('should have a prev and next button', () => {
+    component.totalPages = 10;
+    component.currentPage = 5;
     const prevButton = fixture.nativeElement.querySelector('.fa-chevron-right');
     const nextButton = fixture.nativeElement.querySelector('.fa-chevron-left');
     expect(prevButton).toBeTruthy();
@@ -47,6 +49,7 @@ describe('PaginationComponent', () => {
   });
 
   it('should update displayed pages correctly', () => {
+    component.type = "Tecnologia"
     // Scenario 1: Total pages less than max displayed pages
     component.totalPages = 2;
     component.currentPage = 0;
@@ -91,14 +94,24 @@ describe('PaginationComponent', () => {
     expect(component.currentPage).toBe(1);
   });
 
-  it('should initialize correctly in ngOnInit', () => {
+  it('should initialize correctly in ngOnInit when type is Technology', () => {
+    component.type = "Tecnologia"
     spyOn(component, 'loadTechnologyList')
     component.ngOnInit();
     expect(component.loadTechnologyList).toHaveBeenCalled();
     expect(component.currentPage).toBe(0);
   })
 
+  it('should initialize correctly in ngOnInit when type is Capacity', () => {
+    component.type = "Capacidad"
+    spyOn(component, 'loadCapacityList')
+    component.ngOnInit();
+    expect(component.loadCapacityList).toHaveBeenCalled();
+    expect(component.currentPage).toBe(0);
+  })
+
   it('should load technologyList and set totalPages', () => {
+    component.type = "Tecnologia"
     component.pageSize = 10
     component.loadTechnologyList();
     expect(component.technologyList$).toBeDefined();
@@ -106,6 +119,18 @@ describe('PaginationComponent', () => {
       expect(technologies.length).toBe(2);
     })
 
+    expect(component.totalPages).toBe(1);
+    expect(component.currentPage).toBe(0);
+  })
+
+  it('shoud loac capacityList and set totalPages', () => {
+    component.type = "Capacidad"
+    component.pageSize = 10
+    component.loadCapacityList();
+    expect(component.capacityList$).toBeDefined();
+    component.capacityList$.subscribe(capacities => {
+      expect(capacities.length).toBe(2);
+    })
     expect(component.totalPages).toBe(1);
     expect(component.currentPage).toBe(0);
   })

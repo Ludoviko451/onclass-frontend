@@ -16,7 +16,7 @@
     </div>
   
     <div *ngIf="errorMessage.status === 0 || errorMessage.status === 404" class="message">
-      <app-text [text]="errorMessage.message + (type === 'Bootcamp' ? ' un' : ' una') + ' ' + type"></app-text>
+      <app-text [text]="errorMessage.message"></app-text>
     </div>
     
     <app-modal-message [isSuccessful]="postResponse.status > 300 || postResponse.status === 0 ? false : true" [text]="text"></app-modal-message>
@@ -26,7 +26,7 @@
         <app-button (buttonClick)="openModal()" className="open-button">+ Crear</app-button>
       </div>
       <div class="bottom-container__pagination">
-        <app-pagination (pageChanged)="onPageChanged($event)"></app-pagination>
+        <app-pagination (pageChanged)="onPageChanged($event)" type="{{type}}"></app-pagination>
       </div>
     </div>
   

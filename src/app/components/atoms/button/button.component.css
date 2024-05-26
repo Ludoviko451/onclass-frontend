@@ -111,8 +111,10 @@
     width: 30px;
     font-size: 25px;
     height: 30px;
+    color: white;
     background-color: var(--general-color);
     border-radius: 20px;
+    border: 0px solid black;
     &:hover{
         cursor: pointer;
         background-color: #d04c0f;

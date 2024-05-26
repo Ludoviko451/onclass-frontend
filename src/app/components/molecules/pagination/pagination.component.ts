@@ -1,8 +1,10 @@
-import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { CapacityService } from 'src/app/api/capacity.service';
 import { PaginationService } from 'src/app/api/pagination.service';
 import { TechnologyService } from 'src/app/api/technology.service';
 import { RouteImages } from 'src/app/util/route.images';
+import { ICapacity } from 'src/shared/models/capacity.interface';
 import { ITechnology } from 'src/shared/models/technology.interface';
 
 @Component({
@@ -12,24 +14,48 @@ import { ITechnology } from 'src/shared/models/technology.interface';
 })
 export class PaginationComponent implements OnInit {
   @Output() pageChanged: EventEmitter<number> = new EventEmitter<number>();
+  @Input() type: string = '';
   routes = RouteImages;
   technologyList$!: Observable<ITechnology[]>;
+  capacityList$!: Observable<ICapacity[]>
   currentPage: number = 0;
   displayedPages: number[] = [];
   totalPages: number = 1;
   pageSize: number = 10;
   technologySvc = inject(TechnologyService);
+  capacitySvc = inject(CapacityService);
   paginationSvc = inject(PaginationService);
+  dataList = []
+
 
   ngOnInit(): void {
     this.paginationSvc.$sizeChange.subscribe((size) => {
       this.pageSize = size;
-      this.loadTechnologyList();
+      if(this.type === 'Tecnologia') {
+        this.loadTechnologyList();
+      }
+      if(this.type === 'Capacidad') {
+        this.loadCapacityList();
+      }
       this.currentPage = 0;
     });
-    this.loadTechnologyList();
+    if(this.type === 'Tecnologia') {
+      this.loadTechnologyList();
+    }
+    if(this.type === 'Capacidad') {
+      this.loadCapacityList();
+    }
   }
 
+  loadCapacityList(): void {
+    this.capacityList$ = this.capacitySvc.getAllCapacity();
+
+    this.capacityList$.subscribe(capacities => {
+      this.totalPages = Math.ceil(capacities.length / this.pageSize);
+      this.updateDisplayedPages();
+    });
+
+  }
   loadTechnologyList(): void {
     this.technologyList$ = this.technologySvc.getAllTechnologies();
     this.technologyList$.subscribe(technologies => {
@@ -84,4 +110,5 @@ export class PaginationComponent implements OnInit {
   getPaginationClass(page: number): string {
     return this.currentPage === page ? 'pagination-button pagination-button__active' : 'pagination-button';
   }
+  
 }

@@ -48,6 +48,11 @@ export class CapacityService implements DataService<ICapacity> {
         return this._http.get<ICapacity[]>(`${this._endpoint}?page=${this.page}&size=${this.size}&sortBy=${this.order}&technologies=true&field=name`)
     }
 
+    public getAllCapacity() {
+      return this._http.get<ICapacity[]>(`${this._endpoint}?page=${this.page}&size=999&sortBy=${this.order}&technologies=true&field=name`)
+  }
+
+
     public postCapacity(newCapacity: ICapacityRequest): void {
         this._http.post<ICapacityRequest>(this._endpoint, newCapacity)
           .subscribe({

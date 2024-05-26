@@ -87,6 +87,8 @@
     width: 100%;
     display: flex;
     justify-content: end;
+    position: absolute;
+    right: 850px;
 }
 
 .select__type{

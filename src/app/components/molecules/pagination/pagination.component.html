@@ -1,5 +1,5 @@
 <div class="pagination">
-  <app-button className="pagination__nav-button" (buttonClick)="goToPrev()" [disabled]="currentPage === 0"><i class="fa-solid fa-chevron-left pagination__nav-button"></i></app-button>
+  <app-button className="pagination__nav-button" (buttonClick)="goToPrev()" [hidden]="currentPage === 0"><i class="fa-solid fa-chevron-left pagination__nav-button"></i></app-button>
   <ng-container *ngFor="let item of displayedPages; let i = index">
     <ng-container *ngIf="item !== -1">
       <app-button (buttonClick)="onPageClick(item)" [className]="getPaginationClass(item)">
@@ -7,5 +7,5 @@
       </app-button>
     </ng-container>
   </ng-container>
-  <app-button className="pagination__nav-button" (buttonClick)="goToNext()" [disabled]="currentPage === totalPages - 1"><i class="fa-solid fa-chevron-right pagination__nav-button"></i></app-button>
+  <app-button className="pagination__nav-button" (buttonClick)="goToNext()" [hidden]="currentPage === totalPages - 1"><i class="fa-solid fa-chevron-right pagination__nav-button"></i></app-button>
 </div>
