@@ -43,7 +43,7 @@ app-library{
     
 }
 
-app-technology{
+app-technology, app-capacity, app-bootcamp{
     grid-area: info;
 }
 

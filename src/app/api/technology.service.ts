@@ -49,14 +49,14 @@ export class TechnologyService implements DataService<ITechnology> {
             message: '¡Tecnologia Creada!'
           };
           console.log(this.postResponse);
-          this.switchSvc.$postTechnology.next(this.postResponse);
+          this.switchSvc.$postData.next(this.postResponse);
         },
         error: (error) => {
           this.postResponse = {
             status: error.status,
             message: error.message
           };
-          this.switchSvc.$postTechnology.next(this.postResponse);
+          this.switchSvc.$postData.next(this.postResponse);
         }
       });
   }

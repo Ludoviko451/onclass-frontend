@@ -19,7 +19,7 @@ describe('GenericListComponent', () => {
   beforeEach(async () => {
     switchServiceSpy = jasmine.createSpyObj('SwitchService', ['']);
     switchServiceSpy.$modal = new EventEmitter<boolean>();
-    switchServiceSpy.$postTechnology = new EventEmitter<Response>();
+    switchServiceSpy.$postData = new EventEmitter<Response>();
 
     paginationServiceSpy = jasmine.createSpyObj('PaginationService', ['']);
     paginationServiceSpy.$sizeChange = new EventEmitter<number>();

@@ -30,7 +30,7 @@ export class GenericListComponent<T> implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.switchSvc.$modal.pipe(takeUntil(this.unsubscribe$)).subscribe((valor) => this.modalSwitch = valor);
     
-    this.switchSvc.$postTechnology.pipe(takeUntil(this.unsubscribe$)).subscribe((postResponse) => {
+    this.switchSvc.$postData.pipe(takeUntil(this.unsubscribe$)).subscribe((postResponse) => {
       this.postResponse = postResponse;
       this.text = postResponse.message;
       this.loadDataList();

@@ -35,7 +35,7 @@ export class ModalFormComponent implements OnInit {
     this.formCreate = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.maxLength(90)]],
-      technologiesForm: [{ value: this.technologies, disabled: this.type !== 'Capacidad' }, [Validators.required, Validators.minLength(3)]]
+      technologiesForm: [this.technologies, [Validators.required, Validators.maxLength(20), Validators.minLength(3)]]
     });
   }
 

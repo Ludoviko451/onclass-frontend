@@ -20,20 +20,20 @@ export class ErrorResponseInterceptor implements HttpInterceptor {
                 } else {
                     // Server-side error
                     console.error('Error del servidor:', error);
-
-                    if (error.status === 0) {
-                        errorMessage.message = `Estado del Servidor: Desconectado (Código de Error: 0)`;
-                    }
-                    else if(error.status === 400) {
-                        errorMessage.message = `Bad Request`
-                    }
-                    else if (error.error && error.error.message) {
-                        errorMessage.message = `Error: ${error.error.message}`;
-                    } else {
-                        errorMessage.message = `Error inesperado: ${error.message}`;
+                    switch (error.status) {
+                        case 400:
+                            errorMessage.message = `Bad Request`;
+                            break;
+                        case 500:
+                            errorMessage.message = `Error del servidor`;
+                            break;
+                        case 0:
+                            errorMessage.message = `Estado del Servidor: Desconectado (Código de Error: 0)`;
+                            break;  
+                        default:
+                            errorMessage.message = `${error.error.message}`
                     }
                 }
-
                 return throwError(() => errorMessage);
             })
         );

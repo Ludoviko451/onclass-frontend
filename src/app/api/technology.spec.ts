@@ -28,7 +28,7 @@ describe('TechnologyService', () => {
     const newTechnology: ITechnologyRequest = { name: 'New Tech', description: 'Description' };
     const successResponse: Response = { status: 201, message: '¡Tecnologia Creada!' };
 
-    const postTechnologySpy = spyOn(switchService.$postTechnology, 'next');
+    const postTechnologySpy = spyOn(switchService.$postData, 'next');
 
     service.postTechnology(newTechnology);
 
@@ -46,7 +46,7 @@ describe('TechnologyService', () => {
     const mockErrorResponse = { status: 400, statusText: 'Bad Request' };
     const errorMessage = 'Http failure response for http://localhost:8080/technology/: 400 Bad Request';
 
-    const postTechnologySpy = spyOn(switchService.$postTechnology, 'next');
+    const postTechnologySpy = spyOn(switchService.$postData, 'next');
 
     service.postTechnology(newTechnology);
 

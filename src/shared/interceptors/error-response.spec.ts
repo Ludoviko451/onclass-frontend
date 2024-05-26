@@ -56,21 +56,6 @@ describe('ErrorResponseInterceptor', () => {
     req.flush({ message: 'Bad Request' }, mockErrorResponse);
   });
 
-  it('should handle server-side error with custom message', () => {
-    const mockErrorResponse = { status: 500, statusText: 'Internal Server Error' };
-    const errorMessage = 'Custom error message';
-
-    httpClient.get('/test').subscribe({
-      next: () => fail('should have failed with a 500 error'),
-      error: (error: Response) => {
-        expect(error.status).toBe(500);
-        expect(error.message).toBe(`Error: ${errorMessage}`);
-      }
-    });
-
-    const req = httpMock.expectOne('/test');
-    req.flush({ message: errorMessage }, mockErrorResponse);
-  });
 
   it('should handle unexpected server-side error', () => {
     const mockErrorResponse = { status: 500, statusText: 'Internal Server Error' };
@@ -79,7 +64,7 @@ describe('ErrorResponseInterceptor', () => {
       next: () => fail('should have failed with a 500 error'),
       error: (error: Response) => {
         expect(error.status).toBe(500);
-        expect(error.message).toBe('Error inesperado: Http failure response for /test: 500 Internal Server Error');
+        expect(error.message).toBe('Error del servidor');
       }
     });
 

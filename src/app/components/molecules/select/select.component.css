@@ -7,8 +7,9 @@
     width: 90%;
     height: 50px;
     border: 3px solid var(--general-color);
+    background-color: rgba(231, 131, 61, 0.10);
     border-radius: 40px;
-    margin: 0px auto;
+    margin: 20px auto;
     overflow: auto; /* Evita que el contenido desborde del contenedor */
 }
 
@@ -86,4 +87,11 @@
     width: 100%;
     display: flex;
     justify-content: end;
+}
+
+.select__type{
+    color: var(--general-color);
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0px 22px;
 }
