@@ -1,0 +1,6 @@
+<ng-template #bootcampTemplate let-item>
+    <app-card [title]="item.name"></app-card>
+  </ng-template>
+  
+  <app-generic-list [dataService]="bootcampService" [itemTemplate]="bootcampTemplate" type="Bootcamp"></app-generic-list>
+  

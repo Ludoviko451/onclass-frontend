@@ -10,9 +10,9 @@
         </div>
     </div>
 
-    <div *ngIf="(technologyList$ | async) as technologies" class={{dataContainer}}>
+    <div *ngIf="(dataList() | async) as data" class={{dataContainer}}>
         <ul class="data__list">
-          <li *ngFor="let tech of technologies" (click)="addElement(tech)" class="data__item">
+          <li *ngFor="let tech of data" (click)="addElement(tech)" class="data__item">
               {{ tech.name }}
           </li>
         </ul>

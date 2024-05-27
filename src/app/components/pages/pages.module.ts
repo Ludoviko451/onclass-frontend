@@ -11,6 +11,7 @@ import { TechnologyService } from "src/app/api/technology.service";
 import { SwitchService } from "src/app/api/switch.service";
 import { HttpClient } from "@angular/common/http";
 import { OrganismsModule } from "../organisms/organisms.module";
+import { BootcampComponent } from './bootcamp/bootcamp.component';
 
 
 
@@ -19,7 +20,8 @@ import { OrganismsModule } from "../organisms/organisms.module";
         CapacityComponent,
         TechnologyComponent,
         LibraryComponent,
-        HomeComponent
+        HomeComponent,
+        BootcampComponent
     ],
 
     imports: [
@@ -39,7 +41,9 @@ import { OrganismsModule } from "../organisms/organisms.module";
     exports: [
         HomeComponent,
         LibraryComponent,
-        TechnologyComponent
+        TechnologyComponent,
+        CapacityComponent,
+        BootcampComponent
     ]
 })
 

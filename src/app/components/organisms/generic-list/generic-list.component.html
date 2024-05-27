@@ -18,7 +18,7 @@
     <div *ngIf="errorMessage.status === 0 || errorMessage.status === 404" class="message">
       <app-text [text]="errorMessage.message"></app-text>
     </div>
-    
+
     <app-modal-message [isSuccessful]="postResponse.status > 300 || postResponse.status === 0 ? false : true" [text]="text"></app-modal-message>
   
     <div class="bottom-container">

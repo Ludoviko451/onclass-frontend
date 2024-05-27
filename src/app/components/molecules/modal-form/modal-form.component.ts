@@ -8,6 +8,9 @@ import { SwitchService } from 'src/app/api/switch.service';
 import { TechnologyService } from 'src/app/api/technology.service';
 import { CapacityService } from 'src/app/api/capacity.service';
 import { contants } from 'src/app/util/constants';
+import { ICapacity } from 'src/shared/models/capacity.interface';
+import { IBootcampRequest } from 'src/shared/models/bootcamp.request';
+import { BootcampService } from 'src/app/api/bootcamp.service';
 
 @Component({
   selector: 'app-modal-form',
@@ -18,19 +21,20 @@ export class ModalFormComponent implements OnInit {
   @Input() type: string = "";
 
   public contants = contants;
-  public technologies: ITechnology[] = [];
+  public technologies: ITechnology[] | ICapacity[] = [];
   public technologyList$!: Observable<ITechnology[]>;
 
   formCreate: FormGroup;
 
   newTechnology: ITechnologyRequest = {} as ITechnologyRequest;
   newCapacity: ICapacityRequest = {} as ICapacityRequest;
-
+  newBootcamp: IBootcampRequest = {} as IBootcampRequest;
   constructor(
     private modalSS: SwitchService,
     private fb: FormBuilder,
     private technologySvc: TechnologyService,
-    private capacitySvc: CapacityService
+    private capacitySvc: CapacityService,
+    private bootcampSvc: BootcampService
   ) {
     this.formCreate = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
@@ -55,8 +59,6 @@ export class ModalFormComponent implements OnInit {
         console.error('Error fetching technologies:', err);
       }
     });
-
-    console.log(this.technologyList$);
   }
 
   get name() {
@@ -92,14 +94,22 @@ export class ModalFormComponent implements OnInit {
 
       this.technologySvc.postTechnology(this.newTechnology)
     }
+    else if (this.type === "Bootcamp") {
 
+      this.newBootcamp.name = this.formCreate.value.name!;
+      this.newBootcamp.description = this.formCreate.value.description!;
+      console.log(this.technologies)
+      this.newBootcamp.capacityList = this.technologies;
+
+      this.bootcampSvc.postBootcamp(this.newBootcamp)
+    }
     this.modalSS.$modalMessage.emit(true);
     this.closeModal();
     this.formCreate.reset();
   }
 
 
-  onTechnologyListChanged(technologies: ITechnology[]): void {
+  onTechnologyListChanged(technologies: ITechnology[] | ICapacity[]): void {
     this.technologies = technologies ?? [];
     this.formCreate.get('technologiesForm')?.setValue(this.technologies);
   }

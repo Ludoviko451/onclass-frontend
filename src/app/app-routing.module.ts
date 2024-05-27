@@ -4,6 +4,7 @@ import { HomeComponent } from './components/pages/home/home.component';
 import { LibraryComponent } from './components/pages/library/library.component';
 import { TechnologyComponent } from './components/pages/technology/technology.component';
 import { CapacityComponent } from './components/pages/capacity/capacity.component';
+import { BootcampComponent } from './components/pages/bootcamp/bootcamp.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -13,7 +14,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'technology', pathMatch: 'full' },
       { path: 'technology', component: TechnologyComponent },
-      { path: 'capacity', component: CapacityComponent }
+      { path: 'capacity', component: CapacityComponent },
+      { path: 'bootcamp', component: BootcampComponent,}
     ]
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },

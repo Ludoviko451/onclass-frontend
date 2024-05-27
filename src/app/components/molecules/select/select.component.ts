@@ -1,7 +1,9 @@
+import { ICapacity } from 'src/shared/models/capacity.interface';
 import { ITechnology } from 'src/shared/models/technology.interface';
 import { Observable} from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { TechnologyService } from 'src/app/api/technology.service';
+import { CapacityService } from 'src/app/api/capacity.service';
 
 @Component({
     selector: 'app-select',
@@ -13,32 +15,46 @@ export class SelectComponent  implements OnInit{
   dataContainer = "data--disabled"
   @Input() type: string = ""
 
-  @Output() technologyListChanged = new EventEmitter<ITechnology[]>()
+  @Output() dataListChanged = new EventEmitter<ITechnology[]>()
   technologys: ITechnology[] = []
   technologySvc = inject(TechnologyService);
+  capacitySvc = inject(CapacityService)
 
   public technologyList$!: Observable<ITechnology[]>;
+  public capacityList$! : Observable<ICapacity[]>;
+
   ngOnInit(): void {
-      this.technologySvc.changeSize(100);
+      console.log(this.type)
+      this.capacityList$ = this.capacitySvc.getAllCapacity();
       this.technologyList$ = this.technologySvc.getAllTechnologies();
   }
 
-  deleteItem(technology: ITechnology) {
-    const index = this.technologys.indexOf(technology);
+  deleteItem(data: ITechnology | ICapacity) {
+    const index = this.technologys.indexOf(data);
     if (index > -1) {
       this.technologys.splice(index, 1);
-      this.technologyListChanged.emit(this.technologys);
+      this.dataListChanged.emit(this.technologys);
     }
   }
 
-  addElement(tech: ITechnology) {
+  dataList(){
+    console.log(this.type)
+    if(this.type === "Bootcamp"){
+      return this.capacityList$
+    }
+    if(this.type === "Capacidad"){
+      return this.technologyList$
+    } 
+    return null;
+  }
 
+  addElement(tech: ITechnology | ICapacity) {
     if(this.technologys.includes(tech)) {
+  
     } else {
       this.technologys.push(tech)
-      this.technologyListChanged.emit(this.technologys)
+      this.dataListChanged.emit(this.technologys)
     }
-    console.log(this.technologys)
   }
   openSelect() {
     if(this.dataContainer == "data--disabled") {
