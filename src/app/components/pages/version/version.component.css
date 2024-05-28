@@ -19,7 +19,7 @@ main {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    align-items: center;
+    align-items: end;
 }
 
 .top-container__button{
@@ -33,10 +33,10 @@ main {
 }
 /* Estilos para la tabla */
 .table-container__table {
-
+    border-top: 1.5px solid var(--general-color);
+    padding: 10px;
+    margin-top: 20px;
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 8px; /* Espacio entre las celdas verticalmente */
   }
   
   /* Estilos para las celdas */
@@ -54,6 +54,7 @@ main {
     text-align: left;
     border-bottom: 2px solid #ccc; /* Borde inferior para separar las filas */
     vertical-align: middle; /* Alinea verticalmente el contenido al centro */
+    height: 35px;
   }
   
 
@@ -62,3 +63,8 @@ main {
     background-color: var(--navbar-color); /* Color de fondo para filas pares */
   }
   
+.top-container__name{
+    font-size: 30px;
+    line-height: 31.2px;
+    font-weight: 700;
+}

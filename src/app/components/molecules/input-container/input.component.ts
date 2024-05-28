@@ -18,6 +18,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     @Input() invalid: boolean = false;
     @Input() placeholder: string = '';
     @Input() text: string = '';
+    @Input() inputType: string = 'text';
   
     value: string = '';
   
@@ -40,5 +41,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       const value = (event.target as HTMLInputElement).value;
       this.value = value;
       this.onChange(value);
+      console.log(value)
     }
   }

@@ -6,7 +6,7 @@
         </div>
 
         <div class="top-container__button">
-            <app-button className="open-button"></app-button>
+            <app-button className="open-button" (buttonClick)="openModal()">Crear Versión</app-button>
         </div>
     </section>
 
@@ -23,11 +23,17 @@
             <tbody>
                 <!-- Iterar sobre cada versión y crear una fila para cada una -->
                 <tr *ngFor="let version of (versions$ | async)">
-                    <td>{{ version.startDate }}</td>
-                    <td>{{ version.endDate | date }}</td>
+                    <td>2024-{{ version.id }}</td>
+                    <td>{{ version.startDate | date }}</td>
                     <td>{{ version.maximumCapacity }}</td>
                 </tr>
             </tbody>
         </table>
     </section>
 </main>
+
+<app-modal-message [isSuccessful]="postResponse.status > 300 || postResponse.status === 0 ? false : true" [text]="text"></app-modal-message>
+
+<div *ngIf="modalSwitch">
+    <app-modal-form class="modal-form" type="Version"></app-modal-form>
+</div>

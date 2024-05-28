@@ -66,6 +66,7 @@
     flex-direction: column;
     z-index: 1;
     position: fixed;
+    transition: opacity 0.3s ease;
 }
 
 .data__item {

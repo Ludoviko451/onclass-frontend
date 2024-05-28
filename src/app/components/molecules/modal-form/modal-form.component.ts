@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ITechnology } from 'src/shared/models/technology.interface';
 import { ITechnologyRequest } from 'src/shared/models/technology.request';
 import { ICapacityRequest } from 'src/shared/models/capacity.request';
@@ -10,6 +10,8 @@ import { constants } from 'src/app/util/constants';
 import { ICapacity } from 'src/shared/models/capacity.interface';
 import { IBootcampRequest } from 'src/shared/models/bootcamp.request';
 import { BootcampService } from 'src/app/api/bootcamp.service';
+import { IVersionRequest } from 'src/shared/models/version.request';
+import { VersionService } from 'src/app/api/version.service';
 
 @Component({
   selector: 'app-modal-form',
@@ -27,6 +29,7 @@ export class ModalFormComponent implements OnInit, OnChanges {
   newTechnology: ITechnologyRequest = {} as ITechnologyRequest;
   newCapacity: ICapacityRequest = {} as ICapacityRequest;
   newBootcamp: IBootcampRequest = {} as IBootcampRequest;
+  newVersion: IVersionRequest = {} as IVersionRequest;
 
   validators = {
     required: "",
@@ -41,12 +44,16 @@ export class ModalFormComponent implements OnInit, OnChanges {
     private fb: FormBuilder,
     private technologySvc: TechnologyService,
     private capacitySvc: CapacityService,
-    private bootcampSvc: BootcampService
+    private bootcampSvc: BootcampService,
+    private versionSvc: VersionService
   ) {
     this.formCreate = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.maxLength(90)]],
-      dataForm: [{ value: '', disabled: true }] // Initially disabled
+      dataForm: [{ value: '', disabled: true }], // Initially disabled
+      maximumCapacity: [{ value: 0, disabled: true }],
+      startDate: [{ value: '', disabled: true }],
+      endDate: [{ value: '', disabled: true }]
     });
   }
 
@@ -88,13 +95,45 @@ export class ModalFormComponent implements OnInit, OnChanges {
 
   updateFormValidators(): void {
     const dataFormControl = this.formCreate.get('dataForm');
-    if (this.type === "Capacidad" || this.type === "Bootcamp") {
+    const name = this.formCreate.get('name');
+    const description = this.formCreate.get('description');
+
+    if (this.type === "Version"){
+      this.name?.disable();
+      name?.clearValidators();
+      description?.disable();
+      description?.clearValidators();
+      dataFormControl?.disable();
+      dataFormControl?.clearValidators();
+
+      this.maximumCapacity?.enable();
+      this.maximumCapacity.setValidators([
+        Validators.required,
+        Validators.min(constants.maximumCapacityValidators.min),
+        Validators.max(constants.maximumCapacityValidators.max)
+      ])
+
+      this.startDate.enable();
+      this.startDate.setValidators([
+        Validators.required,
+        this.startDateValidator,
+        this.yearValidator
+      ])
+      this.endDate.enable();
+      this.endDate.setValidators([
+        Validators.required,
+        this.endDateValidator,
+        this.yearValidator
+      ])
+    }
+    else if (this.type === "Capacidad" || this.type === "Bootcamp") {
       dataFormControl?.setValidators([
         Validators.required,
         Validators.maxLength(this.validators.maxLenght),
         Validators.minLength(this.validators.minLenght)
       ]);
       dataFormControl?.enable();
+  
     } else {
       dataFormControl?.clearValidators();
       dataFormControl?.disable();
@@ -114,11 +153,24 @@ export class ModalFormComponent implements OnInit, OnChanges {
     return this.formCreate.get('dataForm') as FormControl;
   }
 
+  get maximumCapacity() {
+    return this.formCreate.get('maximumCapacity') as FormControl;
+  }
+
+  get startDate() {
+    return this.formCreate.get('startDate') as FormControl;
+  }
+
+
+
+  get endDate() {
+    return this.formCreate.get('endDate') as FormControl;
+  }
+
+  
   closeModal(): void {
     this.modalSS.$modal.emit(false);
     this.modalSS.$modal.next(false);
- 
-
   }
 
   onSubmit() {
@@ -141,10 +193,60 @@ export class ModalFormComponent implements OnInit, OnChanges {
       this.newBootcamp.capacityList = this.dataList;
       this.bootcampSvc.postBootcamp(this.newBootcamp)
     }
+    else if (this.type === "Version") {
+      this.newVersion.maximumCapacity = this.formCreate.value.maximumCapacity!;
+      this.newVersion.startDate = this.formCreate.value.startDate!;
+      this.newVersion.endDate = this.formCreate.value.endDate!;
+      
+      const storedBootcamp = localStorage.getItem('bootcamp');
+      if (storedBootcamp) {
+        const bootcamp = JSON.parse(storedBootcamp);
+        this.newVersion.bootcampId = bootcamp.id;
+      }
+
+      this.versionSvc.postVersion(this.newVersion)
+    }
     this.modalSS.$modalMessage.emit(true);
     this.closeModal();
     this.formCreate.reset();
   }
+
+
+  yearValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const today = new Date();
+    const maxYear = today.getFullYear() + 2;
+    const controlDate = new Date(control.value);
+    const yearControl = controlDate.getFullYear();
+
+    if (yearControl > maxYear) {
+      return { 'yearInvalid': true };
+    }
+    
+    return null;
+  }
+
+  startDateValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const today = new Date();
+
+    if (control.value && new Date(control.value) < today) {
+      return { 'startDateInvalid': true };
+    }
+    
+    return null;
+  }
+  endDateValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const startDate = control.parent?.get('startDate')?.value;
+    const endDate = control.value;
+
+    console.log(startDate, endDate)
+
+    if (endDate && startDate && new Date(endDate) < new Date(startDate)) {
+      return { 'endDateInvalid': true };
+    }
+    
+    return null;
+  }
+
 
 
   onTechnologyListChanged(dataList: ITechnology[] | ICapacity[]): void {

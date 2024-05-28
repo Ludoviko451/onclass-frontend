@@ -21,9 +21,6 @@ export class ErrorResponseInterceptor implements HttpInterceptor {
                     // Server-side error
                     console.error('Error del servidor:', error);
                     switch (error.status) {
-                        case 400:
-                            errorMessage.message = `Bad Request`;
-                            break;
                         case 500:
                             errorMessage.message = `Error del servidor`;
                             break;

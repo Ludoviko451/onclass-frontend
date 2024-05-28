@@ -2,13 +2,15 @@
     <app-text [text]="text"></app-text>
     <input
       class="form__input"
-      type="text"
+      type="{{inputType}}"
       [placeholder]="placeholder"
       [name]="name"
       [ngClass]="{'invalid-input': invalid}"
       [value]="value"
       (input)="onInput($event)"
       (blur)="onTouched()"
+      min="2024-01-01"
+      max="2025-12-31"
     />
 </label>
 

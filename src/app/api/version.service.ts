@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Response } from 'src/shared/models/response';
 import { SwitchService } from './switch.service';
 import { IVersion } from 'src/shared/models/version.interface';
+import { IVersionRequest } from 'src/shared/models/version.request';
 
 @Injectable({providedIn: 'root'})
 export class VersionService {
@@ -30,5 +31,21 @@ export class VersionService {
 
     public getVersion(bootcampId: number) {
         return this._http.get<IVersion[]>(`${this._endpoint}?page=${this.page}&size=${this.size}&field=id&sortBy=${this.order}&bootcampIds=${bootcampId}`)
+    }
+
+    public postVersion(newVersion: IVersionRequest): void {
+        this._http.post<IVersionRequest>(this._endpoint, newVersion)
+            .subscribe({
+                next: (createdVersion: IVersionRequest) => {
+                    this.switchSvc.$postData.next(createdVersion)
+                    this.postResponse.status = 201
+                    this.postResponse.message = "!Version Creada!"
+                    this.switchSvc.$postData.next(this.postResponse)
+                },
+                error: (error) => {
+                    this.postResponse = error;
+                    this.switchSvc.$postData.next(this.postResponse)
+                }
+            })
     }
 }

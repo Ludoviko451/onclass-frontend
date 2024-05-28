@@ -41,20 +41,7 @@ describe('ErrorResponseInterceptor', () => {
     req.error(mockErrorEvent);
   });
 
-  it('should handle server-side error with status 400', () => {
-    const mockErrorResponse = { status: 400, statusText: 'Bad Request' };
 
-    httpClient.get('/test').subscribe({
-      next: () => fail('should have failed with a 400 error'),
-      error: (error: Response) => {
-        expect(error.status).toBe(400);
-        expect(error.message).toBe('Bad Request');
-      }
-    });
-
-    const req = httpMock.expectOne('/test');
-    req.flush({ message: 'Bad Request' }, mockErrorResponse);
-  });
 
 
   it('should handle unexpected server-side error', () => {

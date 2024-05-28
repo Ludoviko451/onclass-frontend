@@ -48,12 +48,16 @@
     color: white;
     background-color:var(--general-color);
     font-weight: bold;
+    transition: background-color 1s ease;
+
+    &:hover{
+        cursor: pointer;
+        background-color: orangered;
+        color: #000;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 }
 
-.open-button:hover{
-    cursor: pointer;
-
-}
 
 .pagination-button{
     border: 0;
@@ -94,7 +98,8 @@
     cursor: pointer;
     padding: 10px 20px;
     font-size: 16px;
-    border: 3px solid black;
+    height: 50px;
+    border: 0px;
     border-radius: 50px;
     background-color: var(--general-color);
     color: #333;

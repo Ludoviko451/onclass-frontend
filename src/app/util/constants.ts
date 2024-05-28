@@ -10,6 +10,17 @@ export const constants = {
 
     descriptionMaxLength: "La descripción solo puede tener maximo 90 caracteres",
 
+    maximumCapacityRequired: "Se requiere la capacidad maxima",
+    maximumCapacityMaxLength: "La capacidad maxima solo puede tener maximo 50 integrantes",
+    maximumCapacityMinLength: "La capacidad maxima solo puede tener minimo 1 integrante",
+
+    endDateBelowStartDate: "La fecha de fin no puede ser anterior a la fecha de inicio",
+
+    startDateInvalid: "La fecha de inicio no puede ser antes de hoy",
+
+    yearInvalid: "Solo se permiten crear versiones dentro de un rango de 2 años",
+    startDateRequired: "Se requiere la fecha de inicio",
+    endDateRequired: "Se requiere la fecha de fin",
     asc: "Asc",
 
     desc: "Desc",
@@ -34,6 +45,12 @@ export const constants = {
         min: 3,
 
         max: 20
-    }
+    },
+
+    maximumCapacityValidators: {  
+        min: 1,
+        max: 50
+    },
+
 }
 
