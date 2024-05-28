@@ -7,9 +7,16 @@ import { RouteImages } from 'src/app/util/route.images';
     styleUrls: ['./card.component.css'],
 })
 export class CardComponent {
-
+    @Input() isBootcamp = false;
     route = RouteImages
     @Input() title:string = '';
-
     @Input() description: string = '';
+
+    changeImage() {
+
+        if (this.isBootcamp) {
+            return this.route.VERSION
+        }
+        return this.route.BUTTON
+    }
 }

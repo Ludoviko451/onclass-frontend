@@ -16,24 +16,30 @@ export class SelectComponent  implements OnInit{
   @Input() type: string = ""
 
   @Output() dataListChanged = new EventEmitter<ITechnology[]>()
-  technologys: ITechnology[] = []
+  data: any[] = []
   technologySvc = inject(TechnologyService);
   capacitySvc = inject(CapacityService)
-
+  typeData =''
   public technologyList$!: Observable<ITechnology[]>;
   public capacityList$! : Observable<ICapacity[]>;
 
   ngOnInit(): void {
       console.log(this.type)
+      if(this.type === "Bootcamp"){
+        this.typeData = "Capacidad"
+      } else if (this.type === "Capacidad"){
+        this.typeData = "Tecnologia"
+      }
       this.capacityList$ = this.capacitySvc.getAllCapacity();
       this.technologyList$ = this.technologySvc.getAllTechnologies();
   }
 
   deleteItem(data: ITechnology | ICapacity) {
-    const index = this.technologys.indexOf(data);
+    console.log(data)
+    const index = this.data.indexOf(data);
     if (index > -1) {
-      this.technologys.splice(index, 1);
-      this.dataListChanged.emit(this.technologys);
+      this.data.splice(index, 1);
+      this.dataListChanged.emit(this.data);
     }
   }
 
@@ -48,12 +54,10 @@ export class SelectComponent  implements OnInit{
     return null;
   }
 
-  addElement(tech: ITechnology | ICapacity) {
-    if(this.technologys.includes(tech)) {
-  
-    } else {
-      this.technologys.push(tech)
-      this.dataListChanged.emit(this.technologys)
+  addElement(item: ITechnology | ICapacity) {
+    if(!this.data.includes(item)) {
+      this.data.push(item)
+      this.dataListChanged.emit(this.data)
     }
   }
   openSelect() {

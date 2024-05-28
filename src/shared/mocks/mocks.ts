@@ -12,6 +12,21 @@ export const mocks = {
         description: "blabla"
       }
     ],
+
+    capacities: [
+      {
+        id: 1,
+        name: "Capacidad 1",
+        description: "blabla",
+        technologiesList: []
+      },
+      {
+        id: 2,
+        name: "Capacidad 2",
+        description: "blabla",
+        technologiesList: []
+      }
+    ],
   
     onlyOne: {
       id: 1,

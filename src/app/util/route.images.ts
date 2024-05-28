@@ -7,4 +7,5 @@ export enum RouteImages {
     HOME = './assets/images/home.svg',
     LIBRARY = './assets/images/library.svg',
     BUTTON = './assets/images/button.svg',
+    VERSION = './assets/images/buttonVersion.svg'
 }

@@ -61,10 +61,8 @@ export class GenericListComponent<T> implements OnInit, OnDestroy {
    loadDataList(): void {
     this.dataList$ = this.dataService.getData().pipe(
       catchError(error => {
-
         this.errorMessage.status = error.status
         this.errorMessage.message = error.message;
-
         return EMPTY;
       })
     );
@@ -75,7 +73,7 @@ export class GenericListComponent<T> implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
+    this.unsubscribe$.unsubscribe();
+
   }
 }

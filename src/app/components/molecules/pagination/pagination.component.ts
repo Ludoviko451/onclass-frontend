@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { BootcampService } from 'src/app/api/bootcamp.service';
 import { CapacityService } from 'src/app/api/capacity.service';
 import { PaginationService } from 'src/app/api/pagination.service';
 import { TechnologyService } from 'src/app/api/technology.service';
 import { RouteImages } from 'src/app/util/route.images';
+import { IBootcamp } from 'src/shared/models/bootcamp.interface';
 import { ICapacity } from 'src/shared/models/capacity.interface';
 import { ITechnology } from 'src/shared/models/technology.interface';
 
@@ -15,38 +17,38 @@ import { ITechnology } from 'src/shared/models/technology.interface';
 export class PaginationComponent implements OnInit {
   @Output() pageChanged: EventEmitter<number> = new EventEmitter<number>();
   @Input() type: string = '';
+
   routes = RouteImages;
   technologyList$!: Observable<ITechnology[]>;
-  capacityList$!: Observable<ICapacity[]>
+  capacityList$!: Observable<ICapacity[]>;
+  BootcampList$!: Observable<IBootcamp[]>;
   currentPage: number = 0;
   displayedPages: number[] = [];
   totalPages: number = 1;
   pageSize: number = 10;
   technologySvc = inject(TechnologyService);
   capacitySvc = inject(CapacityService);
+  bootcampSvc = inject(BootcampService);
   paginationSvc = inject(PaginationService);
-  dataList = []
 
 
   ngOnInit(): void {
     this.paginationSvc.$sizeChange.subscribe((size) => {
       this.pageSize = size;
-      if(this.type === 'Tecnologia') {
-        this.loadTechnologyList();
-      }
-      if(this.type === 'Capacidad') {
-        this.loadCapacityList();
-      }
+      this.loadData();
       this.currentPage = 0;
     });
-    if(this.type === 'Tecnologia') {
-      this.loadTechnologyList();
-    }
-    if(this.type === 'Capacidad') {
-      this.loadCapacityList();
-    }
+    this.loadData();
   }
 
+  loadBootcampList(): void {
+    this.BootcampList$ = this.bootcampSvc.getAllBootcamps();
+
+    this.BootcampList$.subscribe(bootcamps => {
+      this.totalPages = Math.ceil(bootcamps.length / this.pageSize);
+      this.updateDisplayedPages();
+    });
+  }
   loadCapacityList(): void {
     this.capacityList$ = this.capacitySvc.getAllCapacity();
 
@@ -111,4 +113,15 @@ export class PaginationComponent implements OnInit {
     return this.currentPage === page ? 'pagination-button pagination-button__active' : 'pagination-button';
   }
   
+  loadData(){
+    if(this.type === 'Tecnologia') {
+      this.loadTechnologyList();
+    }
+    else if(this.type === 'Capacidad') {
+      this.loadCapacityList();
+    }
+    else if(this.type === 'Bootcamp') {
+      this.loadBootcampList();
+    }
+  }
 }

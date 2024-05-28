@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject} from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { tap } from 'rxjs';
 import { IBootcamp } from 'src/shared/models/bootcamp.interface';
 import { DataService } from 'src/shared/models/data-service.interface';
 import { IBootcampRequest } from 'src/shared/models/bootcamp.request';
@@ -43,6 +42,10 @@ export class BootcampService implements DataService<IBootcamp> {
 
     public getData() {
         return this._http.get<IBootcamp[]>(`${this._endpoint}?page=${this.page}&size=${this.size}&sortBy=${this.order}&capacities=true&field=id`)
+    }
+
+    public getAllBootcamps() {
+        return this._http.get<IBootcamp[]>(`${this._endpoint}?page=0&size=999&sortBy=asc&capacities=true&field=id`)
     }
 
     public postBootcamp(newBootcamp : IBootcampRequest): void {

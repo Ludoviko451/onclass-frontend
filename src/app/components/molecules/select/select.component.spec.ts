@@ -31,15 +31,16 @@ describe('SelectComponent', () => {
   });
 
   it('should delete a item', () => {
-    component.technologys = mocks.technologies
-    component.deleteItem(component.technologys[0])
-    expect(component.technologys.length).toBe(1);
+    component.type = "Capacidad";
+    component.data = mocks.technologies
+    component.deleteItem(component.data[0])
+    expect(component.data.length).toBe(1);
   })
 
   it('should add an item', () => {
-    component.technologys = mocks.technologies
+    component.data = mocks.technologies
     component.addElement(mocks.onlyOne)
-    expect(component.technologys.length).toBe(2);
+    expect(component.data.length).toBe(2);
   })
 
   it('should open the select', () => {

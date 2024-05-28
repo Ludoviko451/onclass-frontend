@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/pages/home/home.component';
 import { LibraryComponent } from './components/pages/library/library.component';
 import { TechnologyComponent } from './components/pages/technology/technology.component';
 import { CapacityComponent } from './components/pages/capacity/capacity.component';
 import { BootcampComponent } from './components/pages/bootcamp/bootcamp.component';
+import { VersionComponent } from './components/pages/version/version.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
       { path: '', redirectTo: 'technology', pathMatch: 'full' },
       { path: 'technology', component: TechnologyComponent },
       { path: 'capacity', component: CapacityComponent },
-      { path: 'bootcamp', component: BootcampComponent,}
+      { path: 'bootcamp', component: BootcampComponent,},
+      { path: 'version', component: VersionComponent,}
     ]
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },

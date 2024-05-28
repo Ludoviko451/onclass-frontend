@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { contants } from 'src/app/util/constants';
+import { constants } from 'src/app/util/constants';
 @Component({
   selector: 'app-sortby',
   templateUrl: './sortby.component.html',
@@ -13,8 +13,8 @@ export class SortbyComponent implements OnInit {
   ngOnInit(): void {
   }
  
-  public asc = contants.asc;
-  public desc = contants.desc;
+  public asc = constants.asc;
+  public desc = constants.desc;
   public order = this.asc;
 
   changeOrder() {

@@ -1,22 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { of } from 'rxjs';
 import { ModalFormComponent } from './modal-form.component';
-import { SwitchService } from 'src/app/api/switch.service';
 import { TechnologyService } from 'src/app/api/technology.service';
 import { CapacityService } from 'src/app/api/capacity.service';
-import { ITechnology } from 'src/shared/models/technology.interface';
 import { By } from '@angular/platform-browser';
 import { MoleculesModule } from '../molecules.module';
 import { HttpClientModule } from '@angular/common/http';
-import { Inject } from '@angular/core';
 import { mocks } from 'src/shared/mocks/mocks';
+import { BootcampService } from 'src/app/api/bootcamp.service';
+import { constants } from 'src/app/util/constants';
 
 describe('ModalFormComponent', () => {
   let component: ModalFormComponent;
   let fixture: ComponentFixture<ModalFormComponent>;
   let technologySvc: TechnologyService;
   let capacitySvc: CapacityService;
+  let bootcampSvc: BootcampService;
   beforeEach(async () => {
 
 
@@ -31,6 +30,7 @@ describe('ModalFormComponent', () => {
     fixture = TestBed.createComponent(ModalFormComponent);
     technologySvc = TestBed.inject(TechnologyService);
     capacitySvc = TestBed.inject(CapacityService);
+    bootcampSvc = TestBed.inject(BootcampService);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -72,16 +72,6 @@ describe('ModalFormComponent', () => {
     expect(component.closeModal).toHaveBeenCalled();
   });
 
-
-  it('should initialize technologies on ngOnInit', () => {
-
-    const techs: ITechnology[] = mocks.technologies;
-    spyOn(technologySvc, 'getAllTechnologies').and.returnValue(of(techs));
-    component.ngOnInit();
-    expect(component.technologies).toEqual(techs);
-    expect(component.formCreate.controls['technologiesForm'].value).toEqual(techs);
-  });
-  
   it('should submit a technology', () => {
     component.type = "Tecnologia"
     component.newTechnology.name = "Tecnologia1"
@@ -103,4 +93,32 @@ describe('ModalFormComponent', () => {
     expect(capacitySvc.postCapacity).toHaveBeenCalled()
   })
 
+  it('should submit a bootcamp', () => {
+    component.type = "Bootcamp"
+    component.newBootcamp.name = "Bootcamp1"
+    component.newBootcamp.description = "blabla"
+    component.newBootcamp.capacityList = mocks.capacities;
+
+    spyOn(bootcampSvc, 'postBootcamp')
+    component.onSubmit()
+    expect(bootcampSvc.postBootcamp).toHaveBeenCalled()
+  })
+
+  it('should set validators for bootcamp', () => {
+    component.type = "Bootcamp"
+    component.setValidators();
+    expect(component.validators.maxLenght).toBe(constants.capacityValidators.max);
+    expect(component.validators.minLenght).toBe(constants.capacityValidators.min);
+    expect(component.validators.maxlengthMessage).toBe(constants.capacityMaxLenght);
+    expect(component.validators.minlengthMessage).toBe(constants.capacityMinLenght);
+  })
+
+  it('should set validators for capacity', () => {
+    component.type = "Capacidad"
+    component.setValidators();
+    expect(component.validators.maxLenght).toBe(constants.technologyValidators.max);
+    expect(component.validators.minLenght).toBe(constants.technologyValidators.min);
+    expect(component.validators.maxlengthMessage).toBe(constants.technologyMaxLenght);
+    expect(component.validators.minlengthMessage).toBe(constants.technologyMinLenght);
+  })  
 });

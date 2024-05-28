@@ -12,6 +12,7 @@ import { SwitchService } from "src/app/api/switch.service";
 import { HttpClient } from "@angular/common/http";
 import { OrganismsModule } from "../organisms/organisms.module";
 import { BootcampComponent } from './bootcamp/bootcamp.component';
+import { VersionComponent } from './version/version.component';
 
 
 
@@ -21,7 +22,8 @@ import { BootcampComponent } from './bootcamp/bootcamp.component';
         TechnologyComponent,
         LibraryComponent,
         HomeComponent,
-        BootcampComponent
+        BootcampComponent,
+        VersionComponent
     ],
 
     imports: [
@@ -43,7 +45,8 @@ import { BootcampComponent } from './bootcamp/bootcamp.component';
         LibraryComponent,
         TechnologyComponent,
         CapacityComponent,
-        BootcampComponent
+        BootcampComponent,
+        VersionComponent
     ]
 })
 
