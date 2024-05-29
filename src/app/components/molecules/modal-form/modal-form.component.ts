@@ -12,7 +12,7 @@ import { IBootcampRequest } from 'src/shared/models/bootcamp.request';
 import { BootcampService } from 'src/app/api/bootcamp.service';
 import { IVersionRequest } from 'src/shared/models/version.request';
 import { VersionService } from 'src/app/api/version.service';
-
+import { endDateValidator, startDateValidator, yearValidator } from './../../../util/datevalidators';
 @Component({
   selector: 'app-modal-form',
   templateUrl: './modal-form.component.html',
@@ -116,14 +116,14 @@ export class ModalFormComponent implements OnInit, OnChanges {
       this.startDate.enable();
       this.startDate.setValidators([
         Validators.required,
-        this.startDateValidator,
-        this.yearValidator
+        startDateValidator,
+        yearValidator
       ])
       this.endDate.enable();
       this.endDate.setValidators([
         Validators.required,
-        this.endDateValidator,
-        this.yearValidator
+        endDateValidator,
+        yearValidator
       ])
     }
     else if (this.type === "Capacidad" || this.type === "Bootcamp") {
@@ -210,44 +210,6 @@ export class ModalFormComponent implements OnInit, OnChanges {
     this.closeModal();
     this.formCreate.reset();
   }
-
-
-  yearValidator(control: AbstractControl): { [key: string]: boolean } | null {
-    const today = new Date();
-    const maxYear = today.getFullYear() + 2;
-    const controlDate = new Date(control.value);
-    const yearControl = controlDate.getFullYear();
-
-    if (yearControl > maxYear) {
-      return { 'yearInvalid': true };
-    }
-    
-    return null;
-  }
-
-  startDateValidator(control: AbstractControl): { [key: string]: boolean } | null {
-    const today = new Date();
-
-    if (control.value && new Date(control.value) < today) {
-      return { 'startDateInvalid': true };
-    }
-    
-    return null;
-  }
-  endDateValidator(control: AbstractControl): { [key: string]: boolean } | null {
-    const startDate = control.parent?.get('startDate')?.value;
-    const endDate = control.value;
-
-    console.log(startDate, endDate)
-
-    if (endDate && startDate && new Date(endDate) < new Date(startDate)) {
-      return { 'endDateInvalid': true };
-    }
-    
-    return null;
-  }
-
-
 
   onTechnologyListChanged(dataList: ITechnology[] | ICapacity[]): void {
     this.dataList = dataList ?? [];

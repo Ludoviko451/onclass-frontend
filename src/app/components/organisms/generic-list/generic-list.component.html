@@ -1,35 +1,39 @@
-<main>
-  <div class="options-container">
-    <section class="options-container__button">
-      <app-sortby (orderChange)="changeOrder()"></app-sortby>
+
+<main class="main--container">
+    <section class="options-container">
+      <div class="options-container__button">
+        <app-sortby (orderChange)="changeOrder()"></app-sortby>
+      </div>
+      <div class="options-container__size">
+        <app-size-changer (sizeChanged)="onSizeChanged($event)"></app-size-changer>
+      </div>
     </section>
-    <section class="options-container__size">
-      <app-size-changer (sizeChanged)="onSizeChanged($event)"></app-size-changer>
+  
+    <section class="card-container" *ngIf="(dataList$ | async) as items">
+      <ng-container *ngFor="let item of items">
+        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
+      </ng-container>
     </section>
-  </div>
-
-  <section class="card-container" *ngIf="(dataList$ | async) as items">
-    <ng-container *ngFor="let item of items">
-      <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
-    </ng-container>
-  </section>
-
-  <div *ngIf="errorMessage.status === 0 || errorMessage.status === 404" class="message">
-    <app-text [text]="errorMessage.message"></app-text>
-  </div>
-
-  <app-modal-message [isSuccessful]="postResponse.status > 300 || postResponse.status === 0 ? false : true" [text]="text"></app-modal-message>
-
-  <section class="bottom-container">
-    <div class="bottom-container__button">
-      <app-button (buttonClick)="openModal()" className="open-button">+ Crear</app-button>
+  
+    <div *ngIf="errorMessage.status === 0 || errorMessage.status === 404 || errorMessage.status === 401" class="message">
+      <app-text [text]="errorMessage.message"></app-text>
     </div>
-    <div class="bottom-container__pagination">
-      <app-pagination (pageChanged)="onPageChanged($event)" type="{{type}}"></app-pagination>
-    </div>
-  </section>
 
-  <div *ngIf="modalSwitch">
-    <app-modal-form class="modal-form" type={{type}}></app-modal-form>
-  </div>
-</main>
+    <app-modal-message [isSuccessful]="postResponse.status > 300 || postResponse.status === 0 ? false : true" [text]="text"></app-modal-message>
+  
+    <section class="bottom-container">
+      <div class="bottom-container__button">
+        <app-button (buttonClick)="openModal()" className="open-button">+ Crear</app-button>
+      </div>
+      <div class="bottom-container__pagination">
+        <app-pagination (pageChanged)="onPageChanged($event)" type="{{type}}"></app-pagination>
+      </div>
+    </section>
+  
+    <div *ngIf="modalSwitch">
+      <app-modal-form class="modal-form" type={{type}}></app-modal-form>
+    </div>
+  </main>
+  
+  
+

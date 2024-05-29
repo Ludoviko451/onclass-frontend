@@ -12,7 +12,7 @@ import { DataService } from 'src/shared/models/data-service.interface';
 export class TechnologyService implements DataService<ITechnology> {
   private readonly _http = inject(HttpClient);
   private readonly _endpoint = environment.apiTechnology;
-  private size = 10;
+  public size = 10;
   public page = 0;
   public order = 'asc';
 

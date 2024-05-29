@@ -3,6 +3,7 @@ import { EMPTY, Observable, Subject } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { SwitchService } from 'src/app/api/switch.service';
 import { VersionService } from 'src/app/api/version.service';
+import { Response } from 'src/shared/models/response';
 import { IVersion } from 'src/shared/models/version.interface';
 
 @Component({
@@ -19,6 +20,7 @@ export class VersionComponent implements OnInit {
   name: string = '';
   modalSwitch = false;
   postResponse: Response = {} as Response;
+
   private unsubscribe$ = new Subject<void>();
   text = '';
 
@@ -28,6 +30,7 @@ export class VersionComponent implements OnInit {
     this.switchSvc.$postData.pipe(takeUntil(this.unsubscribe$)).subscribe((postResponse) => {
       this.postResponse = postResponse;
       this.text = postResponse.message;
+
       this.loadVersionList(this.bootcampId);
     })
 
@@ -46,9 +49,9 @@ export class VersionComponent implements OnInit {
   loadVersionList(bootcampId: number): void {
     this.versions$ = this.versionSvc.getVersion(bootcampId).pipe(
       catchError((err) => {
-        console.log(err);
         return EMPTY;
       })
     );
   }
+  
 }

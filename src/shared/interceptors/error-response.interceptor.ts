@@ -21,6 +21,9 @@ export class ErrorResponseInterceptor implements HttpInterceptor {
                     // Server-side error
                     console.error('Error del servidor:', error);
                     switch (error.status) {
+                        case 401:
+                            errorMessage.message = `NO AUTORIZADO`;
+                            break;
                         case 500:
                             errorMessage.message = `Error del servidor`;
                             break;

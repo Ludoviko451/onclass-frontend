@@ -68,4 +68,9 @@ describe('TechnologyService', () => {
     service.changePage(1);
     expect(service.page).toBe(1);
   });
+
+  it('should change size', () => {
+    service.changeSize(20);
+    expect(service.size).toBe(20);
+  });
 });

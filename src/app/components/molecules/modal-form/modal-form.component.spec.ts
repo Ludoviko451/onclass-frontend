@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ModalFormComponent } from './modal-form.component';
 import { TechnologyService } from 'src/app/api/technology.service';
 import { CapacityService } from 'src/app/api/capacity.service';
@@ -9,6 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { mocks } from 'src/shared/mocks/mocks';
 import { BootcampService } from 'src/app/api/bootcamp.service';
 import { constants } from 'src/app/util/constants';
+import { VersionService } from 'src/app/api/version.service';
+import { startDateValidator, yearValidator } from 'src/app/util/datevalidators';
 
 describe('ModalFormComponent', () => {
   let component: ModalFormComponent;
@@ -16,6 +18,7 @@ describe('ModalFormComponent', () => {
   let technologySvc: TechnologyService;
   let capacitySvc: CapacityService;
   let bootcampSvc: BootcampService;
+  let versionSvc: VersionService;
   beforeEach(async () => {
 
 
@@ -31,6 +34,7 @@ describe('ModalFormComponent', () => {
     technologySvc = TestBed.inject(TechnologyService);
     capacitySvc = TestBed.inject(CapacityService);
     bootcampSvc = TestBed.inject(BootcampService);
+    versionSvc = TestBed.inject(VersionService);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -104,6 +108,21 @@ describe('ModalFormComponent', () => {
     expect(bootcampSvc.postBootcamp).toHaveBeenCalled()
   })
 
+  it('should submit a version', () => {
+    component.type = "Version"
+    component.newVersion.maximumCapacity = 10
+    component.newVersion.startDate = '09-09-2024';
+    component.newVersion.endDate = '10-10-2024';
+
+    spyOn(versionSvc, 'postVersion')
+    component.onSubmit()
+    expect(versionSvc.postVersion).toHaveBeenCalled()
+  })
+
+
+
+  
+
   it('should set validators for bootcamp', () => {
     component.type = "Bootcamp"
     component.setValidators();
@@ -120,5 +139,19 @@ describe('ModalFormComponent', () => {
     expect(component.validators.minLenght).toBe(constants.technologyValidators.min);
     expect(component.validators.maxlengthMessage).toBe(constants.technologyMaxLenght);
     expect(component.validators.minlengthMessage).toBe(constants.technologyMinLenght);
-  })  
+  })
+  
+  it('should form for version', () => {
+    
+    component.type = "Version";
+    component.updateFormValidators();
+
+    expect(component.name.disabled).toBeTruthy();
+    expect(component.description.disabled).toBeTruthy();
+    expect(component.dataForm.disabled).toBeTruthy();
+    expect(component.maximumCapacity.enabled).toBeTruthy();
+    expect(component.startDate.enabled).toBeTruthy();
+    expect(component.endDate.enabled).toBeTruthy();
+  })
+  
 });

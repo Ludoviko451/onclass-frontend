@@ -11,11 +11,8 @@ import { IVersion } from 'src/shared/models/version.interface';
   templateUrl: './bootcamp.component.html',
   styleUrls: ['./bootcamp.component.css']
 })
-export class BootcampComponent implements OnInit {
+export class BootcampComponent{
   
-  ngOnInit(): void {
-    // Inicialización necesaria si aplica
-  }
 
   sendBootcamp(bootcamp: IBootcamp) {
     localStorage.setItem('bootcamp', JSON.stringify(bootcamp));

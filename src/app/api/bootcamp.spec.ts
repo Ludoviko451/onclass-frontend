@@ -1,23 +1,26 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { CapacityService } from './capacity.service';
+import { BootcampService } from './bootcamp.service';
 import { ICapacity} from 'src/shared/models/capacity.interface';
 import { Response } from 'src/shared/models/response';
 import { SwitchService } from './switch.service';
 import { ICapacityRequest } from 'src/shared/models/capacity.request';
+import { IBootcamp } from 'src/shared/models/bootcamp.interface';
+import { IBootcampRequest } from 'src/shared/models/bootcamp.request';
+import { mocks } from 'src/shared/mocks/mocks';
 
 
-describe('CapacityService', () => {
-  let service: CapacityService;
+describe('BootcampService', () => {
+  let service: BootcampService;
   let httpMock: HttpTestingController;
   let switchService: SwitchService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [CapacityService, SwitchService]
+      providers: [BootcampService, SwitchService]
     });
-    service = TestBed.inject(CapacityService);
+    service = TestBed.inject(BootcampService);
     httpMock = TestBed.inject(HttpTestingController);
     switchService = TestBed.inject(SwitchService);
   });
@@ -49,55 +52,52 @@ describe('CapacityService', () => {
   });
 
   it('should fetch data', () => {
-    const dummyCapacities: ICapacity[] = [
-      { id: 1, name: 'Capacity 1', description: 'Description 1', technologies: [] },
-      { id: 2, name: 'Capacity 2', description: 'Description 2', technologies: [] }
-    ];
+    const dummyBootcamps: IBootcamp[] = mocks.bootcamps;
 
     service.getData().subscribe((capacities) => {
       expect(capacities.length).toBe(2);
-      expect(capacities).toEqual(dummyCapacities);
+      expect(capacities).toEqual(dummyBootcamps);
     });
 
-    const req = httpMock.expectOne(`${service['_endpoint']}?page=0&size=10&sortBy=asc&technologies=true&field=name`);
+    const req = httpMock.expectOne(`${service['_endpoint']}?page=0&size=10&sortBy=asc&capacities=true&field=id`);
     expect(req.request.method).toBe('GET');
-    req.flush(dummyCapacities);
+    req.flush(dummyBootcamps);
   });
 
-  it('should post a capacity', () => {
-    const dummyCapacity: ICapacityRequest = {name: 'Capacity 1', description: 'Description 1', technologyList: [] };
+  it('should post a bootcamp', () => {
+    const dummyBootcamp: IBootcampRequest = mocks.bootcampRequest
     const successResponse: Response = { status: 201, message: '¡Capacidad Creada!' };
 
-    const postCapacitySpy = spyOn(switchService.$postData, 'next');
+    const postBootcampSpy = spyOn(switchService.$postData, 'next');
 
-    service.postCapacity(dummyCapacity);
+    service.postBootcamp(dummyBootcamp);
 
     const req = httpMock.expectOne(`${service['_endpoint']}`);
     req.flush(successResponse);
 
-    expect(postCapacitySpy).toHaveBeenCalledWith(jasmine.objectContaining<Response>({
+    expect(postBootcampSpy).toHaveBeenCalledWith(jasmine.objectContaining<Response>({
       status: 201,
-      message: '¡Capacidad Creada!'
+      message: '!Bootcamp Creado!'
     }))
     });
 
     it('should handle post capacity error response', () => {
-      const newCapacity: ICapacityRequest = {name: 'Capacity 1', description: 'Description 1', technologyList: [] };
+      const newBootcamp: IBootcampRequest =  mocks.bootcampRequest;
       const mockErrorResponse = { status: 400, statusText: 'Bad Request' };
-      const errorMessage = 'Http failure response for http://localhost:8080/capacity/: 400 Bad Request';
+      const errorMessage = 'Http failure response for http://localhost:8080/bootcamp/: 400 Bad Request';
 
-      const postCapacitySpy = spyOn(switchService.$postData, 'next');
+      const postBootcampSpy = spyOn(switchService.$postData, 'next');
 
-      service.postCapacity(newCapacity);
+      service.postBootcamp(newBootcamp);
 
       const req = httpMock.expectOne(`${service['_endpoint']}`);
       req.flush({ message: errorMessage }, mockErrorResponse);
 
-      expect(postCapacitySpy).toHaveBeenCalledWith(jasmine.objectContaining<Response>({
+      expect(postBootcampSpy).toHaveBeenCalledWith(jasmine.objectContaining<Response>({
         status: 400,
         message: errorMessage
     })
     );
-    });
+});
 });
 
