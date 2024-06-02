@@ -33,6 +33,10 @@ export const constants = {
     capacityMaxLenght: "EL MAXIMO DE CAPACIDADES SON 4",
     capacityMinLenght: "EL MINIMO DE CAPACIDADES SON 1",
 
+    emailRequired: "Se requiere el email",
+    emailInvalid: "Email invalido",
+
+    passwordRequired: "Se requiere la contraseña",
     capacityValidators: {
 
         min: 1,

@@ -1,0 +1,19 @@
+@import url("../../../../styles.css");   
+
+.main-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--navbar-color);
+    width: 100vw;
+    height: 100vh
+
+}
+
+.button-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}

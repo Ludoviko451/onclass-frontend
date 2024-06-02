@@ -13,6 +13,8 @@ import { HttpClient } from "@angular/common/http";
 import { OrganismsModule } from "../organisms/organisms.module";
 import { BootcampComponent } from './bootcamp/bootcamp.component';
 import { VersionComponent } from './version/version.component';
+import { LoginComponent } from '../molecules/login/login.component';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 
 
@@ -23,7 +25,8 @@ import { VersionComponent } from './version/version.component';
         LibraryComponent,
         HomeComponent,
         BootcampComponent,
-        VersionComponent
+        VersionComponent,
+        LoginPageComponent
     ],
 
     imports: [

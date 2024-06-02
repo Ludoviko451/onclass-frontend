@@ -46,7 +46,8 @@ export class ModalFormComponent implements OnInit, OnChanges {
     private capacitySvc: CapacityService,
     private bootcampSvc: BootcampService,
     private versionSvc: VersionService
-  ) {
+  ) 
+  {
     this.formCreate = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.maxLength(90)]],
@@ -189,7 +190,6 @@ export class ModalFormComponent implements OnInit, OnChanges {
 
       this.newBootcamp.name = this.formCreate.value.name!;
       this.newBootcamp.description = this.formCreate.value.description!;
-      console.log(this.dataList)
       this.newBootcamp.capacityList = this.dataList;
       this.bootcampSvc.postBootcamp(this.newBootcamp)
     }
@@ -211,7 +211,7 @@ export class ModalFormComponent implements OnInit, OnChanges {
     this.formCreate.reset();
   }
 
-  onTechnologyListChanged(dataList: ITechnology[] | ICapacity[]): void {
+  onDataListChanged(dataList: ITechnology[] | ICapacity[]): void {
     this.dataList = dataList ?? [];
     this.formCreate.get('dataForm')?.setValue(this.dataList);
   }

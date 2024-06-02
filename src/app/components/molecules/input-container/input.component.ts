@@ -41,6 +41,5 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       const value = (event.target as HTMLInputElement).value;
       this.value = value;
       this.onChange(value);
-      console.log(value)
     }
   }

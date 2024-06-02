@@ -1,0 +1,28 @@
+<div class="form-container">
+    <form class="form" [formGroup]="formLogin" (ngSubmit)="login()">
+      <header class="form-header">
+        <app-text text="{{type}}" className="form-container-title"></app-text>
+        <app-button (buttonClick)="closeModal()" className="modal__close-button"><i class="fa-solid fa-x"></i></app-button>
+      </header>
+      <div>
+        <app-input formControlName="email" text="Email" placeholder="Email" [invalid]="email.invalid && (email.touched || email.dirty)"></app-input>
+        <div *ngIf="email.invalid && (email.touched || email.dirty)" class="form-error__message">
+          <i class="fa-solid fa-triangle-exclamation form__icon"></i>
+          <app-text *ngIf="email.errors?.['required']" [text]="constants.emailRequired" textClass="form__error"></app-text>
+          <app-text *ngIf="email.errors?.['email']" [text]="constants.emailInvalid" textClass="form__error"></app-text>
+        </div>
+      </div>
+      <div>
+        <app-input formControlName="password" text="Contraseña" inputType="password" placeholder="Contraseña" [invalid]="password.invalid && (password.touched || password.dirty)"></app-input>
+        <div *ngIf="password.invalid && (password.touched || password.dirty)" class="form-error__message">
+          <i class="fa-solid fa-triangle-exclamation form__icon"></i>
+          <app-text *ngIf="password.errors?.['required']" [text]="constants.passwordRequired" textClass="form__error"></app-text>
+          </div>
+      </div>
+
+      <app-button type="submit" [disabled]="formLogin.invalid" className="submit-button {{ formLogin.invalid ? 'submit-button__disabled' : '' }}">Iniciar sesion</app-button>
+    </form>
+
+     <app-modal-message [text]="error" [isSuccessful]="false"></app-modal-message>
+  </div>
+  

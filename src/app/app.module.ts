@@ -8,6 +8,10 @@ import { MoleculesModule } from './components/molecules/molecules.module';
 import { PagesModule } from './components/pages/pages.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ErrorResponseInterceptor } from 'src/shared/interceptors/error-response.interceptor';
+import { AuthService } from './api/auth.service';
+import { JwtInterceptor } from 'src/shared/interceptors/jwt.interceptor';
+import { AuthGuard } from 'src/shared/guards/auth.guard';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,15 +23,20 @@ import { ErrorResponseInterceptor } from 'src/shared/interceptors/error-response
     AtomsModule,
     MoleculesModule,
     PagesModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorResponseInterceptor,
       multi: true
-    }
+    },
+    AuthService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    AuthGuard
   ],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

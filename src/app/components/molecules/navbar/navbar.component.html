@@ -3,7 +3,7 @@
 <div class="nav" [ngClass]="{'mobile-menu': isMobile, 'show': showMenu}">
     <img class="nav__logo" [src]="route.ONCLASS" alt="On Class Logo">
     <ul class="nav__items">
-            <li  *ngFor="let route of routes"routerLink="{{route.url}}" routerLinkActive="navbar__item--active" class="navbar__item">
+            <li  *ngFor="let route of routes"routerLink="{{route.url}}" routerLinkActive="navbar__item--active" class="navbar__item" [hidden] =route.isHidden>
                 <app-text className="nav__text-container" [hasImage]="true" iconClass={{route.icon}} text={{route.name}} alt="{{route.alt}}"></app-text>
             </li>
     </ul>

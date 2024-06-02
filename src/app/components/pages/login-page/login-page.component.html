@@ -1,0 +1,12 @@
+<main class="main-container">
+    <header>
+        <div>
+          <img class="form__user--icon" src={{route.ONCLASS}} alt="User icon">
+        </div>
+
+      </header>
+      <div class="button-container">
+      <app-button  *ngFor= "let button of typeButton" [className]="button.class" (buttonClick)="openLogin(button.type)" >{{button.name}}</app-button>
+      </div>
+      <app-login [hidden]="isHidden" type="{{type}}"></app-login>
+</main>

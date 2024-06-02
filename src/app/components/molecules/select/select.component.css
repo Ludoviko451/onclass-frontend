@@ -4,13 +4,14 @@
 .add-container {
     display: flex;
     align-items: center;
-    width: 90%;
+    width: 85%;
     height: 50px;
     border: 3px solid var(--general-color);
     background-color: rgba(231, 131, 61, 0.10);
     border-radius: 40px;
     margin: 20px auto;
     overflow: auto; /* Evita que el contenido desborde del contenedor */
+    position: relative;
 }
 
 .add-container__item {
@@ -49,13 +50,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 15px;
+    position: relative;
 }
 
 .data__list {
     background-color: white;
+    margin: 0px;
     width: 400px;
-    max-height: 300px;
+    max-height: 200px;
     border: 3px solid var(--general-color);
     border-radius: 30px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
@@ -65,7 +67,7 @@
     display: flex;
     flex-direction: column;
     z-index: 1;
-    position: fixed;
+    position: absolute;
     transition: opacity 0.3s ease;
 }
 
@@ -90,7 +92,6 @@
     display: flex;
     justify-content: end;
     position: absolute;
-    right: 850px;
 }
 
 .select__type{

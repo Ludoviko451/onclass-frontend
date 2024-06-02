@@ -7,13 +7,14 @@
   
 body{
     font-family: 'Poppins', sans-serif;
+    margin: 0px;
 }
   
 .main {
     display: grid;
     grid-template-columns: 1.5fr 2fr 2fr 2fr;
     grid-template-rows: 0.2fr 1fr 1fr 1fr;
-    height: 98vh;
+    height: 100vh;
     grid-template-areas: 
         "navbar header header header"
         "navbar router router router"
@@ -64,4 +65,3 @@ li {
     margin: 10px;
     list-style-type: none;
 }
-

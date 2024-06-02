@@ -2,7 +2,7 @@
     <form class="form" [formGroup]="formCreate">
         <header class="form-header">
             <app-text text="Crear {{type}}" className="form-container-title"></app-text>
-            <app-button (buttonClick)="closeModal()" className="modal__close-button">X</app-button>
+            <app-button (buttonClick)="closeModal()" className="modal__close-button"><i class="fa-solid fa-x"></i></app-button>
         </header>
         
         <main class="form-main" *ngIf="type === 'Bootcamp' || type === 'Capacidad' || type === 'Tecnologia'">
@@ -18,18 +18,20 @@
             <section class="form-section">
                 <app-input text="Descripción" formControlName="description" placeholder="Descripción de {{type}}" [invalid]="description.invalid && (description.touched || description.dirty)"></app-input>
                 <div *ngIf="description.invalid && (description.touched || description.dirty)" class="form-error__message">
+                    
                     <i class="fa-solid fa-triangle-exclamation form__icon"></i>
                     <app-text *ngIf="description.errors?.['required']" text="{{constants.descriptionRequired}}" textClass="form__error"></app-text>
                     <app-text *ngIf="description.errors?.['maxlength']" text="{{constants.descriptionMaxLength}}" textClass="form__error"></app-text>
                 </div>
-            </section>
-
+            </section> 
+            
             <section class="form-section" *ngIf="type === 'Capacidad' || type === 'Bootcamp'">
-                <app-select [type]="type" (dataListChanged)="onTechnologyListChanged($event)"></app-select>
-                <div *ngIf="dataForm?.invalid && (dataForm.touched || dataForm.dirty)" class="form-error__message">
-                    <app-text *ngIf="dataForm?.errors?.['required']" text={{validators.required}}></app-text>
-                    <app-text *ngIf="dataForm?.errors?.['maxlength']" text={{validators.maxlengthMessage}}></app-text>
-                    <app-text *ngIf="dataForm?.errors?.['minlength']" text={{validators.minlengthMessage}}></app-text>
+                <app-select [type]="type" (dataListChanged)="onDataListChanged($event)"></app-select>
+                <div *ngIf="dataForm.invalid"  class="form-error__message">
+                    <i class="fa-solid fa-triangle-exclamation form__icon"></i>
+                    <app-text *ngIf="dataForm.errors?.['required']" text={{validators.required}} textClass="form__error"></app-text>
+                    <app-text *ngIf="dataForm.errors?.['maxlength']" text={{validators.maxlengthMessage}} textClass="form__error"></app-text>
+                    <app-text *ngIf="dataForm.errors?.['minlength']" text={{validators.minlengthMessage}} textClass="form__error"></app-text>
                 </div>
             </section>
         </main>

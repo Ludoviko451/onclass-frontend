@@ -1,11 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Response } from '../models/response';
+import { SwitchService } from 'src/app/api/switch.service';
 
 @Injectable()
 export class ErrorResponseInterceptor implements HttpInterceptor {
+
+    switchSvc = inject(SwitchService);
+
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req).pipe(
             catchError((error: HttpErrorResponse) => {
@@ -20,6 +24,23 @@ export class ErrorResponseInterceptor implements HttpInterceptor {
                 } else {
                     // Server-side error
                     console.error('Error del servidor:', error);
+
+                    // Attempt to parse the error message if it's a JSON string
+                    if (typeof error.error === 'string') {
+                        try {
+                            const parsedError = JSON.parse(error.error);
+                            if (parsedError.message) {
+                                errorMessage.message = parsedError.message;
+                            } else {
+                                errorMessage.message = parsedError;
+                            }
+                        } catch (e) {
+                            errorMessage.message = error.error;
+                        }
+                    } else {
+                        errorMessage.message = error.error.message || error.message;
+                    }
+
                     switch (error.status) {
                         case 401:
                             errorMessage.message = `NO AUTORIZADO`;
@@ -31,9 +52,10 @@ export class ErrorResponseInterceptor implements HttpInterceptor {
                             errorMessage.message = `Estado del Servidor: Desconectado (Código de Error: 0)`;
                             break;  
                         default:
-                            errorMessage.message = `${error.error.message}`
+                            break;
                     }
                 }
+                console.log(errorMessage)
                 return throwError(() => errorMessage);
             })
         );

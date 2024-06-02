@@ -63,7 +63,6 @@ export class CapacityService implements DataService<ICapacity> {
               this.switchSvc.$postData.next(this.postResponse)
             },
             error: (error) => {
-              console.log(error)
               this.postResponse = error
               this.switchSvc.$postData.next(this.postResponse)
             }

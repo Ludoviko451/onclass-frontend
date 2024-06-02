@@ -17,6 +17,7 @@ import { TechnologyService } from 'src/app/api/technology.service';
 import { SwitchService } from 'src/app/api/switch.service';
 import { InputComponent } from './input-container/input.component';
 import { SortbyComponent } from './sortby/sortby.component';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -32,7 +33,8 @@ import { SortbyComponent } from './sortby/sortby.component';
     SelectComponent,
     SizeChangerComponent,
     InputComponent,
-    SortbyComponent
+    SortbyComponent,
+    LoginComponent
 
   ],
   imports: [
@@ -61,7 +63,8 @@ import { SortbyComponent } from './sortby/sortby.component';
     SelectComponent,
     SizeChangerComponent,
     InputComponent,
-    SortbyComponent
+    SortbyComponent,
+    LoginComponent
   ]
 })
 export class MoleculesModule { }

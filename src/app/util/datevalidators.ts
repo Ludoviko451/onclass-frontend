@@ -37,7 +37,6 @@ export const endDateValidator: ValidatorFn = (control: AbstractControl): { [key:
 
   const startDateControl = control.parent?.get('startDate');
 
-  console.log(startDateControl)
   if (startDateControl && startDateControl.value) {
     const startDate = new Date(startDateControl.value);
     const endDate = new Date(control.value);

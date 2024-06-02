@@ -24,7 +24,6 @@ export class SelectComponent  implements OnInit{
   public capacityList$! : Observable<ICapacity[]>;
 
   ngOnInit(): void {
-      console.log(this.type)
       if(this.type === "Bootcamp"){
         this.typeData = "Capacidad"
       } else if (this.type === "Capacidad"){
@@ -35,7 +34,6 @@ export class SelectComponent  implements OnInit{
   }
 
   deleteItem(data: ITechnology | ICapacity) {
-    console.log(data)
     const index = this.data.indexOf(data);
     if (index > -1) {
       this.data.splice(index, 1);
@@ -44,7 +42,6 @@ export class SelectComponent  implements OnInit{
   }
 
   dataList(){
-    console.log(this.type)
     if(this.type === "Bootcamp"){
       return this.capacityList$
     }

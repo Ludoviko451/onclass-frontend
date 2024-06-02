@@ -57,7 +57,6 @@ export class BootcampService implements DataService<IBootcamp> {
                     status: 201,
                     message: '!Bootcamp Creado!'
                   };
-                  console.log(this.postResponse);
                   this.switchSvc.$postData.next(this.postResponse);
             },
             error: (error) => {
