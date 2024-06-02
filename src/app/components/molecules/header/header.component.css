@@ -14,8 +14,16 @@
     border-radius: 50%;
     margin-right: 115px;
     padding: 10px 0px;
+    user-select: none;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
+.header__user{
+    position: relative;
+}
 /* @media (max-width: 768px) {
     .header {
         justify-content: center;

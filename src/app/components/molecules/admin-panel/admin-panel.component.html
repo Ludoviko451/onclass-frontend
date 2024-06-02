@@ -1,0 +1,10 @@
+<div class="admin-panel">
+    <ul class="admin-panel__list"> 
+        <div class="admin-panel__title">
+            <span>{{title}}</span>
+        </div>
+        <li *ngFor="let item of panel;" class="admin-panel__item" (click)="handleOperation(item.type)">{{item.name}}</li>
+    </ul>
+
+    <app-user-form *ngIf="showModal" [type]="type"></app-user-form>
+</div>

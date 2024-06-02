@@ -1,0 +1,45 @@
+.admin-panel{
+    position: absolute;
+    background-color: white;
+    border-radius: 20px;
+    border: 3px solid var(--general-color);
+    width: 200px;
+    height: auto;
+    right: 30px;
+    top: 80px;
+}
+
+.admin-panel__list{
+
+    padding: 0px;
+    margin: 0px;   
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.admin-panel__item{
+    margin: 0px;
+    font-size: 14px;
+    font-weight: bold;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 3px solid var(--general-color);
+    &:hover{
+        background-color: var(--general-color);
+        color: white;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+}
+
+.admin-panel__title{
+    height: 100%;
+    background-color: var(--general-color);
+    color: white;
+    font-weight: bold;
+    user-select: none;
+}

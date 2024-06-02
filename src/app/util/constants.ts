@@ -10,6 +10,20 @@ export const constants = {
 
     descriptionMaxLength: "La descripción solo puede tener maximo 90 caracteres",
 
+    lastNameRequired: "Se requiere el apellido",
+
+    dniRequired: "Se requiere el dni",
+    
+    dniMaxLength: "El dni solo puede tener maximo 12 caracteres",
+
+    phoneNumberRequired: "Se requiere el teléfono",
+
+    phoneNumberMaxLength: "El teléfono solo puede tener maximo 10 caracteres",
+
+    phoneNumberInvalid: "El teléfono no es valido",
+
+    phoneNumberPattern:  "^(300|3(?:0[1-3]|[1-2]\\d|3[0-3]))\\d{7}$",
+
     maximumCapacityRequired: "Se requiere la capacidad maxima",
     maximumCapacityMaxLength: "La capacidad maxima solo puede tener maximo 50 integrantes",
     maximumCapacityMinLength: "La capacidad maxima solo puede tener minimo 1 integrante",

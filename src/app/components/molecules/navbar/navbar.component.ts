@@ -37,9 +37,13 @@ export class NavbarComponent {
 
     verifyRole(){
         if(this.authSvc.currentUserValue){
-            return this.authSvc.currentUserValue.roles.includes("ADMIN")
+            return !this.authSvc.currentUserValue.roles.includes("ADMIN")
+        } else {
+            return true;
         }
     }
+
+    
     @HostListener('window:resize', ['$event'])
     onResize(event: any) {
         this.checkScreenWidth();

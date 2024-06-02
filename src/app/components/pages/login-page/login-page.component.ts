@@ -29,7 +29,7 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.switchSvc.$modal.subscribe((data) => {
-      console.log(data)
+
       this.isHidden = data
     })
 }

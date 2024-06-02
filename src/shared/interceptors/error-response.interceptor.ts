@@ -38,7 +38,7 @@ export class ErrorResponseInterceptor implements HttpInterceptor {
                             errorMessage.message = error.error;
                         }
                     } else {
-                        errorMessage.message = error.error.message || error.message;
+                        errorMessage.message = error.error.message || error.error.text;
                     }
 
                     switch (error.status) {
@@ -55,7 +55,7 @@ export class ErrorResponseInterceptor implements HttpInterceptor {
                             break;
                     }
                 }
-                console.log(errorMessage)
+
                 return throwError(() => errorMessage);
             })
         );

@@ -18,6 +18,10 @@ import { SwitchService } from 'src/app/api/switch.service';
 import { InputComponent } from './input-container/input.component';
 import { SortbyComponent } from './sortby/sortby.component';
 import { LoginComponent } from './login/login.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { HeaderComponent } from './header/header.component';
+import { OrganismsModule } from '../organisms/organisms.module';
+import { UserFormComponent } from './user-form/user-form.component';
 
 
 
@@ -34,7 +38,10 @@ import { LoginComponent } from './login/login.component';
     SizeChangerComponent,
     InputComponent,
     SortbyComponent,
-    LoginComponent
+    LoginComponent,
+    AdminPanelComponent,
+    HeaderComponent,
+    UserFormComponent
 
   ],
   imports: [
@@ -64,7 +71,10 @@ import { LoginComponent } from './login/login.component';
     SizeChangerComponent,
     InputComponent,
     SortbyComponent,
-    LoginComponent
+    LoginComponent,
+    HeaderComponent,
+    AdminPanelComponent,
+    UserFormComponent
   ]
 })
 export class MoleculesModule { }

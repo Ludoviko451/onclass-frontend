@@ -72,7 +72,7 @@ export class AuthService {
   private getRolesByEmail(email: string): Observable<string[]> {
     return this.http.get(`http://localhost:8090/user/roleByEmail?email=${email}`, { responseType: 'text' }).pipe(
       map((response: string) => {
-        console.log(response);
+
         return response.split(','); // Asume que los roles están separados por comas
       }),
       catchError((error) => {

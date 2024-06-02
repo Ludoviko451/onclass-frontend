@@ -12,6 +12,7 @@ import { AuthService } from './api/auth.service';
 import { JwtInterceptor } from 'src/shared/interceptors/jwt.interceptor';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { ReactiveFormsModule } from '@angular/forms';
+import { OrganismsModule } from './components/organisms/organisms.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     AtomsModule,
     MoleculesModule,
+    OrganismsModule,
     PagesModule,
     HttpClientModule,
     ReactiveFormsModule

@@ -1,0 +1,66 @@
+<div class="form-container">
+    <form class="form" [formGroup]="formUser" (ngSubmit)="registerUser()">
+      <header class="form-header">
+        <app-text text="{{type}}" className="form-container-title"></app-text>
+        <app-button (buttonClick)="closeModal()" className="modal__close-button"><i class="fa-solid fa-x"></i></app-button>
+      </header>
+
+      <section>
+        <app-input formControlName="name" text="Nombre" placeholder="Nombre" [invalid]="name.invalid && (name.touched || name.dirty)"></app-input>
+        <div *ngIf="name.invalid && (name.touched || name.dirty)" class="form-error__message">
+          <i class="fa-solid fa-triangle-exclamation form__icon"></i>
+          <app-text *ngIf="name.errors?.['required']" [text]="constants.nameRequired" textClass="form__error"></app-text>
+        </div>
+      </section>
+
+      <section>
+        <app-input formControlName="lastName" text="Apellidos" placeholder="Apellidos" [invalid]="lastName.invalid && (lastName.touched || lastName.dirty)"></app-input>
+        <div *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)" class="form-error__message">
+          <i class="fa-solid fa-triangle-exclamation form__icon"></i>
+          <app-text *ngIf="lastName.errors?.['required']" [text]="constants.lastNameRequired" textClass="form__error"></app-text>
+        </div>
+      </section>
+
+      <section>
+        <app-input formControlName="dni" text="DNI" inputType="number"  placeholder="DNI" [invalid]="dni.invalid && (dni.touched || dni.dirty)"></app-input>
+        <div *ngIf="dni.invalid && (dni.touched || dni.dirty)" class="form-error__message">
+          <i class="fa-solid fa-triangle-exclamation form__icon"></i>
+          <app-text *ngIf="dni.errors?.['required']" [text]="constants.dniRequired" textClass="form__error"></app-text>
+          <app-text *ngIf="dni.errors?.['maxlength']" [text]="constants.dniMaxLength" textClass="form__error"></app-text>
+        </div>
+      </section>
+      
+
+      <section>
+        <app-input formControlName="phoneNumber" text="Teléfono"  inputType="number"  placeholder="Teléfono" [invalid]="phoneNumber.invalid && (phoneNumber.touched || phoneNumber.dirty)"></app-input>
+        <div *ngIf="phoneNumber.invalid && (phoneNumber.touched || phoneNumber.dirty)" class="form-error__message">
+          <i class="fa-solid fa-triangle-exclamation form__icon"></i>
+          <app-text *ngIf="phoneNumber.errors?.['required']" [text]="constants.phoneNumberRequired" textClass="form__error"></app-text>
+          <app-text *ngIf="phoneNumber.errors?.['maxlength']" [text]="constants.phoneNumberMaxLength" textClass="form__error"></app-text>
+          <app-text *ngIf="phoneNumber.errors?.['pattern']" [text]="constants.phoneNumberInvalid" textClass="form__error"></app-text>
+        </div>
+      </section>
+
+      <section>
+        <app-input formControlName="email" text="Email" placeholder="Email" [invalid]="email.invalid && (email.touched || email.dirty)"></app-input>
+        <div *ngIf="email.invalid && (email.touched || email.dirty)" class="form-error__message">
+          <i class="fa-solid fa-triangle-exclamation form__icon"></i>
+          <app-text *ngIf="email.errors?.['required']" [text]="constants.emailRequired" textClass="form__error"></app-text>
+          <app-text *ngIf="email.errors?.['email']" [text]="constants.emailInvalid" textClass="form__error"></app-text>
+        </div>
+      </section>
+
+      <section>
+        <app-input formControlName="password" text="Contraseña" inputType="password" placeholder="Contraseña" [invalid]="password.invalid && (password.touched || password.dirty)"></app-input>
+        <div *ngIf="password.invalid && (password.touched || password.dirty)" class="form-error__message">
+          <i class="fa-solid fa-triangle-exclamation form__icon"></i>
+          <app-text *ngIf="password.errors?.['required']" [text]="constants.passwordRequired" textClass="form__error"></app-text>
+          </div>
+      </section>
+
+      <app-button type="submit" [disabled]="formUser.invalid" className="submit-button {{ formUser.invalid ? 'submit-button__disabled' : '' }}">Registrar Usuario</app-button>
+    </form>
+
+     <app-modal-message [text]="error" [isSuccessful]="postResponse.status > 300 || postResponse.status === 0 ? false : true" ></app-modal-message>
+  </div>
+  

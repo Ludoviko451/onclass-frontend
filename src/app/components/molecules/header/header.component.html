@@ -1,0 +1,7 @@
+<header class="header">
+   <div class="header__user">
+     <img class="header__user--icon" [src]="route.USERICON" alt="User icon" (click)="togglePanel()">
+     <app-admin-panel *ngIf="isVisible"></app-admin-panel>
+   </div>
+ </header>
+ 

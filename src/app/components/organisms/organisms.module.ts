@@ -9,6 +9,7 @@ import { PaginationService } from 'src/app/api/pagination.service';
 import { SwitchService } from 'src/app/api/switch.service';
 
 
+
 @NgModule({
     imports: [AtomsModule, MoleculesModule, CommonModule, RouterModule],
 
