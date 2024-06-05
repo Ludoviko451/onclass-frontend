@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { AuthService } from 'src/app/api/auth.service';
 import { SwitchService } from 'src/app/api/switch.service';
+import { Response } from 'src/shared/models/response';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class AdminPanelComponent implements OnInit {
   switchSvc = inject(SwitchService)
   title = ''
   role = ''
+  postResponse: Response = {} as Response
   panel = [
     {
       name: "CERRAR SESIÓN",
@@ -29,9 +31,14 @@ export class AdminPanelComponent implements OnInit {
       this.showModal = value;
     })
 
+    this.switchSvc.$postData.subscribe((value) => {
+      this.postResponse = value;
+    })
+
+
   
     this.role = this.authSvc.currentUserValue.roles[0];
-    console.log(this.role)
+
     switch(this.role) {
       case "ADMIN": {
         this.title = "ADMINISTRADOR"
@@ -51,7 +58,6 @@ export class AdminPanelComponent implements OnInit {
   }
 
   
-
 
   panelAdmin = [
     {

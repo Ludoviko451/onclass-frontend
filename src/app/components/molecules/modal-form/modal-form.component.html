@@ -1,7 +1,7 @@
 <div class="form-container">
     <form class="form" [formGroup]="formCreate">
         <header class="form-header">
-            <app-text text="Crear {{type}}" className="form-container-title"></app-text>
+            <app-text text="Crear {{type.toLowerCase()}}" className="form-container-title"></app-text>
             <app-button (buttonClick)="closeModal()" className="modal__close-button"><i class="fa-solid fa-x"></i></app-button>
         </header>
         

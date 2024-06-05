@@ -39,13 +39,13 @@ export const constants = {
 
     desc: "Desc",
 
-    technologyRequired : "SE REQUIERE TECNOLOGIAS",
-    technologyMaxLenght : "EL MAXIMO DE TECNOLOGIAS SON 20",
-    technologyMinLenght : "EL MINIMO DE TECNOLOGIAS SON 3",
+    technologyRequired : "Se requieren tecnologias",
+    technologyMaxLenght : "El maximo de tecnologias son 20",
+    technologyMinLenght : "El minimo de tecnologias son 3",
 
-    capacityRequired: "SE REQUIEREN CAPACIDADES",
-    capacityMaxLenght: "EL MAXIMO DE CAPACIDADES SON 4",
-    capacityMinLenght: "EL MINIMO DE CAPACIDADES SON 1",
+    capacityRequired: "Se requieren capacidades",
+    capacityMaxLenght: "El maximo de capacidades son 4",
+    capacityMinLenght: "El minimo de capacidades son 1",
 
     emailRequired: "Se requiere el email",
     emailInvalid: "Email invalido",
@@ -70,5 +70,6 @@ export const constants = {
         max: 50
     },
 
+    dataNotFound: "No data was found in the database"
 }
 

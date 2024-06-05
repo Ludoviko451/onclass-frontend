@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Response } from '../models/response';
+import { Response } from '../../models/response';
 import { SwitchService } from 'src/app/api/switch.service';
 
 @Injectable()
@@ -42,6 +42,7 @@ export class ErrorResponseInterceptor implements HttpInterceptor {
                     }
 
                     switch (error.status) {
+
                         case 401:
                             errorMessage.message = `NO AUTORIZADO`;
                             break;

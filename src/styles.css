@@ -30,6 +30,9 @@ body{
     grid-area: navbar;
 }
 
+app-home {
+    grid-area: router;
+}
 app-library{
     grid-area: router;
     display: grid;
@@ -115,6 +118,7 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 12px;
 }
 
 @media (max-width: 600px) {

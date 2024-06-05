@@ -93,6 +93,23 @@ export const mocks = {
       name: 'Bootcamp 1',
       description: 'blabla',
       capacityList: []
+    },
+
+
+
+    userLogin: {
+      email: "test@example.com",
+      password: "test1234"
+    },
+
+
+    user: {
+      name: "test",
+      lastName: "test",
+      dni: 12345678,
+      phoneNumber: 12345678,
+      email: "test@example.com",
+      password: "test1234"
     }
   };
   

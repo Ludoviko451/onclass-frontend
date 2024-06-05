@@ -1,16 +1,30 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
-import { RouteImages } from '../../../util/route.images';
-import { By } from '@angular/platform-browser';
+import { AuthService } from 'src/app/api/auth.service';
+import { DOCUMENT } from '@angular/common';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
+  let authServiceSpy: jasmine.SpyObj<AuthService>;
+  let mockDocument: Document;
 
   beforeEach(async () => {
+    // Crear un objeto simulado para AuthService
+    const spy = jasmine.createSpyObj('AuthService', ['logout']);
+    
+    // Crear un objeto simulado para DOCUMENT
+    mockDocument = document;
+
     await TestBed.configureTestingModule({
       declarations: [HeaderComponent],
+      providers: [
+        { provide: AuthService, useValue: spy },
+        { provide: DOCUMENT, useValue: mockDocument }
+      ]
     }).compileComponents();
+
+    authServiceSpy = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
   });
 
   beforeEach(() => {
@@ -23,13 +37,53 @@ describe('HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have the correct user icon src', () => {
-    const imgElement = fixture.debugElement.query(By.css('.header__user--icon')).nativeElement;
-    const expectedSrc = 'assets/images/userIcon.svg';
+  it('should toggle panel visibility', () => {
+    expect(component.isVisible).toBeFalse();
+    component.togglePanel();
+    expect(component.isVisible).toBeTrue();
+    component.togglePanel();
+    expect(component.isVisible).toBeFalse();
+  });
 
-    // Normalizar las rutas removiendo el prefijo './' si está presente
-    const normalizeUrl = (url: string) => url.replace(/^(\.\/|\/)/, '');
+  it('should call logout on authSvc', () => {
+    component.logout();
+    expect(authServiceSpy.logout).toHaveBeenCalled();
+  })
+  it('should hide panel when clicking outside', () => {
+    const panel = document.createElement('app-admin-panel');
+    const targetInside = document.createElement('div');
+    const targetOutside = document.createElement('div');
+    panel.appendChild(targetInside);
+    document.body.appendChild(panel);
+    document.body.appendChild(targetOutside);
 
-    expect(normalizeUrl(imgElement.getAttribute('src'))).toEqual(normalizeUrl(expectedSrc));
+    component.isVisible = true;
+
+    spyOn(mockDocument, 'querySelector').and.returnValue(panel);
+
+    fixture.detectChanges();
+
+    // Simular el clic dentro del panel
+    let eventInside = new MouseEvent('click', {
+      view: window,
+      bubbles: true,
+      cancelable: true
+    });
+    targetInside.dispatchEvent(eventInside);
+
+    expect(component.isVisible).toBeTrue();
+
+    // Simular el clic fuera del panel
+    let eventOutside = new MouseEvent('click', {
+      view: window,
+      bubbles: true,
+      cancelable: true
+    });
+    targetOutside.dispatchEvent(eventOutside);
+
+    expect(component.isVisible).toBeFalse();
+
+    document.body.removeChild(panel);
+    document.body.removeChild(targetOutside);
   });
 });

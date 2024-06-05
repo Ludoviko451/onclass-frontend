@@ -4,6 +4,7 @@ import { Observable, Subject, EMPTY } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { PaginationService } from 'src/app/api/pagination.service';
 import { SwitchService } from 'src/app/api/switch.service';
+import { constants } from 'src/app/util/constants';
 import { DataService } from 'src/shared/models/data-service.interface';
 import { Response } from 'src/shared/models/response';
 @Component({
@@ -31,12 +32,14 @@ export class GenericListComponent<T> implements OnInit, OnDestroy {
     this.switchSvc.$modal.pipe(takeUntil(this.unsubscribe$)).subscribe((valor) => this.modalSwitch = valor);
     
     this.switchSvc.$postData.pipe(takeUntil(this.unsubscribe$)).subscribe((postResponse) => {
+      this.postResponse = {} as Response;
       this.postResponse = postResponse;
       this.text = postResponse.message;
       this.loadDataList();
-
     })
     this.loadDataList();
+    
+  
   }
 
   changeOrder(): void {
@@ -58,10 +61,14 @@ export class GenericListComponent<T> implements OnInit, OnDestroy {
   }
 
    loadDataList(): void {
+    this.errorMessage = {} as Response;
     this.dataList$ = this.dataService.getData().pipe(
       catchError(error => {
         this.errorMessage.status = error.status
         this.errorMessage.message = error.message;
+        if (error.message === constants.dataNotFound){
+          this.errorMessage.message = this.noDataMesage();  
+        }
         return EMPTY;
       })
     );
@@ -71,6 +78,18 @@ export class GenericListComponent<T> implements OnInit, OnDestroy {
     this.modalSwitch = true;
   }
 
+  noDataMesage(){
+    switch(this.type){
+      case 'Bootcamp':
+        return "Crea un Bootcamp"
+      case 'Capacidad':
+        return "Crea una capacidad";
+      case 'Tecnologia':
+        return "Crea una tecnologia";
+      default:
+        return "Tipo no valido"
+    }
+  }
   ngOnDestroy(): void {
     this.unsubscribe$.unsubscribe();
 

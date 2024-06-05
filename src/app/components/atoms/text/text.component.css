@@ -48,14 +48,13 @@ i{
 
 .form__error{
     color: red;
-    font-weight: bold;
-    font-size: 20px;
+    font-size: 14px;
 }
 
 
 .text__icon{
-    width: 30px;
-    height: 30px;
+    width: 23px;
+    height: 23px;
     margin-right: 5px;
 
 }

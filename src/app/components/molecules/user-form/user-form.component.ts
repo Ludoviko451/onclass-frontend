@@ -60,12 +60,10 @@ export class UserFormComponent implements OnInit {
     return this.formUser.get('phoneNumber') as FormControl;
    }
   ngOnInit(): void {
-    console.log(this.type)
     this.error ='';
     this.switchSvc.$postData.subscribe((value) => {
 
       this.postResponse = value;
-      console.log(this.postResponse)
       this.error = this.postResponse.message;
     })
   }

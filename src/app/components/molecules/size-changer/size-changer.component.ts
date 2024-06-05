@@ -16,9 +16,9 @@ export class SizeChangerComponent {
   optionsSwitch = "options-container--disabled";
   
   options = [
-    { value: 10, label: '10 - por página' },
-    { value: 20, label: '20 - por página' },
-    { value: 50, label: '50 - por página' }
+    { value: 10, label: '10 por página' },
+    { value: 20, label: '20 por página' },
+    { value: 50, label: '50 por página' }
   ];
 
   openOptions(){

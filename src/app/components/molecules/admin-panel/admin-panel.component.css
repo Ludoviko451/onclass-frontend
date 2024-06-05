@@ -1,16 +1,23 @@
 .admin-panel{
     position: absolute;
-    background-color: white;
-    border-radius: 20px;
+    background-color: var(--navbar-color);
+    border-radius: 20px 20px 0px 0px;
     border: 3px solid var(--general-color);
     width: 200px;
     height: auto;
     right: 30px;
     top: 80px;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 20px;
 }
 
+.admin-panel__section{
+    display: flex;
+    border-radius: 20px;
+    width: 100%;
+}
 .admin-panel__list{
-
     padding: 0px;
     margin: 0px;   
     list-style: none;
@@ -21,9 +28,11 @@
 
 .admin-panel__item{
     margin: 0px;
+    color: var(--general-color);
     font-size: 14px;
     font-weight: bold;
-    width: 100%;
+    padding: 5px;
+    width: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -32,7 +41,7 @@
         background-color: var(--general-color);
         color: white;
         cursor: pointer;
-        border-radius: 10px;
+
     }
 }
 
@@ -40,6 +49,7 @@
     height: 100%;
     background-color: var(--general-color);
     color: white;
+    border-radius: 10px 10px 0px 0px;
     font-weight: bold;
     user-select: none;
 }

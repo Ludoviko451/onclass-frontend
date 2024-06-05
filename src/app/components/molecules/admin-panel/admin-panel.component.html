@@ -1,4 +1,5 @@
 <div class="admin-panel">
+    <section class="admin-panel__section">
     <ul class="admin-panel__list"> 
         <div class="admin-panel__title">
             <span>{{title}}</span>
@@ -7,4 +8,6 @@
     </ul>
 
     <app-user-form *ngIf="showModal" [type]="type"></app-user-form>
+    </section>
+    <app-modal-message [text]="postResponse.message" [isSuccessful]="postResponse.status > 300 || postResponse.status === 0 ? false : true" ></app-modal-message>
 </div>

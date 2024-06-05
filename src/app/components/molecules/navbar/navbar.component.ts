@@ -14,7 +14,7 @@ export class NavbarComponent {
     showMenu: boolean = false;
 
     constructor(private router: Router, private authSvc: AuthService) {
-        this.checkScreenWidth();
+
     }
 
     routes = [
@@ -44,27 +44,4 @@ export class NavbarComponent {
     }
 
     
-    @HostListener('window:resize', ['$event'])
-    onResize(event: any) {
-        this.checkScreenWidth();
-    }
-
-    checkScreenWidth() {
-        this.isMobile = window.innerWidth <= 768;
-        // Si es móvil y el menú está oculto, asegurar que el botón de menú sea visible
-        if (this.isMobile && !this.showMenu) {
-            this.showMenu = false; // Forzar el menú a estar oculto en pantallas móviles
-        }
-    }
-
-    toggleMenu() {
-        this.showMenu = !this.showMenu;
-    }
-
-    onNavigate(route: string) {
-        this.router.navigateByUrl(route);
-        if (this.isMobile) {
-            this.showMenu = false; // Ocultar automáticamente el menú después de la navegación en pantallas móviles
-        }
-    }
 }

@@ -36,7 +36,7 @@ export class UserService {
                 this.switchSvc.$postData.next(this.postResponse);
             }
         })
-
+        this.switchSvc.$modalMessage.emit(true)
         
     }
 

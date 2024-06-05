@@ -20,4 +20,9 @@ describe('LoginPageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should open login', () => {
+    component.openLogin('Estudiante');
+    expect(component.isHidden).toBe(false);
+  })
 });

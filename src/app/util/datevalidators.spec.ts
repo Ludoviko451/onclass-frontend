@@ -33,26 +33,28 @@ describe('Custom Validators', () => {
   });
 
   // Start Date Validator Tests
-  describe('startDateValidator', () => {
-    it('should return startDateInvalid if the date is in the past', () => {
-      const control = new FormControl('2020-01-01');
-      const result: ValidationErrors | null = startDateValidator(control);
-      expect(result).toEqual({ startDateInvalid: true });
-    });
+  it('should return null if the date is in the future', () => {
+    const futureDate = new Date();
+    futureDate.setDate(futureDate.getDate() + 1); // Mañana
+    futureDate.setHours(0, 0, 0, 0); // Establecer la hora a 00:00:00 para comparar solo las fechas
+    const control = new FormControl(futureDate.toISOString().split('T')[0]);
+    const result: ValidationErrors | null = startDateValidator(control);
+    expect(result).toBeNull();
+  });
 
-    it('should return null if the date is today or in the future', () => {
-      const today = new Date().toISOString().split('T')[0];
-      const control = new FormControl(today);
-      const result: ValidationErrors | null = startDateValidator(control);
-      expect(result).toBeNull();
-    });
-
+  it('should return an error if the date is in the past', () => {
+    const pastDate = new Date();
+    pastDate.setDate(pastDate.getDate() - 1); // Ayer
+    pastDate.setHours(0, 0, 0, 0);
+    const control = new FormControl(pastDate.toISOString().split('T')[0]);
+    const result: ValidationErrors | null = startDateValidator(control);
+    expect(result).toEqual({ startDateInvalid: true });
+  });
     it('should return null if the control value is falsy', () => {
       const control = new FormControl('');
       const result: ValidationErrors | null = startDateValidator(control);
       expect(result).toBeNull();
     });
-  });
 
   // End Date Validator Tests
   describe('endDateValidator', () => {

@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavbarComponent } from './navbar.component';
 import { MoleculesModule } from '../molecules.module';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -10,7 +11,7 @@ describe('NavbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MoleculesModule, RouterTestingModule],
+      imports: [MoleculesModule, RouterTestingModule, HttpClientModule],
       declarations: [ NavbarComponent ]
     })
     .compileComponents();

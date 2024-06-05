@@ -1,3 +1,4 @@
+import { Response } from 'src/shared/models/response';
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
@@ -13,7 +14,8 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
   switchSvc = inject(SwitchService);
-  constructor(
+  response: Response = {} as Response;
+   constructor(
     private http: HttpClient,
     private router: Router
   ) {
@@ -25,6 +27,11 @@ export class AuthService {
   public get currentUserValue(): any {
     return this.currentUserSubject.value;
   }
+
+  public set currentUserValue(user: any) {
+    this.currentUserSubject.next(user);
+  }
+
 
   login(userDto: LoginDto): Observable<any> {
     return this.http.post('http://localhost:8090/auth/login', userDto, { responseType: 'text' })
@@ -49,13 +56,17 @@ export class AuthService {
         }),
         catchError((error) => {
           // Manejar el error aquí
+          this.switchSvc.$modalMessage.emit(true);
+          this.response.message = error.message;
+          this.response.status = error.status;
           
-          this.switchSvc.$postData.next(error);
-          return error; 
+          return throwError(() => this.response); 
         })
       );
   }
-
+  get currentUser$(): Observable<any> {
+    return this.currentUserSubject.asObservable();
+  }
   logout() {
     // Elimina el token del almacenamiento local al cerrar sesión
     localStorage.removeItem('token');

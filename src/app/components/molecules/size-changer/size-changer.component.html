@@ -3,7 +3,7 @@
       {{actualSize}} - por página <img class="arrow" src="{{route.ARROW}}" alt="Arrow">
     </button>
     <ul [ngClass]="optionsSwitch">
-      <li *ngFor="let item of options" (click)="changeSize(item.value)" class="optiones-container__item">
+      <li *ngFor="let item of options" (click)="changeSize(item.value)" class="options-container__item">
         {{item.label}}
       </li>
     </ul>
