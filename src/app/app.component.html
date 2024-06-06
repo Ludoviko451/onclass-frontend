@@ -1,6 +1,6 @@
 <main class="main">
-    <app-header *ngIf="shouldShowHeaderAndNavbar()" class="main__header">
+    <app-header *ngIf="isLoggedIn" class="main__header">
     </app-header>
     <router-outlet class="main__router"></router-outlet>
-    <app-navbar *ngIf="shouldShowHeaderAndNavbar()" class="main__navbar"></app-navbar>
+    <app-navbar *ngIf="isLoggedIn" class="main__navbar"></app-navbar>
 </main>

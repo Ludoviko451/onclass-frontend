@@ -5,6 +5,9 @@
     --general-color: #E7833D;
   }
   
+*{
+  font-family: 'Poppins', sans-serif;
+}
 body{
     font-family: 'Poppins', sans-serif;
     margin: 0px;
@@ -95,10 +98,12 @@ li {
 
 .form-error__message {
   display: flex;
+  gap: 10px;
   margin: 0 30px;
   flex-direction: row;
   color: red;
   text-shadow: 0px 0px 0.5px red;
+  user-select: none;
 }
 
 .form {
@@ -127,3 +132,4 @@ li {
     padding: 10px; /* Reduce el padding en pantallas pequeñas */
   }
 }
+

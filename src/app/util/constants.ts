@@ -70,6 +70,11 @@ export const constants = {
         max: 50
     },
 
-    dataNotFound: "No data was found in the database"
+    dataNotFound: "No data was found in the database",
+
+    studentHome: "Usted todavia no forma parte de ningun bootcamp",
+
+    teacherHome: "Usted todavia no esta asignado a ningun bootcamp"
+
 }
 

@@ -9,4 +9,6 @@
       <app-button  *ngFor= "let button of typeButton" [className]="button.class" (buttonClick)="openLogin(button.type)" >{{button.name}}</app-button>
       </div>
       <app-login [hidden]="isHidden" type="{{type}}"></app-login>
+
+      <app-button class="secret-button" (buttonClick)="openLogin('ADMIN')" [className]="'secret-button'"><img class="form__user--admin" src="{{route.ADMIN}}" alt="Admin icon"> </app-button>
 </main>

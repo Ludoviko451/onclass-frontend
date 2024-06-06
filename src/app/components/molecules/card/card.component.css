@@ -7,19 +7,21 @@
     border-bottom: 2px solid var(--general-color);
     position: relative;
     margin: 20px; 
-
+    padding: 20px;
     
     &:hover{
         cursor: pointer;
+        border-radius: 20px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 }
 
 
 .card__image{
-    width: 35px;
-    height: 35px;
+    width: 32px;
+    height: 32px;
     position: absolute; /* Establece posición absoluta para el icono */
     right: 5px;
-    top: 1px
+    top: 1px;
+    margin: 5px;
 }

@@ -5,6 +5,7 @@ import { catchError, takeUntil } from 'rxjs/operators';
 import { PaginationService } from 'src/app/api/pagination.service';
 import { SwitchService } from 'src/app/api/switch.service';
 import { constants } from 'src/app/util/constants';
+import { RouteImages } from 'src/app/util/route.images';
 import { DataService } from 'src/shared/models/data-service.interface';
 import { Response } from 'src/shared/models/response';
 @Component({
@@ -27,7 +28,7 @@ export class GenericListComponent<T> implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
   public errorMessage:Response = {} as Response;
   public postResponse:Response = {} as Response;
-
+  public route = RouteImages;
   ngOnInit(): void {
     this.switchSvc.$modal.pipe(takeUntil(this.unsubscribe$)).subscribe((valor) => this.modalSwitch = valor);
     

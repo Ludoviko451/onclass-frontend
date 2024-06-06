@@ -23,7 +23,12 @@
   
     <section class="bottom-container">
       <div class="bottom-container__button">
-        <app-button (buttonClick)="openModal()" className="open-button">+ Crear</app-button>
+        <app-button (buttonClick)="openModal()" className="open-button">
+        <div class="open-button__container">
+          <span class="open-button__plus">+</span>
+          <span>Crear</span>
+        </div>
+      </app-button>
       </div>
       <div class="bottom-container__pagination">
         <app-pagination (pageChanged)="onPageChanged($event)" type="{{type}}"></app-pagination>

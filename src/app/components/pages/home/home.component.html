@@ -1,0 +1,11 @@
+<app-bootcamp *ngIf="isVisible"></app-bootcamp>
+
+
+<div class="message" *ngIf="message">
+    <div class="open-button__text">
+        <app-text [text]="message"></app-text>
+    </div>
+    <div class="open-button__container">
+        <app-button className="open-button__disabled" [disabled]="true">Unirse</app-button>
+    </div>
+</div>

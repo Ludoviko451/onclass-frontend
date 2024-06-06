@@ -6,7 +6,7 @@
             <li *ngFor="let item of data"  (click)="deleteItem(item)"class="add-container__item">{{item.name}}</li>
         </ul>
         <div class="add-container__button">
-        <app-button (buttonClick)="openSelect()" className="add-container__add">+</app-button>
+        <app-button (buttonClick)="openSelect()" className="add-container__add"><span class="add-container__plus">+</span></app-button>
         </div>
     </div>
 
