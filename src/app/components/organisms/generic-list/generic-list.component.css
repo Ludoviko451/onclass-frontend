@@ -71,7 +71,7 @@
     grid-area: card;
     display: flex;
     flex-direction: column;
-    justify-self: end;
-    width: 95%;
+    width: 98%;
+    margin-left: 20px;
     overflow-x: auto;
 }

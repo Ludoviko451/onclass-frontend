@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ITechnology } from 'src/shared/models/technology.interface';
@@ -7,18 +7,16 @@ import { ITechnologyRequest } from 'src/shared/models/technology.request';
 import { Response } from 'src/shared/models/response';
 import { SwitchService } from './switch.service';
 import { DataService } from 'src/shared/models/data-service.interface';
-@Injectable({ providedIn: 'root' })
 
+@Injectable({ providedIn: 'root' })
 export class TechnologyService implements DataService<ITechnology> {
-  private readonly _http = inject(HttpClient);
   private readonly _endpoint = environment.apiTechnology;
   public size = 10;
   public page = 0;
   public order = 'asc';
+  public postResponse!: Response;
 
-  public postResponse: Response = {} as Response;
-
-  constructor(private switchSvc: SwitchService) {}
+  constructor(private _http: HttpClient, private switchSvc: SwitchService) {}
 
   public changeSize(size: number): void {
     this.size = size;
@@ -46,7 +44,7 @@ export class TechnologyService implements DataService<ITechnology> {
         next: (createdTechnology: ITechnologyRequest) => {
           this.postResponse = {
             status: 201,
-            message: '¡Tecnologia Creada!'
+            message: '!Tecnología Creada!'
           };
           this.switchSvc.$postData.next(this.postResponse);
         },

@@ -114,7 +114,7 @@ export class PaginationComponent implements OnInit {
   }
   
   loadData(){
-    if(this.type === 'Tecnologia') {
+    if(this.type === 'Tecnología') {
       this.loadTechnologyList();
     }
     else if(this.type === 'Capacidad') {

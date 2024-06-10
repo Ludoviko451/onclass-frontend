@@ -64,4 +64,9 @@ export class SelectComponent  implements OnInit{
       this.dataContainer = "data--disabled"
     }
   }
+
+  handleButtonClick(event: Event) {
+    event.stopPropagation();
+    this.openSelect();
+}
 }

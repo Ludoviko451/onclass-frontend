@@ -16,7 +16,7 @@ export class AdminPanelComponent implements OnInit {
   switchSvc = inject(SwitchService)
   title = ''
   role = ''
-  postResponse: Response = {} as Response
+  postResponse: Response = { status: 0, message: '' };
   panel = [
     {
       name: "CERRAR SESIÓN",

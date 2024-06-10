@@ -20,7 +20,7 @@ export class UserFormComponent implements OnInit {
   userSvc = inject(UserService);
   formUser: FormGroup;
   user: UserDto = {} as UserDto;
-  postResponse: Response = {} as Response;
+  postResponse!:Response
   error = '';
 
 

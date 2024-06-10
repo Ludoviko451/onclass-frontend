@@ -2,7 +2,7 @@
 .label-form {
     display: flex;
     flex-direction: column;
-    margin: 20px;
+    margin: 5px 10px 5px 10px;
 
 }
 
@@ -10,21 +10,20 @@
 input.form__input.invalid-input {
     border: 2px solid red;
   }
-  
-  
-  
+
   
 .form__input{
-    border: 2px solid var(--general-color);
+    border: 1px solid var(--general-color);
     border-radius: 20px;
+    padding: 4px;
     background-color: rgba(231, 131, 61, 0.10);
     margin: 10px;
-    width: 100%;
+    width: 96%;
     height: 30px;
-  
+    padding-left: 15px;
     &:focus{
       outline: none;
-      border: 3px solid var(--general-color);
+      border: 2px solid var(--general-color);
       
   }
   }

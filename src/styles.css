@@ -4,9 +4,14 @@
     --active-router: #E7833D66;
     --general-color: #E7833D;
   }
-  
+.fa-classic, .fa-regular, .fa-solid, .far, .fas {
+    font-family: "Font Awesome 6 Free";
+}
+
+
 *{
   font-family: 'Poppins', sans-serif;
+  user-select: none;
 }
 body{
     font-family: 'Poppins', sans-serif;
@@ -81,6 +86,7 @@ li {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin-bottom: 20px;
 }
 
 .form-container {
@@ -95,23 +101,30 @@ li {
   justify-content: center;
   align-items: center;
 }
-
-.form-error__message {
+.form-section{
+  position: relative;
   display: flex;
+  flex-direction: column;
+}
+.form-error__message {
+
+  bottom: -30px; /* Ajusta esta propiedad para posicionar correctamente el mensaje */
+  left: 0;
+  display: flex;
+  margin: 0px 30px;
+  align-items: center; /* Alinea verticalmente los íconos y textos */
   gap: 10px;
-  margin: 0 30px;
-  flex-direction: row;
   color: red;
   text-shadow: 0px 0px 0.5px red;
   user-select: none;
+  font-size: 12px; /* Ajusta el tamaño de la fuente si es necesario */
 }
-
 .form {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  width: 80%; /* Usa un porcentaje para la anchura para que sea responsiva */
-  max-width: 500px; /* Ancho máximo para pantallas grandes */
+  width: 100%; /* Usa un porcentaje para la anchura para que sea responsiva */
+  max-width: 645px; /* Ancho máximo para pantallas grandes */
   height: auto;
   max-height: 80%; /* Limita la altura máxima */
   overflow: auto; /* Permite scroll si el contenido excede la altura */

@@ -1,4 +1,3 @@
-// generic-list.component.ts
 import { Component, OnDestroy, OnInit, Input, Output, EventEmitter, inject } from '@angular/core';
 import { Observable, Subject, EMPTY } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
@@ -8,6 +7,7 @@ import { constants } from 'src/app/util/constants';
 import { RouteImages } from 'src/app/util/route.images';
 import { DataService } from 'src/shared/models/data-service.interface';
 import { Response } from 'src/shared/models/response';
+
 @Component({
   selector: 'app-generic-list',
   templateUrl: './generic-list.component.html',
@@ -19,28 +19,30 @@ export class GenericListComponent<T> implements OnInit, OnDestroy {
   @Input() type = '';
   @Output() create = new EventEmitter<void>();
 
-  public switchSvc = inject(SwitchService)
-  public paginationSvc = inject(PaginationService)
+  public switchSvc = inject(SwitchService);
+  public paginationSvc = inject(PaginationService);
   public dataList$!: Observable<T[]>;
   public currentPage = 0;
   public text = '';
   public modalSwitch = false;
   private unsubscribe$ = new Subject<void>();
-  public errorMessage:Response = {} as Response;
-  public postResponse:Response = {} as Response;
+  public errorMessage: Response = { status: 0, message: '' };
+  public postResponse: Response = { status: 0, message: '' };
   public route = RouteImages;
+
   ngOnInit(): void {
     this.switchSvc.$modal.pipe(takeUntil(this.unsubscribe$)).subscribe((valor) => this.modalSwitch = valor);
-    
+
     this.switchSvc.$postData.pipe(takeUntil(this.unsubscribe$)).subscribe((postResponse) => {
-      this.postResponse = {} as Response;
       this.postResponse = postResponse;
       this.text = postResponse.message;
-      this.loadDataList();
-    })
-    this.loadDataList();
-    
+
+      this.switchSvc.$modalMessage.emit({ isVisible: true, text: postResponse.message });
   
+      this.loadDataList();
+    });
+
+    this.loadDataList();
   }
 
   changeOrder(): void {
@@ -51,7 +53,7 @@ export class GenericListComponent<T> implements OnInit, OnDestroy {
   onSizeChanged(size: number): void {
     this.dataService.changeSize(size);
     this.onPageChanged(0);
-    this.paginationSvc.$sizeChange.emit(size)
+    this.paginationSvc.$sizeChange.emit(size);
     this.loadDataList();
   }
 
@@ -61,15 +63,16 @@ export class GenericListComponent<T> implements OnInit, OnDestroy {
     this.loadDataList();
   }
 
-   loadDataList(): void {
-    this.errorMessage = {} as Response;
+  loadDataList(): void {
+    this.errorMessage = { status: 0, message: '' };
     this.dataList$ = this.dataService.getData().pipe(
       catchError(error => {
-        this.errorMessage.status = error.status
+        this.errorMessage.status = error.status;
         this.errorMessage.message = error.message;
-        if (error.message === constants.dataNotFound){
-          this.errorMessage.message = this.noDataMesage();  
+        if (error.message === constants.dataNotFound) {
+          this.errorMessage.message = this.noDataMesage();
         }
+        this.switchSvc.$modalMessage.emit({ isVisible: true, isSuccessful: false, text: this.errorMessage.message });
         return EMPTY;
       })
     );
@@ -79,20 +82,20 @@ export class GenericListComponent<T> implements OnInit, OnDestroy {
     this.modalSwitch = true;
   }
 
-  noDataMesage(){
-    switch(this.type){
+  noDataMesage(): string {
+    switch (this.type) {
       case 'Bootcamp':
-        return "Crea un Bootcamp"
+        return "Crea un Bootcamp";
       case 'Capacidad':
         return "Crea una capacidad";
       case 'Tecnologia':
         return "Crea una tecnologia";
       default:
-        return "Tipo no valido"
+        return "Tipo no valido";
     }
   }
+
   ngOnDestroy(): void {
     this.unsubscribe$.unsubscribe();
-
   }
 }

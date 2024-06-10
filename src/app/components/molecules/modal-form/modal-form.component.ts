@@ -1,5 +1,6 @@
+import { IVersionRequest } from './../../../../shared/models/version.request';
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ITechnology } from 'src/shared/models/technology.interface';
 import { ITechnologyRequest } from 'src/shared/models/technology.request';
 import { ICapacityRequest } from 'src/shared/models/capacity.request';
@@ -10,7 +11,6 @@ import { constants } from 'src/app/util/constants';
 import { ICapacity } from 'src/shared/models/capacity.interface';
 import { IBootcampRequest } from 'src/shared/models/bootcamp.request';
 import { BootcampService } from 'src/app/api/bootcamp.service';
-import { IVersionRequest } from 'src/shared/models/version.request';
 import { VersionService } from 'src/app/api/version.service';
 import { endDateValidator, startDateValidator, yearValidator } from './../../../util/datevalidators';
 @Component({
@@ -29,7 +29,7 @@ export class ModalFormComponent implements OnInit, OnChanges {
   newTechnology: ITechnologyRequest = {} as ITechnologyRequest;
   newCapacity: ICapacityRequest = {} as ICapacityRequest;
   newBootcamp: IBootcampRequest = {} as IBootcampRequest;
-  newVersion: IVersionRequest = {} as IVersionRequest;
+  newVersion: IVersionRequest = {} as IVersionRequest
 
   validators = {
     required: "",
@@ -49,9 +49,9 @@ export class ModalFormComponent implements OnInit, OnChanges {
   ) 
   {
     this.formCreate = this.fb.group({
-      name: ['', [Validators.required, Validators.maxLength(50)]],
-      description: ['', [Validators.required, Validators.maxLength(90)]],
-      dataForm: [{ value: '', disabled: true }], // Initially disabled
+      name: ['', [Validators.required, Validators.maxLength(50), this.noWhitespaceValidator]],
+      description: ['', [Validators.required, Validators.maxLength(90), this.noWhitespaceValidator]],
+      dataForm: [{ value: '', disabled: true }],
       maximumCapacity: [{ value: 0, disabled: true }],
       startDate: [{ value: '', disabled: true }],
       endDate: [{ value: '', disabled: true }]
@@ -168,7 +168,11 @@ export class ModalFormComponent implements OnInit, OnChanges {
     return this.formCreate.get('endDate') as FormControl;
   }
 
-  
+  noWhitespaceValidator(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'whitespace': true };
+  }
   closeModal(): void {
     this.modalSS.$modal.emit(false);
     this.modalSS.$modal.next(false);
@@ -180,7 +184,7 @@ export class ModalFormComponent implements OnInit, OnChanges {
       this.newCapacity.description = this.formCreate.value.description!;
       this.newCapacity.technologyList = this.dataList;
       this.capacitySvc.postCapacity(this.newCapacity)
-    } else if (this.type === "Tecnologia") {
+    } else if (this.type === "Tecnología") {
 
       this.newTechnology.name = this.formCreate.value.name!;
       this.newTechnology.description = this.formCreate.value.description!;
@@ -206,7 +210,7 @@ export class ModalFormComponent implements OnInit, OnChanges {
 
       this.versionSvc.postVersion(this.newVersion)
     }
-    this.modalSS.$modalMessage.emit(true);
+
     this.closeModal();
     this.formCreate.reset();
   }

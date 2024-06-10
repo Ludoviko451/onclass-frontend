@@ -1,20 +1,26 @@
 <div class="select">
     <span class="select__type">{{typeData}}</span>
-    <div class="add-container">
-
-        <ul *ngIf='data'>
-            <li *ngFor="let item of data"  (click)="deleteItem(item)"class="add-container__item">{{item.name}}</li>
+    <div class="data-container">
+        <ul *ngIf='data' class="data-container__list">
+            <li *ngFor="let item of data" (click)="deleteItem(item)" class="add-container__item">
+                <span class="add-container__text">{{item.name}}</span>
+                <span class="add-container__x">x</span>
+            </li>
         </ul>
-        <div class="add-container__button">
-        <app-button (buttonClick)="openSelect()" className="add-container__add"><span class="add-container__plus">+</span></app-button>
+    </div>
+    <div class="add-container">
+        <div class="add-container__button" (click)="openSelect()">
+            <app-button (buttonClick)="handleButtonClick($event)" className="add-container__add">
+                <span class="add-container__plus">+</span>
+            </app-button>
         </div>
     </div>
 
-    <div *ngIf="(dataList() | async) as data" class={{dataContainer}}>
+    <div *ngIf="(dataList() | async) as data" class="{{dataContainer}}">
         <ul class="data__list">
-          <li *ngFor="let tech of data" (click)="addElement(tech)" class="data__item">
-              {{ tech.name }}
-          </li>
+            <li *ngFor="let tech of data" (click)="addElement(tech)" class="data__item">
+                {{ tech.name }}
+            </li>
         </ul>
-      </div>
+    </div>
 </div>

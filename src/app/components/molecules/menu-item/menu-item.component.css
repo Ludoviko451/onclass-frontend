@@ -10,6 +10,10 @@
   }
   
 .menu__text{
+    font-weight: bold;   
+}
+
+.menu__item--active {
+
     font-weight: bold;
-    
 }

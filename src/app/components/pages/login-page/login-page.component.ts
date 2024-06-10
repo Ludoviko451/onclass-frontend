@@ -1,4 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { AuthService } from 'src/app/api/auth.service';
 import { SwitchService } from 'src/app/api/switch.service';
 import { RouteImages } from 'src/app/util/route.images';
 
@@ -9,7 +10,7 @@ import { RouteImages } from 'src/app/util/route.images';
 })
 export class LoginPageComponent implements OnInit {
   switchSvc = inject(SwitchService)      
-
+  authSvc = inject(AuthService)
   route = RouteImages;
   isHidden = true;
   type = ''
@@ -28,6 +29,7 @@ export class LoginPageComponent implements OnInit {
   ]
 
   ngOnInit(): void {
+    this.authSvc.logout();
     this.switchSvc.$modal.subscribe((data) => {
       this.isHidden = data
     })

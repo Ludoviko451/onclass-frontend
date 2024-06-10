@@ -5,22 +5,21 @@
             <app-button (buttonClick)="closeModal()" className="modal__close-button"><i class="fa-solid fa-x"></i></app-button>
         </header>
         
-        <main class="form-main" *ngIf="type === 'Bootcamp' || type === 'Capacidad' || type === 'Tecnologia'">
+        <main class="form-main" *ngIf="type === 'Bootcamp' || type === 'Capacidad' || type === 'Tecnología'">
             <section class="form-section">
                 <app-input formControlName="name" text="Nombre" placeholder="Nombre de {{type}}" [invalid]="name.invalid && (name.touched || name.dirty)"></app-input>
                 <div *ngIf="name.invalid && (name.touched || name.dirty)" class="form-error__message">
                     <i class="fa-solid fa-triangle-exclamation form__icon"></i>
-                    <app-text *ngIf="name.errors?.['required']" [text]="constants.nameRequired" textClass="form__error"></app-text>
-                    <app-text *ngIf="name.errors?.['maxlength']" [text]="constants.nameMaxLength" textClass="form__error"></app-text>
+                    <app-text *ngIf="name.errors?.['required'] || name.errors?.['whitespace']" text="{{constants.nameRequired}}" textClass="form__error"></app-text>
+                    <app-text *ngIf="name.errors?.['maxlength']" text="{{constants.nameMaxLength}}" textClass="form__error"></app-text>
                 </div>
             </section>
 
             <section class="form-section">
                 <app-input text="Descripción" formControlName="description" placeholder="Descripción de {{type}}" [invalid]="description.invalid && (description.touched || description.dirty)"></app-input>
                 <div *ngIf="description.invalid && (description.touched || description.dirty)" class="form-error__message">
-                    
                     <i class="fa-solid fa-triangle-exclamation form__icon"></i>
-                    <app-text *ngIf="description.errors?.['required']" text="{{constants.descriptionRequired}}" textClass="form__error"></app-text>
+                    <app-text *ngIf="description.errors?.['required'] || description.errors?.['whitespace']" text="{{constants.descriptionRequired}}" textClass="form__error"></app-text>
                     <app-text *ngIf="description.errors?.['maxlength']" text="{{constants.descriptionMaxLength}}" textClass="form__error"></app-text>
                 </div>
             </section> 

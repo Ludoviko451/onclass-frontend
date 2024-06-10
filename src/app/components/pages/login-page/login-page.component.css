@@ -12,15 +12,17 @@
     -webkit-user-drag: none;
 
 }
-
+.form__user--icon{
+    width: 334px;
+    height: 100px;
+}
 .form__user--admin{
     width: 40px;
     height: 40px;
 }
 .secret-button{
-
     position: fixed;
-    top: 0px;
+    bottom: 0px;
     border: 0px;
     right: 100px;
 

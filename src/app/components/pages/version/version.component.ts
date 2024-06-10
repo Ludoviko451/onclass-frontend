@@ -19,7 +19,7 @@ export class VersionComponent implements OnInit {
   bootcampId!: number;
   name: string = '';
   modalSwitch = false;
-  postResponse: Response = {} as Response;
+  postResponse: Response = { status: 0, message: '' };
 
   private unsubscribe$ = new Subject<void>();
   text = '';
@@ -30,7 +30,7 @@ export class VersionComponent implements OnInit {
     this.switchSvc.$postData.pipe(takeUntil(this.unsubscribe$)).subscribe((postResponse) => {
       this.postResponse = postResponse;
       this.text = postResponse.message;
-
+      this.switchSvc.$modalMessage.emit({ isVisible: true, text: postResponse.message });
       this.loadVersionList(this.bootcampId);
     })
 

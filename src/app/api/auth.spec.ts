@@ -117,7 +117,7 @@ describe('AuthService', () => {
     const currentUser = { token: 'dummyToken', roles: ['admin'] };
     authService.currentUserValue = currentUser;
 
-    authService.currentUser$.subscribe((user) => {
+    authService.currentUser.subscribe((user) => {
       expect(user).toEqual(currentUser);
       done();
     });

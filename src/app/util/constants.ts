@@ -67,14 +67,18 @@ export const constants = {
 
     maximumCapacityValidators: {  
         min: 1,
-        max: 50
+        max: 500
     },
 
     dataNotFound: "No data was found in the database",
 
+    nameDescriptionError: "'Validation failed for: name (EL NOMBRE ES OBLIGATORIO), description (LA DESCRIPCION ES OBLIGATORIO)'",
     studentHome: "Usted todavia no forma parte de ningun bootcamp",
 
-    teacherHome: "Usted todavia no esta asignado a ningun bootcamp"
+    teacherHome: "Usted todavia no esta asignado a ningun bootcamp",
 
+    nameBlank: "El nombre no puede contener solo espacios en blanco.",
+
+    descriptionBlank: "La descripción no puede contener solo espacios en blanco.",
 }
 

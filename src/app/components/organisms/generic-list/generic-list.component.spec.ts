@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { of, Subject, EMPTY } from 'rxjs';
+import { of, Subject, EMPTY, throwError } from 'rxjs';
 import { GenericListComponent } from './generic-list.component';
 import { PaginationService } from 'src/app/api/pagination.service';
 import { SwitchService } from 'src/app/api/switch.service';
@@ -8,6 +8,7 @@ import { Response } from 'src/shared/models/response';
 import { By } from '@angular/platform-browser';
 import { EventEmitter } from '@angular/core';
 import { mocks } from 'src/shared/mocks/mocks';
+import { constants } from 'src/app/util/constants';
 
 describe('GenericListComponent', () => {
   let component: GenericListComponent<any>;
@@ -89,5 +90,70 @@ describe('GenericListComponent', () => {
     expect(compiled.querySelector('.modal-form')).toBeFalsy();
   })
 
+
+  describe('noDataMessage', () => {
+    it('should return "Crea un Bootcamp" when type is Bootcamp', () => {
+      component.type = 'Bootcamp';
+      expect(component.noDataMesage()).toBe('Crea un Bootcamp');
+    });
+
+    it('should return "Crea una capacidad" when type is Capacidad', () => {
+      component.type = 'Capacidad';
+      expect(component.noDataMesage()).toBe('Crea una capacidad');
+    });
+
+    it('should return "Crea una tecnologia" when type is Tecnologia', () => {
+      component.type = 'Tecnologia';
+      expect(component.noDataMesage()).toBe('Crea una tecnologia');
+    });
+
+    it('should return "Tipo no valido" for any other type', () => {
+      component.type = 'OtroTipo';
+      expect(component.noDataMesage()).toBe('Tipo no valido');
+    });
+  });
+
+  it('should load data list', () => {
+    component.errorMessage.message = constants.dataNotFound;
+    component.type = "Bootcamp"
+
+    const loadDataListSpy = spyOn(component as any, 'loadDataList').and.callThrough();
+    component.loadDataList();
+    expect(loadDataListSpy).toHaveBeenCalled();
+  })
+
+  it('should set noDataMessage correctly based on type', () => {
+    component.type = 'Bootcamp';
+    expect(component.noDataMesage()).toBe('Crea un Bootcamp');
+
+    component.type = 'Capacidad';
+    expect(component.noDataMesage()).toBe('Crea una capacidad');
+
+    component.type = 'Tecnologia';
+    expect(component.noDataMesage()).toBe('Crea una tecnologia');
+
+    component.type = 'OtroTipo';
+    expect(component.noDataMesage()).toBe('Tipo no valido');
+  });
+
+  it('should handle error and set errorMessage', (done) => {
+    const mockError = { status: 404, message: constants.dataNotFound };
+    dataServiceSpy.getData.and.returnValue(throwError(mockError));
+    component.type = 'Bootcamp';
+    component.loadDataList();
+
+    // La suscripción aquí es solo para iniciar el Observable y permitir el manejo del error
+    component.dataList$.subscribe({
+      next: () => fail('expected an error, not data'),
+      error: () => fail('expected to handle the error, not to emit it'),
+      complete: () => {
+        // Verificar los valores después de la completación del Observable
+        expect(component.errorMessage.status).toBe(mockError.status);
+        expect(component.errorMessage.message).toBe('Crea un Bootcamp'); // Suponiendo que el tipo es 'Bootcamp'
+        done();
+      }
+    });
+  });
+  
 });
 
