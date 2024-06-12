@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/api/auth.service';
@@ -7,6 +7,7 @@ import { constants } from 'src/app/util/constants';
 import { SwitchService } from 'src/app/api/switch.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Response } from 'src/shared/models/response';
 
 @Component({
   selector: 'app-login',
@@ -18,15 +19,16 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   formLogin: FormGroup;
   constants = constants;
-  switchSvc = inject(SwitchService);
   error = '';
-  private message$ = new Subject<void>();
-
+  postResponse: Response = { status: 0, message: '' };
+  private postUnsubscribe$ = new Subject<void>();
+  private loginDTO: LoginDto = constants.emptyLogin;
 
   constructor(
     private router: Router,
     private authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private switchSvc: SwitchService
   ) {
     this.formLogin = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -35,14 +37,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.switchSvc.$postData.pipe(takeUntil(this.message$)).subscribe((data) => {
-      if (data) {
-        this.error = data.message;
+    this.switchSvc.$postData.pipe(takeUntil(this.postUnsubscribe$)).subscribe((postResponse) => {
+      if (postResponse) {
+      
+        
+        this.postResponse = postResponse;
+        this.error = postResponse.message;
+        this.switchSvc.$modalMessage.emit({ isVisible: true, text: postResponse.message });
       }
     });
   }
-
-
 
   closeForm() {
     this.switchSvc.$modal.next(true);
@@ -59,17 +63,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login(): void {
     if (this.formLogin.valid) {
-      const loginDto: LoginDto = {
-        email: this.formLogin.get('email')?.value,
-        password: this.formLogin.get('password')?.value
-      };
+      this.loginDTO.email = this.formLogin.get('email')?.value;
+      this.loginDTO.password = this.formLogin.get('password')?.value;
 
-      this.authService.login(loginDto).subscribe({
-        next: () => {
-          this.router.navigate(['/home']);
-        },
+      this.authService.login(this.loginDTO).subscribe({
+  
         error: (error) => {
-          
           this.error = error.message;
         }
       });
@@ -79,6 +78,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.message$.unsubscribe();
+    this.postUnsubscribe$.unsubscribe()
   }
 }

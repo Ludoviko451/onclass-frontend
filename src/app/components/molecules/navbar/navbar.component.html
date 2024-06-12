@@ -1,6 +1,6 @@
 
 
-<div class="nav" [ngClass]="{'mobile-menu': isMobile, 'show': showMenu}">
+<div class="nav">
     <img class="nav__logo" [src]="route.ONCLASS" alt="On Class Logo">
     <ul class="nav__items">
             <li  *ngFor="let route of routes"routerLink="{{route.url}}" routerLinkActive="navbar__item--active" class="navbar__item" [hidden] =route.isHidden>

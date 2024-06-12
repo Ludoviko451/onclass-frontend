@@ -39,9 +39,9 @@ export const constants = {
 
     desc: "Desc",
 
-    technologyRequired : "Se requieren tecnologias",
-    technologyMaxLenght : "El maximo de tecnologias son 20",
-    technologyMinLenght : "El minimo de tecnologias son 3",
+    technologyRequired : "Se requieren tecnologías",
+    technologyMaxLenght : "El maximo de tecnologías son 20",
+    technologyMinLenght : "El minimo de tecnologías son 3",
 
     capacityRequired: "Se requieren capacidades",
     capacityMaxLenght: "El maximo de capacidades son 4",
@@ -80,5 +80,44 @@ export const constants = {
     nameBlank: "El nombre no puede contener solo espacios en blanco.",
 
     descriptionBlank: "La descripción no puede contener solo espacios en blanco.",
+
+
+    emptyTechnology: {
+        name: "",
+        description: ""
+    },
+
+    emptyCapacity: {
+        name: "",
+        description: "",
+        technologyList: []
+    },
+
+    emptyBootcamp: {
+        name: "",
+        description: "",
+        capacityList: []
+    },
+
+    emptyVersion: {
+        maximumCapacity: 0,
+        startDate: "",
+        endDate: "",
+        bootcampId: 0
+    },
+
+    emptyLogin: {
+        email: "",
+        password: ""
+    },
+
+    emptyUser: {
+        name: "",
+        lastName: "",
+        dni: 0,
+        phoneNumber: 0,
+        email: "",
+        password: ""
+    }
 }
 

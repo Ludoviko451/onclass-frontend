@@ -3,12 +3,12 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors } from '@angu
 
 describe('Custom Validators', () => {
 
-  // Year Validator Tests
+
   describe('yearValidator', () => {
-// Year Validator Tests
+
     it('should return yearInvalid if the year is more than 2 years in the future', () => {
         const today = new Date();
-        today.setFullYear(today.getFullYear() + 3); // Establecer la fecha 3 años en el futuro
+        today.setFullYear(today.getFullYear() + 3); 
     
         const control = new FormControl(today.toISOString().split('T')[0]);
         expect(yearValidator(control)).toEqual({ yearInvalid: true });
@@ -32,11 +32,10 @@ describe('Custom Validators', () => {
     });
   });
 
-  // Start Date Validator Tests
   it('should return null if the date is in the future', () => {
     const futureDate = new Date();
-    futureDate.setDate(futureDate.getDate() + 1); // Mañana
-    futureDate.setHours(0, 0, 0, 0); // Establecer la hora a 00:00:00 para comparar solo las fechas
+    futureDate.setDate(futureDate.getDate() + 1); 
+    futureDate.setHours(0, 0, 0, 0);
     const control = new FormControl(futureDate.toISOString().split('T')[0]);
     const result: ValidationErrors | null = startDateValidator(control);
     expect(result).toBeNull();
@@ -44,7 +43,7 @@ describe('Custom Validators', () => {
 
   it('should return an error if the date is in the past', () => {
     const pastDate = new Date();
-    pastDate.setDate(pastDate.getDate() - 1); // Ayer
+    pastDate.setDate(pastDate.getDate() - 1); 
     pastDate.setHours(0, 0, 0, 0);
     const control = new FormControl(pastDate.toISOString().split('T')[0]);
     const result: ValidationErrors | null = startDateValidator(control);
@@ -56,7 +55,7 @@ describe('Custom Validators', () => {
       expect(result).toBeNull();
     });
 
-  // End Date Validator Tests
+
   describe('endDateValidator', () => {
     it('should return endDateInvalid if the end date is before the start date', () => {
       const formGroup = new FormGroup({

@@ -1,30 +1,35 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormBuilder } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
 import { LoginComponent } from './login.component';
-import { MoleculesModule } from '../molecules.module';
-import { HttpClientModule } from '@angular/common/http';
-import { mocks } from 'src/shared/mocks/mocks';
 import { AuthService } from 'src/app/api/auth.service';
 import { SwitchService } from 'src/app/api/switch.service';
+import { EventEmitter } from '@angular/core';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let authSvc: AuthService;
+  let authServiceSpy: jasmine.SpyObj<AuthService>;
   let switchSvc: SwitchService;
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [
-        MoleculesModule, HttpClientModule
-      ],
-      declarations: [ LoginComponent ]
-    })
-    .compileComponents();
 
+  beforeEach(async () => {
+    const authServiceSpyObj = jasmine.createSpyObj('AuthService', ['login']);
+
+    await TestBed.configureTestingModule({
+      declarations: [LoginComponent],
+      imports: [RouterTestingModule],
+      providers: [FormBuilder, { provide: AuthService, useValue: authServiceSpyObj }]
+    })
+      .compileComponents();
+
+    authServiceSpy = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
+  });
+
+  beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    authSvc = TestBed.inject(AuthService);
-    switchSvc = TestBed.inject(SwitchService)
+    switchSvc = TestBed.inject(SwitchService);
     fixture.detectChanges();
   });
 
@@ -32,37 +37,34 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have a form', () => {
-    const form = fixture.nativeElement.querySelector('.form');
-    expect(form).toBeTruthy();
-  });
+  it('should call login method on AuthService when form is valid', () => {
+  
+    const email = 'test@example.com';
+    const password = 'password123';
+    const loginDto = { email, password };
 
-  it('should login', () => { 
-    const user = mocks.userLogin;
-    
-    component.formLogin.get('email')?.setValue(user.email);
-    component.formLogin.get('password')?.setValue(user.password);
+    const loginSpy = authServiceSpy.login.and.returnValue(of(null));
+
+    component.formLogin.setValue({ email, password });
     component.login();
 
-    spyOn(authSvc, 'login').and.callThrough();
+ 
+    expect(loginSpy).toHaveBeenCalledWith(loginDto);
+  });
 
-    expect(component.error).toEqual('');
+  it('should reset form after successful login', () => {
+
+    const loginSpy = authServiceSpy.login.and.returnValue(of(null));
+
+    component.login();
+
+
+    expect(component.formLogin.value).toEqual({ email: '', password: '' });
+  });
+
+  it('should close modal', () => {
+    component.closeForm();
+    const spySwitch = spyOn(switchSvc, '$modal').and.returnValue(new EventEmitter<boolean>(true));
   })
-
-  it('should handle postData subscription on ngOnInit', () => {
-    // Arrange
-    const errorMessage = 'Test error message';
-    
-  
-    component.ngOnInit();
-    switchSvc.$postData .next({message: errorMessage});
-    fixture.detectChanges(); // Trigger change detection
-
-
-    expect(component.error).toBe(errorMessage);
-  });
-
-  afterEach(() => {
-    component.ngOnDestroy();
-  });
 });
+

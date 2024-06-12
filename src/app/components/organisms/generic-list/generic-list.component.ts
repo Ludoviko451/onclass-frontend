@@ -18,26 +18,26 @@ export class GenericListComponent<T> implements OnInit, OnDestroy {
   @Input() itemTemplate!: any;
   @Input() type = '';
   @Output() create = new EventEmitter<void>();
-
-  public switchSvc = inject(SwitchService);
-  public paginationSvc = inject(PaginationService);
+  constructor(private switchSvc: SwitchService, private paginationSvc: PaginationService) {
+    
+  }
   public dataList$!: Observable<T[]>;
   public currentPage = 0;
   public text = '';
   public modalSwitch = false;
-  private unsubscribe$ = new Subject<void>();
+  private componentDestroy$ = new Subject<void>();
   public errorMessage: Response = { status: 0, message: '' };
   public postResponse: Response = { status: 0, message: '' };
   public route = RouteImages;
 
   ngOnInit(): void {
-    this.switchSvc.$modal.pipe(takeUntil(this.unsubscribe$)).subscribe((valor) => this.modalSwitch = valor);
+    this.switchSvc.$modal.pipe(takeUntil(this.componentDestroy$)).subscribe((valor) => this.modalSwitch = valor);
 
-    this.switchSvc.$postData.pipe(takeUntil(this.unsubscribe$)).subscribe((postResponse) => {
+    this.switchSvc.$postData.pipe(takeUntil(this.componentDestroy$)).subscribe((postResponse) => {
       this.postResponse = postResponse;
       this.text = postResponse.message;
 
-      this.switchSvc.$modalMessage.emit({ isVisible: true, text: postResponse.message });
+      this.switchSvc.$modalMessage.emit({ isVisible: true});
   
       this.loadDataList();
     });
@@ -72,7 +72,7 @@ export class GenericListComponent<T> implements OnInit, OnDestroy {
         if (error.message === constants.dataNotFound) {
           this.errorMessage.message = this.noDataMesage();
         }
-        this.switchSvc.$modalMessage.emit({ isVisible: true, isSuccessful: false, text: this.errorMessage.message });
+
         return EMPTY;
       })
     );
@@ -88,14 +88,14 @@ export class GenericListComponent<T> implements OnInit, OnDestroy {
         return "Crea un Bootcamp";
       case 'Capacidad':
         return "Crea una capacidad";
-      case 'Tecnologia':
-        return "Crea una tecnologia";
+      case 'Tecnología':
+        return "Crea una tecnología";
       default:
         return "Tipo no valido";
     }
   }
 
   ngOnDestroy(): void {
-    this.unsubscribe$.unsubscribe();
+    this.componentDestroy$.unsubscribe();
   }
 }

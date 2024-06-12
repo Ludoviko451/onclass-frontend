@@ -7,7 +7,6 @@ import { CapacityService } from 'src/app/api/capacity.service';
     styleUrls: ['./capacity.component.css'],
 })
   export class CapacityComponent {
-
-    capacityService = inject(CapacityService)
+    constructor(public capacityService: CapacityService){}
 
 }

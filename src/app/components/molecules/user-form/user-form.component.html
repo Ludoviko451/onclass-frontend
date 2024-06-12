@@ -61,6 +61,6 @@
       <app-button type="submit" [disabled]="formUser.invalid" className="submit-button {{ formUser.invalid ? 'submit-button__disabled' : '' }}">Registrar Usuario</app-button>
     </form>
 
-     <app-modal-message [text]="error" [isSuccessful]="postResponse.status > 300 || postResponse.status === 0 ? false : true" ></app-modal-message>
+     <app-modal-message [text]="text" [isSuccessful]="postResponse.status > 300 || postResponse.status === 0 ? false : true" ></app-modal-message>
   </div>
   

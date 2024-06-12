@@ -10,10 +10,9 @@ describe('HeaderComponent', () => {
   let mockDocument: Document;
 
   beforeEach(async () => {
-    // Crear un objeto simulado para AuthService
+
     const spy = jasmine.createSpyObj('AuthService', ['logout']);
-    
-    // Crear un objeto simulado para DOCUMENT
+ 
     mockDocument = document;
 
     await TestBed.configureTestingModule({
@@ -63,7 +62,7 @@ describe('HeaderComponent', () => {
 
     fixture.detectChanges();
 
-    // Simular el clic dentro del panel
+
     let eventInside = new MouseEvent('click', {
       view: window,
       bubbles: true,
@@ -73,7 +72,6 @@ describe('HeaderComponent', () => {
 
     expect(component.isVisible).toBeTrue();
 
-    // Simular el clic fuera del panel
     let eventOutside = new MouseEvent('click', {
       view: window,
       bubbles: true,

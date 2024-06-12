@@ -1,11 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { EMPTY, Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Component} from '@angular/core';
 import { BootcampService } from 'src/app/api/bootcamp.service';
-import { VersionService } from 'src/app/api/version.service';
 import { IBootcamp } from 'src/shared/models/bootcamp.interface';
-import { IVersion } from 'src/shared/models/version.interface';
-
 @Component({
   selector: 'app-bootcamp',
   templateUrl: './bootcamp.component.html',
@@ -13,10 +8,9 @@ import { IVersion } from 'src/shared/models/version.interface';
 })
 export class BootcampComponent{
   
-
+  constructor(public bootcampSvc: BootcampService){}
   sendBootcamp(bootcamp: IBootcamp) {
     localStorage.setItem('bootcamp', JSON.stringify(bootcamp));
   }
-  bootcampService = inject(BootcampService);
 
 }

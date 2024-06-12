@@ -77,7 +77,7 @@ describe('ModalFormComponent', () => {
   });
 
   it('should submit a technology', () => {
-    component.type = "Tecnologia"
+    component.type = "Tecnología"
     component.newTechnology.name = "Tecnologia1"
     component.newTechnology.description = "blabla"
 

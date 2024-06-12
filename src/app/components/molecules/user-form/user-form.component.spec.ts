@@ -63,7 +63,6 @@ describe('UserFormComponent', () => {
 
 
   it('should submit a user', () => {
-      let user: UserDto = mocks.user;
 
       spyOn(userSvc, 'createUser');
       component.registerUser();
@@ -106,10 +105,10 @@ describe('UserFormComponent', () => {
     component.ngOnInit();
 
     expect(switchSvc.$postData.subscribe).toHaveBeenCalled();
-    expect(component.error).toEqual('');
+    expect(component.text).toEqual('');
   });
 
-  it("should initializze component and get error", () => {  
+  it("should initialize component and get error", () => {  
     spyOn(switchSvc.$postData, 'subscribe');
 
 
@@ -117,8 +116,43 @@ describe('UserFormComponent', () => {
     const spy = spyOn(  userSvc, 'createUser');
     spy.and.callThrough();
     switchSvc.$postData.next({message: 'Error'});
-    expect(component.error).toEqual('Error');
+    expect(component.text).toEqual('Error');
   })
 
+  it('should register a tutor user', () => {
+    // Arrange
+    component.type = 'TUTOR';
+    const createUserSpy = spyOn(userSvc, 'createUser');
+  
+    // Act
+    component.registerUser();
+  
+    // Assert
+    expect(createUserSpy).toHaveBeenCalledWith(component.user, '/registerTeacher');
+  });
+  
+  it('should register an admin user', () => {
+    // Arrange
+    component.type = 'ADMIN';
+    const createUserSpy = spyOn(userSvc, 'createUser');
+  
+    // Act
+    component.registerUser();
+  
+    // Assert
+    expect(createUserSpy).toHaveBeenCalledWith(component.user, '/registerAdmin');
+  });
+  
+  it('should register a student user', () => {
+    // Arrange
+    component.type = 'ESTUDIANTE';
+    const createUserSpy = spyOn(userSvc, 'createUser');
+  
+    // Act
+    component.registerUser();
+  
+    // Assert
+    expect(createUserSpy).toHaveBeenCalledWith(component.user, '/registerStudent');
+  });
   
 });

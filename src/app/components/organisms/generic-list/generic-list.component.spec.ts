@@ -102,9 +102,9 @@ describe('GenericListComponent', () => {
       expect(component.noDataMesage()).toBe('Crea una capacidad');
     });
 
-    it('should return "Crea una tecnologia" when type is Tecnologia', () => {
-      component.type = 'Tecnologia';
-      expect(component.noDataMesage()).toBe('Crea una tecnologia');
+    it('should return "Crea una tecnología" when type is Tecnología', () => {
+      component.type = 'Tecnología';
+      expect(component.noDataMesage()).toBe('Crea una tecnología');
     });
 
     it('should return "Tipo no valido" for any other type', () => {
@@ -129,8 +129,8 @@ describe('GenericListComponent', () => {
     component.type = 'Capacidad';
     expect(component.noDataMesage()).toBe('Crea una capacidad');
 
-    component.type = 'Tecnologia';
-    expect(component.noDataMesage()).toBe('Crea una tecnologia');
+    component.type = 'Tecnología';
+    expect(component.noDataMesage()).toBe('Crea una tecnología');
 
     component.type = 'OtroTipo';
     expect(component.noDataMesage()).toBe('Tipo no valido');
@@ -138,18 +138,18 @@ describe('GenericListComponent', () => {
 
   it('should handle error and set errorMessage', (done) => {
     const mockError = { status: 404, message: constants.dataNotFound };
-    dataServiceSpy.getData.and.returnValue(throwError(mockError));
+    dataServiceSpy.getData.and.returnValue(throwError( () => mockError));
     component.type = 'Bootcamp';
     component.loadDataList();
 
-    // La suscripción aquí es solo para iniciar el Observable y permitir el manejo del error
+  
     component.dataList$.subscribe({
       next: () => fail('expected an error, not data'),
       error: () => fail('expected to handle the error, not to emit it'),
       complete: () => {
-        // Verificar los valores después de la completación del Observable
+     
         expect(component.errorMessage.status).toBe(mockError.status);
-        expect(component.errorMessage.message).toBe('Crea un Bootcamp'); // Suponiendo que el tipo es 'Bootcamp'
+        expect(component.errorMessage.message).toBe('Crea un Bootcamp'); 
         done();
       }
     });

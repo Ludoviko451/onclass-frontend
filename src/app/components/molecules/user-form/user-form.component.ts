@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subject, takeUntil } from 'rxjs';
 import { SwitchService } from 'src/app/api/switch.service';
 import { UserService } from 'src/app/api/user.service';
 import { constants } from 'src/app/util/constants';
@@ -16,15 +17,14 @@ export class UserFormComponent implements OnInit {
   @Input() type = '';
   typeUrl = "";
   constants = constants;
-  switchSvc = inject(SwitchService);
-  userSvc = inject(UserService);
   formUser: FormGroup;
-  user: UserDto = {} as UserDto;
-  postResponse!:Response
-  error = '';
+  user: UserDto = constants.emptyUser;
+  postResponse:Response = {status: 0, message: ''}; 
+  private postUnsubscribe$ = new Subject<void>();
+  text = '';
 
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private switchSvc: SwitchService, private userSvc: UserService) {
 
     this.formUser = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
@@ -35,7 +35,16 @@ export class UserFormComponent implements OnInit {
       phoneNumber: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(constants.phoneNumberPattern)]]
     });
    }
+   ngOnInit(): void {
+    this.text ='';
+    this.switchSvc.$postData.pipe(takeUntil(this.postUnsubscribe$)).subscribe((postResponse) => {
+      this.postResponse = postResponse;
+      this.text = postResponse.message;
 
+      this.switchSvc.$modalMessage.emit({ isVisible: true});
+  
+    });
+  }
    get name() {
     return this.formUser.get('name') as FormControl;
    }
@@ -59,14 +68,7 @@ export class UserFormComponent implements OnInit {
    get phoneNumber() {
     return this.formUser.get('phoneNumber') as FormControl;
    }
-  ngOnInit(): void {
-    this.error ='';
-    this.switchSvc.$postData.subscribe((value) => {
 
-      this.postResponse = value;
-      this.error = this.postResponse.message;
-    })
-  }
 
   closeModal() {
     this.switchSvc.$modal.next(false);
@@ -88,16 +90,19 @@ export class UserFormComponent implements OnInit {
 
     this.user = this.formUser.value;
 
-    console.log(this.user)
+ 
 
     this.switchSvc.$modal.next(false);
-    this.switchSvc.$modalMessage.emit(true);
+   
     this.userSvc.createUser(this.user, this.typeUrl);
 
-    console.log(this.type)
-    console.log(this.typeUrl)
+
     this.formUser.reset();
     this.typeUrl = '';
     this.type = '';
 }
+
+  ngOnDestroy(): void {
+    this.postUnsubscribe$.unsubscribe();
+  }
 }

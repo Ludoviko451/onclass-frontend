@@ -26,10 +26,10 @@ export class ModalFormComponent implements OnInit, OnChanges {
 
   formCreate: FormGroup;
 
-  newTechnology: ITechnologyRequest = {} as ITechnologyRequest;
-  newCapacity: ICapacityRequest = {} as ICapacityRequest;
-  newBootcamp: IBootcampRequest = {} as IBootcampRequest;
-  newVersion: IVersionRequest = {} as IVersionRequest
+  newTechnology: ITechnologyRequest = constants.emptyTechnology;
+  newCapacity: ICapacityRequest = constants.emptyCapacity;
+  newBootcamp: IBootcampRequest = constants.emptyBootcamp;
+  newVersion: IVersionRequest = constants.emptyVersion;
 
   validators = {
     required: "",

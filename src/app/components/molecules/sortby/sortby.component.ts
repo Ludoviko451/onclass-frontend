@@ -23,6 +23,6 @@ export class SortbyComponent implements OnInit {
       this.order = (this.order === this.desc) ? this.asc : this.desc;
       this.orderChange.emit(this.order);
       this.isFading = false;
-    }, 300); // El tiempo debe coincidir con la duración de la transición en el CSS
+    }, 300); 
   }
 }

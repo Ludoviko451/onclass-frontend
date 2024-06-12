@@ -27,7 +27,7 @@ describe('MenuComponent', () => {
 
   it('should render all menu items', () => {
     const menuItems = fixture.debugElement.queryAll(By.css('app-menu-item'));
-    expect(menuItems.length).toBe(3); // Debe ser igual al número de elementos en el array 'info'
+    expect(menuItems.length).toBe(3);
   });
 
   it('should set correct text and routerLink for each menu item', () => {

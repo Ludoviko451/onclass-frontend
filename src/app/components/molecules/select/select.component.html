@@ -4,7 +4,6 @@
         <ul *ngIf='data' class="data-container__list">
             <li *ngFor="let item of data" (click)="deleteItem(item)" class="add-container__item">
                 <span class="add-container__text">{{item.name}}</span>
-                <span class="add-container__x">x</span>
             </li>
         </ul>
     </div>

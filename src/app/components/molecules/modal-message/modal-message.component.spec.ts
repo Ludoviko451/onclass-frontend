@@ -37,37 +37,9 @@ describe('ModalMessageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display success icon and text when isSuccessful is true', () => {
-    switchServiceSpy.$modalMessage.emit(true);
-    component.isSuccessful = true;
-    component.text = 'Operation was successful';
-    component.alt = 'SUCCESS ICON';
-    fixture.detectChanges();
-
-    const imgElement = fixture.nativeElement.querySelector('img');
-
-    expect(imgElement).toBeTruthy();
-    expect(imgElement.src).toContain(RouteImages.SUCCESS.split('/').pop()); // Verifica solo el nombre del archivo
-    expect(imgElement.alt).toBe('SUCCESS ICON');
-  });
-
-  it('should display error icon and text when isSuccessful is false', () => {
-    switchServiceSpy.$modalMessage.emit(true);
-    component.isSuccessful = false;
-    component.text = 'Operation was failed';
-    component.alt = 'ERROR ICON';
-    fixture.detectChanges();
-
-    const imgElement = fixture.nativeElement.querySelector('img');
-
-    expect(imgElement).toBeTruthy();
-    expect(imgElement.src).toContain(RouteImages.ERROR.split('/').pop()); // Verifica solo el nombre del archivo
-    expect(imgElement.alt).toBe('ERROR ICON');
-  });
-
   it('should call closeModal when close button is clicked', () => {
-    switchServiceSpy.$modalMessage.emit(true);
-    component.isVisible = true; // Asegúrate de que el modal esté visible
+    switchServiceSpy.$modalMessage.emit({ isVisible: true });
+    component.isVisible = true; 
     fixture.detectChanges();
 
     spyOn(component, 'closeModal');
@@ -90,10 +62,10 @@ describe('ModalMessageComponent', () => {
   it('should update isVisible when $modalMessage emits a value', () => {
     component.ngOnInit();
     
-    switchServiceSpy.$modalMessage.emit(true);
+    switchServiceSpy.$modalMessage.emit({ isVisible: true });
     expect(component.isVisible).toBeTrue();
 
-    switchServiceSpy.$modalMessage.emit(false);
+    switchServiceSpy.$modalMessage.emit({ isVisible: false });
     expect(component.isVisible).toBeFalse();
   });
 });

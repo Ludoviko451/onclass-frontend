@@ -11,7 +11,7 @@ describe('JwtInterceptor', () => {
 
   beforeEach(() => {
     authServiceSpy = jasmine.createSpyObj('AuthService', [], {
-      currentUserValue: { token: 'test-token' } // Simulación inicial
+      currentUserValue: { token: 'test-token' } 
     });
 
     TestBed.configureTestingModule({

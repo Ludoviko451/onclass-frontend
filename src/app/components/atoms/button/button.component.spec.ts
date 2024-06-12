@@ -18,12 +18,11 @@ describe('ButtonComponent', () => {
     fixture.detectChanges();
   });
 
-  // Test: Verificar si el componente se crea correctamente
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  // Test: Verificar si el evento `buttonClick` se emite al hacer clic en el botón
   it('should emit buttonClick event when button is clicked', () => {
     spyOn(component.buttonClick, 'emit');
 
@@ -33,7 +32,7 @@ describe('ButtonComponent', () => {
     expect(component.buttonClick.emit).toHaveBeenCalled();
   });
 
-  // Test: Verificar si `className` se aplica correctamente al botón
+ 
   it('should apply className to button', () => {
     const testClassName = 'test-class';
     component.className = testClassName;
@@ -43,7 +42,7 @@ describe('ButtonComponent', () => {
     expect(button.classList).toContain(testClassName);
   });
 
-  // Test: Verificar si `disabled` se aplica correctamente al botón
+ 
   it('should disable the button when disabled is true', () => {
     component.disabled = true;
     fixture.detectChanges();
@@ -52,7 +51,7 @@ describe('ButtonComponent', () => {
     expect(button.disabled).toBeTrue();
   });
 
-  // Test: Verificar si `disabled` no se aplica al botón cuando es false
+  
   it('should not disable the button when disabled is false', () => {
     component.disabled = false;
     fixture.detectChanges();

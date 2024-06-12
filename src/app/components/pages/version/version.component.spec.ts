@@ -78,7 +78,7 @@ describe('VersionComponent', () => {
     const postResponse = { message: 'Test message' };
     const versions: IVersion[] = mocks.versions;
 
-    // Mocking the loadVersionList method to return predefined versions
+  
     spyOn(component, 'loadVersionList').and.callFake(() => {
       component.versions$ = of(versions);
     });

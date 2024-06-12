@@ -8,7 +8,7 @@ import { SwitchService } from './switch.service';
 @Injectable({ providedIn: 'root' })
 export class UserService {
   private readonly _endpoint = environment.apiUser;
-  postResponse!: Response;
+  public postResponse:Response = {status: 0, message: ""};
 
   constructor(private _http: HttpClient, private switchSvc: SwitchService) {}
 
@@ -22,7 +22,7 @@ export class UserService {
         this.switchSvc.$postData.next(this.postResponse);
       },
       error: (error) => {
-        console.log(typeUrl);
+  
         this.postResponse = {
           status: error.status,
           message: error.message

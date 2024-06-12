@@ -26,7 +26,7 @@ describe('TechnologyService', () => {
 
   it('should handle post technology success response', () => {
     const newTechnology: ITechnologyRequest = { name: 'New Tech', description: 'Description' };
-    const successResponse: Response = { status: 201, message: '¡Tecnologia Creada!' };
+    const successResponse: Response = { status: 201, message: '¡Tecnología Creada!' };
 
     const postTechnologySpy = spyOn(switchService.$postData, 'next');
 
@@ -37,7 +37,7 @@ describe('TechnologyService', () => {
 
     expect(postTechnologySpy).toHaveBeenCalledWith(jasmine.objectContaining<Response>({
       status: 201,
-      message: '¡Tecnologia Creada!'
+      message: '¡Tecnología Creada!'
     }));
   });
 

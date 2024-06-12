@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { SwitchService } from './api/switch.service';
+import { AuthService } from './api/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -8,17 +9,28 @@ import { SwitchService } from './api/switch.service';
 })
 export class AppComponent implements OnInit {
   isLoggedIn = false;
-  switchSvc = inject(SwitchService);
-
+  isStudent = false;
+  constructor(private switchSvc: SwitchService, private authSvc: AuthService) { }
   ngOnInit(): void {
     this.switchSvc.$isLoggedIn.subscribe((value) => this.isLoggedIn = value);
-    
-    // Verificar el estado de inicio de sesión al inicializar el componente
-    const storedUser = localStorage.getItem('currentUser');
-    if (storedUser) {
-      this.switchSvc.$isLoggedIn.emit(true);
-    } else {
-      this.switchSvc.$isLoggedIn.emit(false);
+    this.authSvc.currentUser.subscribe(user => {
+      if (user) {
+        this.hasRoleStudent(user);
+        this.switchSvc.$isLoggedIn.emit(true);
+      } else {
+        
+        this.switchSvc.$isLoggedIn.emit(false);
+      }
+    });
+  }
+
+  hasRoleStudent(user : any) {
+    if (user) {
+      if (user.roles.includes('STUDENT')) {
+        this.isStudent = true;
+      } else {
+        this.isStudent = false;
+      }
     }
   }
 }

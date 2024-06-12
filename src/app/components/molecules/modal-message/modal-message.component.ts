@@ -31,15 +31,8 @@ export class ModalMessageComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.modalSS.$modalMessage.subscribe(({ isVisible, response }) => {
+        this.modalSS.$modalMessage.subscribe(({ isVisible}) => {
             this.isVisible = isVisible;
-            this.text = response;
-            if(response.status > 300) {
-                this.isSuccessful = false;
-            }
-            if(response.status < 300) {
-                this.isSuccessful = true;
-            }
         });
     }
 }

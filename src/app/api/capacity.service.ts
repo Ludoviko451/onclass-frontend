@@ -15,8 +15,8 @@ export class CapacityService implements DataService<ICapacity> {
   page = 0;
   size = 10;
   order = "asc";
-  public postResponse!: Response;
-
+  public postResponse:Response = {status: 0, message: ""};
+  
   constructor(private _http: HttpClient, private switchSvc: SwitchService) {
     this.getData();
   }

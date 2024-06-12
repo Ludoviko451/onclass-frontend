@@ -11,9 +11,9 @@ import { AuthGuard } from 'src/shared/guards/auth.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' }, // Ruta raíz redirige a /login
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   
-  // Rutas protegidas
+
   {
     path: 'home',
     component: HomeComponent,
@@ -23,7 +23,7 @@ const routes: Routes = [
     path: 'library',
     component: LibraryComponent,
     canActivate: [AuthGuard],
-    data: { expectedRole: 'ADMIN' }, // Especifica el rol requerido aquí
+    data: { expectedRole: 'ADMIN' },
     children: [
       { path: '', redirectTo: 'technology', pathMatch: 'full' },
       { path: 'technology', component: TechnologyComponent },
@@ -33,7 +33,7 @@ const routes: Routes = [
     ],
   },
 
-  // Redirección para cualquier otra ruta no definida
+
   { path: '**', redirectTo: '/login' }
 ];
 

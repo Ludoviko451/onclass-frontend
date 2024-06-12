@@ -11,9 +11,8 @@ import { AuthService } from 'src/app/api/auth.service';
 export class HeaderComponent {
   isVisible = false;
   route = RouteImages;
-  authSvc = inject(AuthService);
 
-  constructor(@Inject(DOCUMENT) private document: Document) {}
+  constructor(@Inject(DOCUMENT) private document: Document, private authSvc:AuthService) {}
 
   @HostListener('document:click', ['$event'])
   handleClick(event: MouseEvent): void {

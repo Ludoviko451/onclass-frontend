@@ -24,11 +24,12 @@
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    transition: background-color 1s ease;
     margin-top: 10px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
     &:hover{
         cursor: pointer;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.2);
+        transform: translateY(-4px);
     }
 }
 .submit-button__disabled{
@@ -41,7 +42,6 @@
 .modal__close-button:hover{
     cursor: pointer;
 }
-
 .open-button, .sort-button {
     border: 0;
     border-radius: 20px;
@@ -49,12 +49,15 @@
     height: 100%;
     color: white;
     font-size: 14px;
-    background-color:var(--general-color);
-    &:hover{
+    background-color: var(--general-color);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    &:hover {
         cursor: pointer;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.2);
+        transform: translateY(-4px);
     }
 }
+
 
 .open-button__disabled{
     border-radius: 20px;
@@ -127,13 +130,13 @@
     height: 40px;
     border-radius: 20px;
     font-size: 0.9em;
-    font-weight: bold;
     border: 0px solid black;
     margin: 20px;
-    transition: 1s background-color ease;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
     &:hover{
         cursor: pointer;
-        background-color: #ad5b36;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.2);
+        transform: translateY(-4px);
     }
 }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { EMPTY, Observable, Subject } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { SwitchService } from 'src/app/api/switch.service';
@@ -13,24 +13,26 @@ import { IVersion } from 'src/shared/models/version.interface';
 })
 export class VersionComponent implements OnInit {
 
-  versionSvc = inject(VersionService);
-  switchSvc = inject(SwitchService);
+
+  constructor(private versionSvc: VersionService, private switchSvc: SwitchService) {
+    
+  }
   public versions$!: Observable<IVersion[]>;
   bootcampId!: number;
   name: string = '';
   modalSwitch = false;
   postResponse: Response = { status: 0, message: '' };
 
-  private unsubscribe$ = new Subject<void>();
+  private componentDestroy$ = new Subject<void>();
   text = '';
 
  
   ngOnInit(): void {
-    this.switchSvc.$modal.pipe(takeUntil(this.unsubscribe$)).subscribe((valor) => this.modalSwitch = valor);
-    this.switchSvc.$postData.pipe(takeUntil(this.unsubscribe$)).subscribe((postResponse) => {
+    this.switchSvc.$modal.pipe(takeUntil(this.componentDestroy$)).subscribe((valor) => this.modalSwitch = valor);
+    this.switchSvc.$postData.pipe(takeUntil(this.componentDestroy$)).subscribe((postResponse) => {
       this.postResponse = postResponse;
       this.text = postResponse.message;
-      this.switchSvc.$modalMessage.emit({ isVisible: true, text: postResponse.message });
+      this.switchSvc.$modalMessage.emit({ isVisible: true});
       this.loadVersionList(this.bootcampId);
     })
 
@@ -53,5 +55,7 @@ export class VersionComponent implements OnInit {
       })
     );
   }
-  
+  ngOnDestroy(): void {
+    this.componentDestroy$.unsubscribe();
+  }
 }

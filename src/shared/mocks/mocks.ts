@@ -1,4 +1,3 @@
-// testing/mocks.ts
 export const mocks = {
     technologies: [
       {

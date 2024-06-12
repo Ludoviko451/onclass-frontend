@@ -47,4 +47,38 @@ describe('SelectComponent', () => {
     component.openSelect()
     expect(component.dataContainer).toBe("data")
   })
+  it('should return capacity list when type is "Bootcamp"', () => {
+    // Arrange
+    component.type = "Bootcamp";
+  
+    // Act
+    const result = component.dataList();
+  
+    // Assert
+    expect(result).toBe(component.capacityList$);
+  });
+  
+  it('should return technology list when type is "Capacidad"', () => {
+    // Arrange
+    component.type = "Capacidad";
+  
+    // Act
+    const result = component.dataList();
+  
+    // Assert
+    expect(result).toBe(component.technologyList$);
+  });
+  
+  it('should return null when type is neither "Bootcamp" nor "Capacidad"', () => {
+    // Arrange
+    component.type = "OtherType";
+  
+    // Act
+    const result = component.dataList();
+  
+    // Assert
+    expect(result).toBeNull();
+  });
+  
+  
 });

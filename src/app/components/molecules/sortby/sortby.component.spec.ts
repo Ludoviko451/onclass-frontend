@@ -34,6 +34,6 @@ describe('SortbyComponent', () => {
       expect(component.order).toBe(component.desc);
       expect(component.orderChange.emit).toHaveBeenCalledWith(component.desc);
       done();
-    }, 300); // Asegúrate de que coincida con el tiempo del setTimeout en el componente
+    }, 300); 
   });
 });

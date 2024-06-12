@@ -12,13 +12,11 @@ import { CapacityService } from 'src/app/api/capacity.service';
 })
 export class SelectComponent  implements OnInit{
 
+  constructor(private technologySvc: TechnologyService, private capacitySvc: CapacityService){}
   dataContainer = "data--disabled"
   @Input() type: string = ""
-
   @Output() dataListChanged = new EventEmitter<ITechnology[]>()
   data: any[] = []
-  technologySvc = inject(TechnologyService);
-  capacitySvc = inject(CapacityService)
   typeData =''
   public technologyList$!: Observable<ITechnology[]>;
   public capacityList$! : Observable<ICapacity[]>;
@@ -27,7 +25,7 @@ export class SelectComponent  implements OnInit{
       if(this.type === "Bootcamp"){
         this.typeData = "Capacidad"
       } else if (this.type === "Capacidad"){
-        this.typeData = "Tecnologia"
+        this.typeData = "Tecnología"
       }
       this.capacityList$ = this.capacitySvc.getAllCapacity();
       this.technologyList$ = this.technologySvc.getAllTechnologies();

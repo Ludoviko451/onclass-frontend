@@ -32,7 +32,7 @@
     background-color: var(--navbar-color);
     border: 2px solid var(--general-color);
     border-radius: 30px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Aquí agregamos la animación */
     z-index: 100;
     padding: 8px;
     position: relative;
@@ -40,21 +40,17 @@
     cursor: pointer;
     margin: 5px;
 }
+
+.add-container__item:hover {
+    border: 3px solid red;
+    transform: scale(1.05); /* Hacemos que el elemento se agrande un poco al hacer hover */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Agregamos una sombra al hacer hover */
+}
+
+
 .add-container__text{
     font-size: 16px;
     margin: 0px auto;
-}
-.add-container__x{
-    font-size: 14px;
-    margin: 2px;
-    position: absolute;
-    right: 10px;
-    top: -4px;
-    font-weight: bold;
-    &:hover{
-        color: red;
-        cursor: pointer;
-    }
 }
 
 .selected-tech {

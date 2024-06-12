@@ -49,7 +49,7 @@ describe('PaginationComponent', () => {
   });
 
   it('should update displayed pages correctly', () => {
-    component.type = "Tecnologia"
+    component.type = "Tecnología"
     // Scenario 1: Total pages less than max displayed pages
     component.totalPages = 2;
     component.currentPage = 0;
@@ -95,7 +95,7 @@ describe('PaginationComponent', () => {
   });
 
   it('should initialize correctly in ngOnInit when type is Technology', () => {
-    component.type = "Tecnologia"
+    component.type = "Tecnología"
     spyOn(component, 'loadTechnologyList')
     component.ngOnInit();
     expect(component.loadTechnologyList).toHaveBeenCalled();
@@ -111,7 +111,7 @@ describe('PaginationComponent', () => {
   })
 
   it('should load technologyList and set totalPages', () => {
-    component.type = "Tecnologia"
+    component.type = "Tecnología"
     component.pageSize = 10
     component.loadTechnologyList();
     expect(component.technologyList$).toBeDefined();

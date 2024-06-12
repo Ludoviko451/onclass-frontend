@@ -10,10 +10,10 @@ import { Response } from 'src/shared/models/response';
   styleUrls: ['./admin-panel.component.css']
 })
 export class AdminPanelComponent implements OnInit {
+
+  constructor(private authSvc: AuthService, private switchSvc: SwitchService){}
   type = '';
   showModal = false;
-  authSvc = inject(AuthService)
-  switchSvc = inject(SwitchService)
   title = ''
   role = ''
   postResponse: Response = { status: 0, message: '' };
@@ -23,7 +23,7 @@ export class AdminPanelComponent implements OnInit {
       type: "logout"
     }
   ]
-  constructor() { }
+ 
 
   ngOnInit(): void {
 

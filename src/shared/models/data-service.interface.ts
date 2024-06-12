@@ -1,4 +1,3 @@
-// data-service.interface.ts
 import { Observable } from 'rxjs';
 
 export interface DataService<T> {

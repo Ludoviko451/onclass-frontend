@@ -2,5 +2,5 @@
     <app-card class="bootcamp-card" [title]="item.name" [isBootcamp]="true" routerLink='/library/version' (click)="sendBootcamp(item)"></app-card>
   </ng-template>
   
-  <app-generic-list [dataService]="bootcampService" [itemTemplate]="bootcampTemplate" type="Bootcamp"></app-generic-list>
+  <app-generic-list [dataService]="bootcampSvc" [itemTemplate]="bootcampTemplate" type="Bootcamp"></app-generic-list>
   

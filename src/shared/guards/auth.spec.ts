@@ -60,7 +60,7 @@ describe('AuthGuard', () => {
 
   it('should allow activation if user is authenticated and no expected role is specified', () => {
     authServiceMock.currentUserValue = { token: 'test-token', roles: ['USER'] };
-    authServiceMock.hasRole.and.returnValue(true); // No se verifica rol específico
+    authServiceMock.hasRole.and.returnValue(true); 
 
     const routeMock: any = { data: {} };
     const stateMock: any = { url: '/admin' };

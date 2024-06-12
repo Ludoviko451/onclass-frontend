@@ -1,6 +1,6 @@
-<main class="main">
+<main [class.student-layout]="isStudent" class="main">
     <app-header *ngIf="isLoggedIn" class="main__header">
     </app-header>
     <router-outlet class="main__router"></router-outlet>
-    <app-navbar *ngIf="isLoggedIn" class="main__navbar"></app-navbar>
+    <app-navbar *ngIf="isLoggedIn && !isStudent" class="main__navbar"></app-navbar>
 </main>

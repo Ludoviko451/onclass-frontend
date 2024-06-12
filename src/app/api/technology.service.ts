@@ -14,7 +14,7 @@ export class TechnologyService implements DataService<ITechnology> {
   public size = 10;
   public page = 0;
   public order = 'asc';
-  public postResponse!: Response;
+  public postResponse:Response = {status: 0, message: ""};
 
   constructor(private _http: HttpClient, private switchSvc: SwitchService) {}
 
@@ -44,7 +44,7 @@ export class TechnologyService implements DataService<ITechnology> {
         next: (createdTechnology: ITechnologyRequest) => {
           this.postResponse = {
             status: 201,
-            message: '!Tecnología Creada!'
+            message: '¡Tecnología Creada!'
           };
           this.switchSvc.$postData.next(this.postResponse);
         },

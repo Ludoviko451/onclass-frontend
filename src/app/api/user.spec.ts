@@ -41,7 +41,7 @@ describe('UserService', () => {
 
     const req = httpMock.expectOne(environment.apiUser + typeUrl);
     expect(req.request.method).toBe('POST');
-    req.flush(userDto); // Simulate a successful response
+    req.flush(userDto);
 
     expect(switchService.$postData.next).toHaveBeenCalledWith(expectedResponse);
     expect(switchService.$modalMessage.emit).toHaveBeenCalledWith(true);
@@ -53,7 +53,7 @@ describe('UserService', () => {
     const typeUrl = '/create';
     const errorResponse = {
       status: 400,
-      message: 'Http failure response for http://localhost:8090/auth/create: 400 Bad Request'
+      message: 'Http failure response for http://localhost:8090/user/create: 400 Bad Request'
     };
 
     userService.createUser(userDto, typeUrl);

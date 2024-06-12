@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { AuthService } from 'src/app/api/auth.service';
 import { SwitchService } from 'src/app/api/switch.service';
 import { RouteImages } from 'src/app/util/route.images';
@@ -9,8 +9,9 @@ import { RouteImages } from 'src/app/util/route.images';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit {
-  switchSvc = inject(SwitchService)      
-  authSvc = inject(AuthService)
+
+  constructor(private switchSvc:SwitchService, private authSvc:AuthService){}
+
   route = RouteImages;
   isHidden = true;
   type = ''
