@@ -16,6 +16,18 @@ Asegúrate de tener instalados los siguientes programas en tu sistema:
 - **npm:** Administrador de paquetes para Node.js.
 - **Angular CLI:** Interfaz de línea de comandos de Angular.
 
+## Microservicios Requeridos
+
+### Bootcamp Microservice
+
+- **Repositorio:** [bootcamp](https://github.com/Ludoviko451/bootcamp2024/tree/master)
+- **Descripción:** Maneja la gestión de bootcamps, incluyendo la visualización de bootcamps, tecnologías y capacidades.
+  
+### User Microservice
+
+- **Repositorio:** [user_microservice](https://github.com/Ludoviko451/bootcamp2024/tree/master)
+- **Descripción:** Gestiona los usuarios, incluyendo el registro, inicio de sesión y autenticación.
+
 ## Funcionalidades
 **Gestión de Usuarios**:
 
